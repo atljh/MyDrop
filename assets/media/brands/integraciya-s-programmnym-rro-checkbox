@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Интеграция с программным РРО Checkbox</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css?v=be9696c0a6" />
+
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://blog.mydrop.com.ua/integraciya-s-programmnym-rro-checkbox/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    <link rel="amphtml" href="https://blog.mydrop.com.ua/integraciya-s-programmnym-rro-checkbox/amp/" />
+    
+    <meta property="og:site_name" content="Блог МійДроп | CRM для дропшиппінгу" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Интеграция с программным РРО Checkbox" />
+    <meta property="og:description" content="Пошаговая инструкция о привязке кассовых аппаратов к аккаунту CRM-системы" />
+    <meta property="og:url" content="https://blog.mydrop.com.ua/integraciya-s-programmnym-rro-checkbox/" />
+    <meta property="og:image" content="https://blog.mydrop.com.ua/content/images/2021/12/Checkbox.png" />
+    <meta property="article:published_time" content="2021-12-22T14:23:35.000Z" />
+    <meta property="article:modified_time" content="2023-02-02T10:46:21.000Z" />
+    <meta property="article:publisher" content="https://www.facebook.com/ghost" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Интеграция с программным РРО Checkbox" />
+    <meta name="twitter:description" content="Пошаговая инструкция о привязке кассовых аппаратов к аккаунту CRM-системы" />
+    <meta name="twitter:url" content="https://blog.mydrop.com.ua/integraciya-s-programmnym-rro-checkbox/" />
+    <meta name="twitter:image" content="https://blog.mydrop.com.ua/content/images/2021/12/Checkbox-1.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Аня" />
+    <meta name="twitter:site" content="@ghost" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Блог МійДроп | CRM для дропшиппінгу",
+        "url": "https://blog.mydrop.com.ua/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://blog.mydrop.com.ua/content/images/2022/10/transparent-horizontal-ua.png"
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Аня",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://blog.mydrop.com.ua/content/images/2020/09/photo_2020-06-20_15-36-50.jpg",
+            "width": 640,
+            "height": 640
+        },
+        "url": "https://blog.mydrop.com.ua/author/ania/",
+        "sameAs": []
+    },
+    "headline": "Интеграция с программным РРО Checkbox",
+    "url": "https://blog.mydrop.com.ua/integraciya-s-programmnym-rro-checkbox/",
+    "datePublished": "2021-12-22T14:23:35.000Z",
+    "dateModified": "2023-02-02T10:46:21.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://blog.mydrop.com.ua/content/images/2021/12/3371524.jpg",
+        "width": 2000,
+        "height": 2000
+    },
+    "description": "Пошаговая инструкция о привязке кассовых аппаратов к аккаунту CRM-системы",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://blog.mydrop.com.ua/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 4.17" />
+    <link rel="alternate" type="application/rss+xml" title="Блог МійДроп | CRM для дропшиппінгу" href="https://blog.mydrop.com.ua/rss/" />
+    
+    <meta data-rh="true" property="al:android:app_name" content="Medium" />
+<meta name="telegram:channel" content="@my_drop"/>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-160688581-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-160688581-2');
+</script><style>:root {--ghost-accent-color: #15171A;}</style>
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+
+        
+
+<header class="site-header">
+    <div class="outer site-nav-main">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left-wrapper">
+        <div class="site-nav-left">
+                <a class="site-nav-logo" href="https://blog.mydrop.com.ua"><img src="https://blog.mydrop.com.ua/content/images/2022/10/transparent-horizontal-ua.png" alt="Блог МійДроп | CRM для дропшиппінгу" /></a>
+            <div class="site-nav-content">
+                    <ul class="nav">
+    <li class="nav-blogh"><a href="https://blog.mydrop.com.ua">Блог</a></li>
+    <li class="nav-crm-dlia-dropshippinghu"><a href="https://bit.ly/35tCwwN">CRM для дропшиппінгу</a></li>
+</ul>
+
+                    <span class="nav-post-title ">Интеграция с программным РРО Checkbox</span>
+            </div>
+        </div>
+    </div>
+    <div class="site-nav-right">
+            <div class="social-links">
+                <a class="social-link social-link-fb" href="https://t.me/my_drop" title="Telegram" target="_blank" rel="noopener"><svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><path id="telegram-1" d="M18.384,22.779c0.322,0.228 0.737,0.285 1.107,0.145c0.37,-0.141 0.642,-0.457 0.724,-0.84c0.869,-4.084 2.977,-14.421 3.768,-18.136c0.06,-0.28 -0.04,-0.571 -0.26,-0.758c-0.22,-0.187 -0.525,-0.241 -0.797,-0.14c-4.193,1.552 -17.106,6.397 -22.384,8.35c-0.335,0.124 -0.553,0.446 -0.542,0.799c0.012,0.354 0.25,0.661 0.593,0.764c2.367,0.708 5.474,1.693 5.474,1.693c0,0 1.452,4.385 2.209,6.615c0.095,0.28 0.314,0.5 0.603,0.576c0.288,0.075 0.596,-0.004 0.811,-0.207c1.216,-1.148 3.096,-2.923 3.096,-2.923c0,0 3.572,2.619 5.598,4.062Zm-11.01,-8.677l1.679,5.538l0.373,-3.507c0,0 6.487,-5.851 10.185,-9.186c0.108,-0.098 0.123,-0.262 0.033,-0.377c-0.089,-0.115 -0.253,-0.142 -0.376,-0.064c-4.286,2.737 -11.894,7.596 -11.894,7.596Z"/></svg></a>
+            </div>
+    </div>
+</nav>
+    </div>
+</div></header>
+
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full post ">
+
+            <header class="post-full-header">
+
+
+                <h1 class="post-full-title">Интеграция с программным РРО Checkbox</h1>
+
+                <p class="post-full-custom-excerpt">Пошаговая инструкция о привязке кассовых аппаратов к аккаунту CRM-системы</p>
+            </header>
+
+            <section class="post-full-content">
+                <div class="post-content">
+                    <figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/3371524-1.jpg" class="kg-image" alt loading="lazy" width="2000" height="2000" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/3371524-1.jpg 600w, https://blog.mydrop.com.ua/content/images/size/w1000/2021/12/3371524-1.jpg 1000w, https://blog.mydrop.com.ua/content/images/size/w1600/2021/12/3371524-1.jpg 1600w, https://blog.mydrop.com.ua/content/images/2021/12/3371524-1.jpg 2000w" sizes="(min-width: 720px) 720px"></figure><p>С 1 января 2022 года многие пользователи <strong>МойДроп</strong> и физические лица-предприниматели, которые являются плательщиками единого налога второй-четвертой групп, обязаны использовать кассовые аппараты для расчетных операций. По этой причине наши разработчики оперативно реализовали интеграцию <a href="https://checkbox.ua/">с программным РРО Checkbox</a>, а в этой статье вы найдете детальную инструкцию по ее подключению.</p><p>Развивайте свой бизнес вместе с <strong>МойДроп</strong>! Подключайте также интеграцию с Prom.ua и API, организовывайте работу с менеджерами и дропшипперами – <a href="https://bit.ly/32tWWpF">https://bit.ly/32tWWpF</a></p><hr><blockquote>Интеграция доступна в обоих версиях системы, как для поставщиков, так и для дропшипперов!</blockquote><p>Перед настройкой интеграции обратитесь к нашему менеджеру по вопросу оплаты или в стандартном режиме продлите подписку в своем аккаунте, добавив к общей стоимости интеграцию с РРО Checkbox.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-43.png" class="kg-image" alt loading="lazy" width="530" height="837"></figure><hr><h2 id="%D0%BF%D0%BE%D1%88%D0%B0%D0%B3%D0%BE%D0%B2%D0%B0%D1%8F-%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F">Пошаговая инструкция</h2><p></p><p>1.Для начала в своем аккаунте CRM-МойДроп перейдите в раздел "Интеграции" → кликните по блоку "Checkbox" → нажмите кнопку "Добавить кассу".</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-26.png" class="kg-image" alt loading="lazy" width="1906" height="932" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-26.png 600w, https://blog.mydrop.com.ua/content/images/size/w1000/2021/12/image-26.png 1000w, https://blog.mydrop.com.ua/content/images/size/w1600/2021/12/image-26.png 1600w, https://blog.mydrop.com.ua/content/images/2021/12/image-26.png 1906w" sizes="(min-width: 720px) 720px"></figure><p>Чтобы добавить кассу, нужно указать лицензионный ключ и пин-код кассира.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2022/01/image-22.png" class="kg-image" alt loading="lazy" width="696" height="637" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2022/01/image-22.png 600w, https://blog.mydrop.com.ua/content/images/2022/01/image-22.png 696w"></figure><p>2. Эти данные находятся в личном кабинете Checkbox. Чтобы скопировать лицензионный ключ, в списке разделов с левой стороны в личном кабинете Checkbox выберите "Кассы" → затем сохраните в буфер обмена набор символов соответствующей кассы, как показано на скриншоте ↓</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-25.png" class="kg-image" alt loading="lazy" width="1920" height="942" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-25.png 600w, https://blog.mydrop.com.ua/content/images/size/w1000/2021/12/image-25.png 1000w, https://blog.mydrop.com.ua/content/images/size/w1600/2021/12/image-25.png 1600w, https://blog.mydrop.com.ua/content/images/2021/12/image-25.png 1920w" sizes="(min-width: 720px) 720px"></figure><p>3. Затем в личном кабинете Checkbox перейдите в раздел "Кассиры" и скопируйте соответствующий пин-код, как показано на скриншоте ↓</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-28.png" class="kg-image" alt loading="lazy" width="1920" height="939" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-28.png 600w, https://blog.mydrop.com.ua/content/images/size/w1000/2021/12/image-28.png 1000w, https://blog.mydrop.com.ua/content/images/size/w1600/2021/12/image-28.png 1600w, https://blog.mydrop.com.ua/content/images/2021/12/image-28.png 1920w" sizes="(min-width: 720px) 720px"></figure><p>4. После заполнения всех необходимых полей при создании кассы Checkbox в вашем аккаунте <strong>МойДроп</strong> нажмите кнопку "Добавить" снизу страницы.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-44.png" class="kg-image" alt loading="lazy" width="650" height="564" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-44.png 600w, https://blog.mydrop.com.ua/content/images/2021/12/image-44.png 650w"></figure><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-46.png" class="kg-image" alt loading="lazy" width="650" height="220" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-46.png 600w, https://blog.mydrop.com.ua/content/images/2021/12/image-46.png 650w"></figure><p>5. Перед началом работы необходимо открыть смену. Для этого в личном кабинете Checkbox перейдите в раздел "Продажа" → нажмите на кнопку "Открыть смену", как показано на скриншоте ↓</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-31.png" class="kg-image" alt loading="lazy" width="1336" height="788" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-31.png 600w, https://blog.mydrop.com.ua/content/images/size/w1000/2021/12/image-31.png 1000w, https://blog.mydrop.com.ua/content/images/2021/12/image-31.png 1336w" sizes="(min-width: 720px) 720px"></figure><p>6. Чтобы создать чек в <strong>МойДроп</strong>, откройте карточку любого заказа → кликните на иконку банковской карты → нажмите на кнопку "Создать фискальный чек".</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-32.png" class="kg-image" alt loading="lazy" width="649" height="389" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-32.png 600w, https://blog.mydrop.com.ua/content/images/2021/12/image-32.png 649w"></figure><p>7. Затем откроется меню, в котором можно выбрать кассу, изменить тип оплаты и отредактировать сумму. После внесения изменений нажмите на кнопку "Создать чек". <strong>Внимание! </strong>После нажатия этой кнопки, чек сразу передается в налоговую службу.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-34.png" class="kg-image" alt loading="lazy" width="849" height="348" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-34.png 600w, https://blog.mydrop.com.ua/content/images/2021/12/image-34.png 849w" sizes="(min-width: 720px) 720px"></figure><p>8. Если клиент внес частичную предоплату на карту, а остальную часть суммы хочет оплатить наложенным платежом, то общую сумму заказа можно разделить на два способы оплаты, которые будут сформированы в один чек.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-35.png" class="kg-image" alt loading="lazy" width="857" height="462" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-35.png 600w, https://blog.mydrop.com.ua/content/images/2021/12/image-35.png 857w" sizes="(min-width: 720px) 720px"></figure><p>9. После создания чека можно просмотреть и распечатать его, нажав в карточке соответствующего заказа на иконку банковской карты.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-37.png" class="kg-image" alt loading="lazy" width="617" height="240" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2021/12/image-37.png 600w, https://blog.mydrop.com.ua/content/images/2021/12/image-37.png 617w"></figure><p>Пример чека от программного РРО Checkbox ↓</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-38.png" class="kg-image" alt loading="lazy" width="527" height="578"></figure><p>10. Для менеджеров появилась опция "Создавать фискальные чеки". Данное поле находится в разделе "Настройки" → блок "Настроить менеджеров".</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-39.png" class="kg-image" alt loading="lazy" width="477" height="327"></figure><p>11. В версии для поставщиков добавлена также возможность указывать разное название товара и артикул в публичной таблице наличия для дропшипперов и в фискальном чеке для налоговой службы. В карточке товара теперь в соответствующих полях можно указать название для РРО и артикул для РРО. </p><p><strong>Внимание! </strong>Если оставить эти поля пустыми, то в фискальный чек автоматически подставится основное название товара и артикул.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-42.png" class="kg-image" alt loading="lazy" width="584" height="425"></figure><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2021/12/image-41.png" class="kg-image" alt loading="lazy" width="479" height="201"></figure><p></p><p><strong>Обновление 14.01.2022</strong></p><p>Добавлена возможность настроить свои способы оплаты, которые будут отображены в чеке. К примеру, можно добавить опции "Предоплата" и "Наложенный платёж".</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2022/01/image.png" class="kg-image" alt loading="lazy" width="1489" height="377" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2022/01/image.png 600w, https://blog.mydrop.com.ua/content/images/size/w1000/2022/01/image.png 1000w, https://blog.mydrop.com.ua/content/images/2022/01/image.png 1489w" sizes="(min-width: 720px) 720px"></figure><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2022/01/image-1.png" class="kg-image" alt loading="lazy" width="1626" height="424" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2022/01/image-1.png 600w, https://blog.mydrop.com.ua/content/images/size/w1000/2022/01/image-1.png 1000w, https://blog.mydrop.com.ua/content/images/size/w1600/2022/01/image-1.png 1600w, https://blog.mydrop.com.ua/content/images/2022/01/image-1.png 1626w" sizes="(min-width: 720px) 720px"></figure><p>При добавлении необходимо указать базовый тип оплаты: наличные или безналичный расчёт. Сам текст названия может быть любой.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2022/01/image-2.png" class="kg-image" alt loading="lazy" width="422" height="277"></figure><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2022/01/image-5.png" class="kg-image" alt loading="lazy" width="792" height="412" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2022/01/image-5.png 600w, https://blog.mydrop.com.ua/content/images/2022/01/image-5.png 792w" sizes="(min-width: 720px) 720px"></figure><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2022/01/image-6.png" class="kg-image" alt loading="lazy" width="481" height="677"></figure><p><strong>Обновление 02.02.2023</strong></p><p>Добавлена возможность указать налоговые ставки в чеке. Для этого:</p><p>1.Добавьте налоговые ставки в личном кабинете Checkbox.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2023/02/image.png" class="kg-image" alt loading="lazy" width="680" height="765" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2023/02/image.png 600w, https://blog.mydrop.com.ua/content/images/2023/02/image.png 680w"></figure><p>2. Запомните уникальный код налоговой ставки, которую добавляете.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2023/02/image-1.png" class="kg-image" alt loading="lazy" width="641" height="660" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2023/02/image-1.png 600w, https://blog.mydrop.com.ua/content/images/2023/02/image-1.png 641w"></figure><p>3. Добавьте эту же налоговую ставку для кассового аппарата в настройках интеграции CRM МойДроп.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2023/02/image-2.png" class="kg-image" alt loading="lazy" width="697" height="223" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2023/02/image-2.png 600w, https://blog.mydrop.com.ua/content/images/2023/02/image-2.png 697w"></figure><p>Укажите такой же уникальный код налоговой ставки, как в личном кабинете Checkbox.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2023/02/image-3.png" class="kg-image" alt loading="lazy" width="697" height="298" srcset="https://blog.mydrop.com.ua/content/images/size/w600/2023/02/image-3.png 600w, https://blog.mydrop.com.ua/content/images/2023/02/image-3.png 697w"></figure><p>Для каждой кассы можно указывать разные налоговые ставки при необходимости.</p><p>Создайте новый чек, в нём будут указаны те налоговые ставки, которые вы добавили.</p><figure class="kg-card kg-image-card"><img src="https://blog.mydrop.com.ua/content/images/2023/02/image-4.png" class="kg-image" alt loading="lazy" width="361" height="493"></figure><p>Развивайте свой бизнес вместе с <strong>МойДроп</strong>! Ведите учет заказов, получайте уведомления в Telegram, генерируйте и печатайте ТТН – <a href="https://bit.ly/32tWWpF">https://bit.ly/32tWWpF</a></p>
+                </div>
+            </section>
+
+
+
+        </article>
+
+    </div>
+</main>
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+
+                <article class="post-card post ">
+
+    <a class="post-card-image-link" href="/grafik-zakazov-po-dnyam-skrinshoty-oplat-i-prochie-obnovleniya-v-oktyabre-dekabre-2021/">
+        <img class="post-card-image"
+            srcset="/content/images/size/w300/2022/01/3556960.jpg 300w,
+                    /content/images/size/w600/2022/01/3556960.jpg 600w,
+                    /content/images/size/w1000/2022/01/3556960.jpg 1000w,
+                    /content/images/size/w2000/2022/01/3556960.jpg 2000w"
+            sizes="(max-width: 1000px) 400px, 700px"
+            loading="lazy"
+            src="/content/images/size/w600/2022/01/3556960.jpg"
+            alt="График заказов по дням, скриншоты оплат и прочие обновления в октябре-декабре 2021"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="/grafik-zakazov-po-dnyam-skrinshoty-oplat-i-prochie-obnovleniya-v-oktyabre-dekabre-2021/">
+
+            <header class="post-card-header">
+                <h2 class="post-card-title">График заказов по дням, скриншоты оплат и прочие обновления в октябре-декабре 2021</h2>
+            </header>
+
+            <section class="post-card-excerpt">
+                    <p>Список основных изменений в CRM-системе</p>
+            </section>
+
+        </a>
+    </div>
+
+</article>
+
+                <article class="post-card post ">
+
+    <a class="post-card-image-link" href="/ukrpochta-justin-i-drugie-slujbi-dostavki-v-moidrop/">
+        <img class="post-card-image"
+            srcset="/content/images/size/w300/2021/12/alternative_delivery_services-1.png 300w,
+                    /content/images/size/w600/2021/12/alternative_delivery_services-1.png 600w,
+                    /content/images/size/w1000/2021/12/alternative_delivery_services-1.png 1000w,
+                    /content/images/size/w2000/2021/12/alternative_delivery_services-1.png 2000w"
+            sizes="(max-width: 1000px) 400px, 700px"
+            loading="lazy"
+            src="/content/images/size/w600/2021/12/alternative_delivery_services-1.png"
+            alt="Укрпочта, Justin и другие службы доставки в МойДроп"
+        />
+    </a>
+
+    <div class="post-card-content">
+
+        <a class="post-card-content-link" href="/ukrpochta-justin-i-drugie-slujbi-dostavki-v-moidrop/">
+
+            <header class="post-card-header">
+                <h2 class="post-card-title">Укрпочта, Justin и другие службы доставки в МойДроп</h2>
+            </header>
+
+            <section class="post-card-excerpt">
+                    <p>Как в CRM учитывать информацию об иных сервисах доставки</p>
+            </section>
+
+        </a>
+    </div>
+
+</article>
+        </div>
+    </div>
+</aside>
+
+
+
+
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="https://blog.mydrop.com.ua">Блог МійДроп | CRM для дропшиппінгу</a> &copy; 2023</section>
+                <nav class="site-footer-nav">
+                    <a href="https://blog.mydrop.com.ua">Останні статті</a>
+                    <a href="https://bit.ly/35tCwwN" target="_blank" rel="noopener">CRM для дропшиппінгу</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+    <script src="/assets/built/casper.js?v=be9696c0a6"></script>
+
+    <script>
+        // Parse the URL parameter
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        // Give the parameter a variable name
+        var action = getParameterByName('action');
+
+        $(document).ready(function () {
+            if (action == 'subscribe') {
+                $('body').addClass("subscribe-success");
+            }
+
+            $('.subscribe-success-message .subscribe-close').click(function () {
+                $('.subscribe-success-message').addClass('close');
+            });
+
+            // Reset form on opening subscrion overlay
+            $('.subscribe-button').click(function() {
+                $('.subscribe-overlay form').removeClass();
+                $('.subscribe-email').val('');
+            });
+        });
+    </script>
+
+    <script>
+    $(document).ready(function () {
+        // FitVids - start
+        var $postContent = $(".post-full-content");
+        $postContent.fitVids();
+        // FitVids - end
+
+        // Replace nav with title on scroll - start
+        Casper.stickyNavTitle({
+            navSelector: '.site-nav-main',
+            titleSelector: '.post-full-title',
+            activeClass: 'nav-post-title-active'
+        });
+        // Replace nav with title on scroll - end
+
+        // Hover on avatar
+        var hoverTimeout;
+        $('.author-list-item').hover(function () {
+            var $this = $(this);
+
+            clearTimeout(hoverTimeout);
+
+            $('.author-card').removeClass('hovered');
+            $(this).children('.author-card').addClass('hovered');
+
+        }, function () {
+            var $this = $(this);
+
+            hoverTimeout = setTimeout(function () {
+                $this.children('.author-card').removeClass('hovered');
+            }, 800);
+        });
+    });
+</script>
+
+
+    
+
+</body>
+</html>

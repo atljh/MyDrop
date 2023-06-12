@@ -1,0 +1,36 @@
+{% extends 'layout/master.html' %}
+
+{% block layout %}
+
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root" id="kt_app_root">
+	<!--begin::Wrapper-->
+	<div class="d-flex flex-column flex-column-fluid">
+		<!--begin::Body-->
+		<div class="d-flex flex-column flex-column-fluid align-items-center justify-content-center p-10">
+			<!--begin::Form-->
+			<div class="w-100 px-10">
+				<!--begin::Page-->
+				{% block content %}
+				{% endblock content %}
+				<!--end::Page-->
+			</div>
+			<!--end::Form-->
+	
+			<!--begin::Footer-->  
+			<div class="d-flex flex-center flex-wrap px-5">
+				<!--begin::Links-->
+				<div class="d-flex fw-semibold text-primary fs-base">
+
+				</div>
+				<!--end::Links-->
+			</div>
+			<!--end::Footer-->
+		</div>
+		<!--end::Body-->
+	</div>
+	<!--end::Wrapper-->
+</div>
+<!--end::Root-->
+
+{% endblock layout %}
