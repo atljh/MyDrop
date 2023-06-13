@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'dashboards.apps.DashboardsConfig',
     'auth.apps.AuthConfig',
 ]
+AUTH_USER_MODEL = "dashboards.User"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = '_keenthemes.urls'

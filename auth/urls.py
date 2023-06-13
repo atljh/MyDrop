@@ -9,10 +9,10 @@ app_name = 'auth'
 
 urlpatterns = [
     path('vendor/login/', AuthVendorSigninView.as_view(template_name = 'pages/auth/login.html'), name='vendor-login'),
-    path('vendor/registration/', AuthRegisterVendorView.as_view(template_name = 'pages/auth/registration.html'), name='signin'),
+    path('vendor/registration/', AuthRegisterVendorView.as_view(template_name = 'pages/auth/registration.html'), name='vendor-registration'),
 
-    path('dropshipper/login/', AuthDropSigninView.as_view(template_name = 'pages/auth/login.html'), name='signin'),
-    path('dropshipper/registration/', AuthRegisterDropView.as_view(template_name = 'pages/auth/registration.html'), name='signin'),
+    path('dropshipper/login/', AuthDropSigninView.as_view(template_name = 'pages/auth/login.html'), name='drop-login'),
+    path('dropshipper/registration/', AuthRegisterDropView.as_view(template_name = 'pages/auth/registration.html'), name='drop-registration'),
 
     path('reset-password', AuthResetPasswordView.as_view(template_name = 'pages/auth/reset-password.html'), name='reset-password'),
     path('new-password', AuthNewPasswordView.as_view(template_name = 'pages/auth/new-password.html'), name='new-password'),

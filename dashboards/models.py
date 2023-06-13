@@ -1,3 +1,84 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+
+class User(AbstractUser):
+    is_dropshipper = models.BooleanField(default=False)
+    is_supplier = models.BooleanField(default=False)
+
+class Dropshipper(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class Vendor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+
+class Order(models.Model):
+    # Информация о заказе
+    user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='orders')
+
+    full_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=20)
+    dropshipper = models.ForeignKey('Dropshipper', null=True, blank=True, on_delete=models.SET_NULL)
+    
+    # # Информация о товарах
+    # # Предполагается наличие модели "Товар" с соответствующими полями
+    # # Применяем ForeignKey для связи с моделью "Товар"
+    # products = models.ManyToManyField('Product', through='OrderProduct')
+
+    # # Информация о доставке
+    # delivery_service = models.ForeignKey('DeliveryService', null=True, on_delete=models.SET_NULL)
+    # nova_poshta_counterparty = models.ForeignKey('NovaPoshtaCounterparty', null=True, blank=True, on_delete=models.SET_NULL)
+    # weight = models.DecimalField(max_digits=5, decimal_places=2)
+    # package_count = models.PositiveIntegerField()
+    # package_description = models.TextField()
+    # recipient_city = models.CharField(max_length=100)
+    # recipient_post_office = models.CharField(max_length=100)
+    # delivery_cost_by_sender = models.BooleanField(default=False)
+    # self_pickup = models.BooleanField(default=False)
+    # courier_delivery = models.BooleanField(default=False)
+    # ttn_number = models.CharField(max_length=50, blank=True)
+    
+    # # Информация о предоплате
+    # full_prepayment = models.BooleanField(default=False)
+    # cash_on_delivery = models.BooleanField(default=False)
+    
+    # # Прочая информация
+    # note = models.TextField(blank=True)
+    # photo = models.ImageField(upload_to='order_photos/', blank=True)
+    # send_sms_after_ttn_added = models.BooleanField(default=False)
+    # send_sms_after_dispatch = models.BooleanField(default=False)
+    # send_sms_on_arrival = models.BooleanField(default=False)
+    # send_sms_reminder = models.BooleanField(default=False)
+    # sms_token = models.CharField(max_length=100, blank=True)
+    
+    # # Источник заказа
+    # order_source = models.ForeignKey('OrderSource', null=True, on_delete=models.SET_NULL)
+    
+    # # Источник трафика
+    # traffic_source = models.ForeignKey('TrafficSource', null=True, on_delete=models.SET_NULL)
+    
+    # # Статусы заказа
+    # payment_status = models.ForeignKey('PaymentStatus', null=True, on_delete=models.SET_NULL)
+    # order_status = models.ForeignKey('OrderStatus', null=True, on_delete=models.SET_NULL)
+    # manual_order_status = models.BooleanField(default=False)
+    
+    # # Дополнительные поля
+    # manual_profit = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    # manual_advertising_costs = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    # manual_date = models.DateField(null=True, blank=True)
+    
+    # # Автоматическое присвоение ID
+    # order_id = models.AutoField(primary_key=True)
+    
+    def __str__(self):
+        return f"Order {self.id}"
+
+
+class DropOrder(models.Model):
+    user = models.ForeignKey(Dropshipper, on_delete=models.CASCADE, related_name='orders')
+
+    full_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=20)
+    vendor = models.ForeignKey('Vendor', null=True, blank=True, on_delete=models.SET_NULL)
+    

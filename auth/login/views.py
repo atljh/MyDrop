@@ -2,6 +2,9 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from _keenthemes.__init__ import KTLayout
 from _keenthemes.libs.theme import KTTheme
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
 
 """
 This file is a view controller for multiple pages as a module.
@@ -10,7 +13,7 @@ Refer to urls.py file for more pages.
 """
 
 class AuthVendorSigninView(TemplateView):
-    template_name = 'pages/auth/signin.html'
+    template_name = 'pages/auth/login.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -28,7 +31,19 @@ class AuthVendorSigninView(TemplateView):
         })
 
         return context
+    
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        password = request.POST.get('password')
 
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            # Авторизация прошла успешно, перенаправляем на нужную страницу
+            return redirect('/dashboard/')
+        else:
+            # Неправильные учетные данные, можно добавить обработку ошибки
+            return redirect('/signin/')
 
 
 class AuthDropSigninView(TemplateView):

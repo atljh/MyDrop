@@ -121,12 +121,17 @@ var KTSigninGeneral = function() {
 
                     // Enable button
                     submitButton.disabled = false;
-                                        
-                    // Check axios library docs: https://axios-http.com/docs/intro 
-                    axios.post('/your/ajax/login/url', {
-                        email: form.querySelector('[name="email"]').value, 
-                        password: form.querySelector('[name="password"]').value 
-                    }).then(function (response) {
+
+                    var csrfToken = $('input[name="csrfmiddlewaretoken"]').prop('value');
+
+                    axios.post(window.location.href, {
+                        email: form.querySelector('[name="email"]').value,
+                        password: form.querySelector('[name="password"]').value
+                      },{
+                        headers: {
+                          'X-CSRFToken': csrfToken
+                        }}
+                        ).then(function(response) {
                         if (response) {
                             form.querySelector('[name="email"]').value= "";
                             form.querySelector('[name="password"]').value= "";  
@@ -183,8 +188,8 @@ var KTSigninGeneral = function() {
             submitButton = document.querySelector('#kt_sign_in_submit');
             
             handleValidation();
-            handleSubmitDemo(); // used for demo purposes only, if you use the below ajax version you can uncomment this one
-            //handleSubmitAjax(); // use for ajax submit
+            // handleSubmitDemo(); // used for demo purposes only, if you use the below ajax version you can uncomment this one
+            handleSubmitAjax(); // use for ajax submit
         }
     };
 }();

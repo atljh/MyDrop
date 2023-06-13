@@ -94,48 +94,82 @@ var KTSignupGeneral = function() {
         // Handle form submit
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
-
+        
             validator.revalidateField('password');
-
+        
             validator.validate().then(function(status) {
-		        if (status == 'Valid') {
+                if (status == 'Valid') {
                     // Show loading indication
                     submitButton.setAttribute('data-kt-indicator', 'on');
-
-                    // Disable button to avoid multiple click 
+        
+                    // Disable button to avoid multiple clicks
                     submitButton.disabled = true;
-
-                    // Simulate ajax request
-                    setTimeout(function() {
-                        // Hide loading indication
-                        submitButton.removeAttribute('data-kt-indicator');
-
-                        // Enable button
-                        submitButton.disabled = false;
-
-                        // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-                        Swal.fire({
-                            text: "You have successfully reset your password!",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
+        
+                    var csrfToken = $('input[name="csrfmiddlewaretoken"]').prop('value');
+        
+                    // Prepare data for registration
+                    var data = {
+                        email: form.querySelector('[name="email"]').value,
+                        password: form.querySelector('[name="password"]').value,
+                        csrfmiddlewaretoken: csrfToken
+                    };
+        
+                    // Send AJAX request for registration
+                    axios.post(window.location.href, data)
+                        .then(function(response) {
+                            // Hide loading indication
+                            submitButton.removeAttribute('data-kt-indicator');
+        
+                            // Enable button
+                            submitButton.disabled = false;
+        
+                            // Handle the response
+                            if (response.data.success) {
+                                // Registration successful
+                                Swal.fire({
+                                    text: "Вы успешно зарегистрировались",
+                                    icon: "success",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok, got it!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(function (result) {
+                                    if (result.isConfirmed) {
+                                        form.reset();  // reset form
+                                        passwordMeter.reset();  // reset password meter
+        
+                                        // var redirectUrl = form.getAttribute('data-kt-redirect-url');
+                                        // if (redirectUrl) {
+                                            // location.href = redirectUrl;
+                                        // }
+                                    }
+                                });
+                            } else {
+                                // Registration failed
+                                Swal.fire({
+                                    text: "Sorry, looks like there are some errors detected, please try again.",
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok, got it!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
                             }
-                        }).then(function (result) {
-                            if (result.isConfirmed) { 
-                                form.reset();  // reset form                    
-                                passwordMeter.reset();  // reset password meter
-                                //form.submit();
-
-                                //form.submit(); // submit form
-                                var redirectUrl = form.getAttribute('data-kt-redirect-url');
-                                if (redirectUrl) {
-                                    location.href = redirectUrl;
+                        })
+                        .catch(function (error) {
+                            // Handle the error
+                            Swal.fire({
+                                text: "Sorry, looks like there are some errors detected, please try again.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok, got it!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
                                 }
-                            }
+                            });
                         });
-                    }, 1500);   						
                 } else {
                     // Show error popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                     Swal.fire({
@@ -148,9 +182,9 @@ var KTSignupGeneral = function() {
                         }
                     });
                 }
-		    });
+            });
         });
-
+        
         // Handle password input
         form.querySelector('input[name="password"]').addEventListener('input', function() {
             if (this.value.length > 0) {
