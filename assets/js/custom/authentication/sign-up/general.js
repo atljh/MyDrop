@@ -111,10 +111,10 @@ var KTSignupGeneral = function() {
                     var data = {
                         email: form.querySelector('[name="email"]').value,
                         password: form.querySelector('[name="password"]').value,
-                        csrfmiddlewaretoken: csrfToken
                     };
         
                     // Send AJAX request for registration
+                    axios.defaults.headers.common['X-CSRFToken'] = csrfToken;
                     axios.post(window.location.href, data)
                         .then(function(response) {
                             // Hide loading indication
@@ -139,10 +139,10 @@ var KTSignupGeneral = function() {
                                         form.reset();  // reset form
                                         passwordMeter.reset();  // reset password meter
         
-                                        // var redirectUrl = form.getAttribute('data-kt-redirect-url');
-                                        // if (redirectUrl) {
-                                            // location.href = redirectUrl;
-                                        // }
+                                        var redirectUrl = form.getAttribute('data-kt-redirect-url');
+                                        if (redirectUrl) {
+                                            location.href = redirectUrl;
+                                        }
                                     }
                                 });
                             } else {
@@ -176,7 +176,7 @@ var KTSignupGeneral = function() {
                         text: "Sorry, looks like there are some errors detected, please try again.",
                         icon: "error",
                         buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "ОК",
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }

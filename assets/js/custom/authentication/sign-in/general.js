@@ -112,7 +112,7 @@ var KTSigninGeneral = function() {
         submitButton.addEventListener('click', function (e) {
             // Prevent button default action
             e.preventDefault();
-
+            console.log($('input[name="csrfmiddlewaretoken"]').prop('value'))
             // Validate form
             validator.validate().then(function (status) {
                 if (status == 'Valid') {
@@ -170,7 +170,7 @@ var KTSigninGeneral = function() {
                         text: "Sorry, looks like there are some errors detected, please try again.",
                         icon: "error",
                         buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "ОК",
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }

@@ -7,9 +7,9 @@
 {% block content %}
 <!--begin::Form-->
 <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" {% if request.path == '/vendor/login/' %}
- data-kt-redirect-url="/vendor/active_orders/"
+ data-kt-redirect-url="/vendor/main/"
  {% else %}
- data-kt-redirect-url="/dropshipper/active_orders/"
+ data-kt-redirect-url="/dropshipper/main/"
  {% endif %}
 action="#">
     {% csrf_token %}
@@ -18,6 +18,7 @@ action="#">
         <!--begin::Title-->
         <h1 class="text-dark fw-bolder mb-3">
             Вход
+            {{user.email}} {{user.username}}
         </h1>
         <!--end::Title-->
             <!--begin::Subtitle-->

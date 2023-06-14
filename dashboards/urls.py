@@ -7,5 +7,6 @@ app_name = 'dashboards'
 urlpatterns = [
     path('', DashboardsView.as_view(template_name = 'pages/dashboards/landing.html'), name='index'),
     path('dropshipper/', DropshipperView.as_view(template_name = 'pages/dashboards/dropshipper.html'), name='dropshipper'),
+    path('vendor/', DropshipperView.as_view(template_name = 'pages/dashboards/vendor.html'), name='vendor'),
     path('error', DashboardsView.as_view(template_name = 'non-exist-file.html'), name='Error Page'),
 ]

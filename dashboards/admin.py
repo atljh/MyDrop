@@ -1,8 +1,7 @@
 from django.contrib import admin
-from .models import User, Vendor, Dropshipper, Order, DropOrder
-# Register your models here.
+from .models import CustomUser, Vendor, Dropshipper, Order, DropOrder
 
-admin.site.register(User)
+admin.site.register(CustomUser)
 admin.site.register(Vendor)
 admin.site.register(Dropshipper)
 admin.site.register(Order)

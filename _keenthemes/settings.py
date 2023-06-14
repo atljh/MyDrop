@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-blehs+vjho@s4qug%9ferf0-tucvbr9#_1k2!#ebs4u68@)ss+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'dashboards.apps.DashboardsConfig',
     'auth.apps.AuthConfig',
 ]
-AUTH_USER_MODEL = "dashboards.User"
+AUTH_USER_MODEL = 'dashboards.CustomUser'
 
 
 MIDDLEWARE = [

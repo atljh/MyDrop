@@ -5,7 +5,9 @@ from _keenthemes.libs.theme import KTTheme
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
+from django.http import JsonResponse, HttpResponse
 
+import json
 """
 This file is a view controller for multiple pages as a module.
 Here you can override the page view layout.
@@ -33,18 +35,19 @@ class AuthVendorSigninView(TemplateView):
         return context
     
     def post(self, request, *args, **kwargs):
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        data = json.loads(request.body.decode('utf-8'))
 
+        email = data.get('email')
+        password = data.get('password')
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
-            # Авторизация прошла успешно, перенаправляем на нужную страницу
-            return redirect('/dashboard/')
+            response_data = {'success': True, 'message': 'Login successful'}
+            return JsonResponse(response_data)
         else:
-            # Неправильные учетные данные, можно добавить обработку ошибки
-            return redirect('/signin/')
-
+            response_data = {'success': False, 'message': 'Invalid credentials'}
+            return JsonResponse(response_data, status=401)
+        
 
 class AuthDropSigninView(TemplateView):
     template_name = 'pages/auth/signin.html'

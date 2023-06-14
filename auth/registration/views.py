@@ -5,8 +5,10 @@ from _keenthemes.libs.theme import KTTheme
 from django.views import View
 from django.http import JsonResponse
 from django.shortcuts import render
+from dashboards.models import User
+from django.contrib.auth import get_user_model
 
-
+import json
 """
 This file is a view controller for multiple pages as a module.
 Here you can override the page view layout.
@@ -34,17 +36,22 @@ class AuthRegisterVendorView(TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        # Process the registration data
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+        # Получение данных регистрации из запроса
+        data = json.loads(request.body.decode('utf-8'))
+        email = data.get('email')
+        password = data.get('password')
+        CustomUser = get_user_model()
 
-        # Perform the registration logic here
-        # ...
+        if CustomUser.objects.filter(email=email).exists():
+            response_data = {'success': False, 'message': 'User with this email already exists'}
+            return JsonResponse(response_data, status=400)
 
-        # Return JSON response indicating success or failure
-        response_data = {'success': True}  # Replace with actual response data
+        user = CustomUser(email=email, password=password)
+        user.set_password(password)
+        user.save()
+
+        response_data = {'success': True, 'message': 'Registration successful'}
         return JsonResponse(response_data)
-
 
 class AuthRegisterDropView(TemplateView):
     template_name = 'pages/auth/signup.html'
