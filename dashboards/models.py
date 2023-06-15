@@ -25,6 +25,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+
+    is_dropshipper = models.BooleanField(default=False)
+    is_supplier = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
@@ -43,30 +47,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         related_name='customuser_set',
         related_query_name='customuser'
     )
-
-# class User(AbstractUser):
-#     is_dropshipper = models.BooleanField(default=False)
-#     is_supplier = models.BooleanField(default=False)
-
-#     email = models.EmailField(unique=True)
-
-#     USERNAME_FIELD = 'email'
-#     REQUIRED_FIELDS = []
-    
-
-#     def natural_key(self):
-#         return dict(email=self.email)
-
-#     def __str__(self):
-#         if self.email:        
-#             return self.email
-#         return self.username
-
-# User._meta.get_field('email')._unique = True
-# User._meta.get_field('email')._blank = False
-# User._meta.get_field('username')._unique = False
-# User._meta.get_field('username')._blank = True
-# User._meta.get_field('username')._null = True
 
 
 class Dropshipper(models.Model):

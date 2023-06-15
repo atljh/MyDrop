@@ -12,10 +12,10 @@ from django.http import HttpResponseRedirect
 class VendorView(TemplateView):
     template_name = 'pages/vendor/main.html'
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     if not request.user.is_authenticated:
-    #         return HttpResponseRedirect('/vendor/login/')
-    #     return super().dispatch(request, *args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
