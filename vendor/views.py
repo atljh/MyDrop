@@ -20,7 +20,7 @@ class VendorView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addCssFile('/plugins/custom/datatables/datatables.bundle.css')
+        KTTheme.addVendors(['user-profile'])
         context.update({
             'layout': KTTheme.setLayout('default.html', context),
         })

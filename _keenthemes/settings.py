@@ -372,7 +372,8 @@ KT_THEME_VENDORS = {
             "/plugins/custom/datatables/datatables.bundle.css"
         ],
         "js": [
-            "js/custom/pages/user-profile/general.js"
+            "js/custom/pages/user-profile/general.js",
+            "js/custom/account/settings/signin-methods.js"
         ]
     },
 }
