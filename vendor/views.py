@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect
 
 
 class VendorView(TemplateView):
-    template_name = 'pages/vendor/main.html'
+    template_name = 'pages/dashboards/profile.html'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -20,5 +20,11 @@ class VendorView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['amcharts', 'amcharts-maps', 'amcharts-stock'])
+        KTTheme.addCssFile('/plugins/custom/datatables/datatables.bundle.css')
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
         return context
+
+

@@ -25,6 +25,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
+    phone_number = models.IntegerField(default=False)
 
     is_dropshipper = models.BooleanField(default=False)
     is_supplier = models.BooleanField(default=False)

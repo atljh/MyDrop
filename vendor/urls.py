@@ -6,5 +6,7 @@ app_name = 'vendor'
 
 urlpatterns = [
     path('', VendorView.as_view(template_name = 'pages/dashboards/vendor.html'), name='1-vendor'),
-    path('main/', VendorView.as_view(template_name = 'pages/vendor/main.html'), name='vendor-main')
+    path('main/', VendorView.as_view(template_name = 'pages/vendor/main.html'), name='vendor-main'),
+    path('profile/', VendorView.as_view(template_name = 'pages/dashboards/profile.html'), name='vendor-profile')
+
 ]

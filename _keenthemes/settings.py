@@ -366,5 +366,13 @@ KT_THEME_VENDORS = {
         "js": [
             "plugins/custom/bootstrap-select/bootstrap-select.bundle.js"
         ]
-    }
+    },
+    "user-profile": {
+        "css": [
+            "/plugins/custom/datatables/datatables.bundle.css"
+        ],
+        "js": [
+            "js/custom/pages/user-profile/general.js"
+        ]
+    },
 }
