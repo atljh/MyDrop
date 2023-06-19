@@ -177,16 +177,18 @@ context.update({
                                                     <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />
                                                 </div>
                                             </th>
-                                            <th class="min-w-200px">Product</th>
-                                            <th class="text-end min-w-100px">SKU</th>
-                                            <th class="text-end min-w-70px">Qty</th>
-                                            <th class="text-end min-w-100px">Price</th>
-                                            <th class="text-end min-w-100px">Rating</th>
-                                            <th class="text-end min-w-100px">Status</th>
-                                            <th class="text-end min-w-70px">Actions</th>
+                                            <th class="min-w-100px">Товары</th>
+                                            <th class="text-end min-w-70px">ID</th>
+                                            <th class="text-end min-w-200px">Дата</th>
+                                            <th class="text-end min-w-200px">ФИО</th>
+                                            <th class="text-end min-w-150px">Дропшиппер</th>
+                                            <th class="text-end min-w-100px">Город</th>
+                                            <th class="text-end min-w-100px">Сумма</th>
+                                            <th class="text-end min-w-70px">Статус</th>
                                         </tr>
                                     </thead>
                                     <tbody class="fw-semibold text-gray-600">
+                                        {% for order in user.vendor.get_orders %}
                                         <tr>
                                             <td>
                                                 <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -197,45 +199,37 @@ context.update({
                                                 <div class="d-flex align-items-center">
                                                     <!--begin::Thumbnail-->
                                                     <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
-                                                        <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/1.gif);"></span>
+                                                        <!-- <span class="symbol-label" style="background-image:url(/assets/media//stock/ecommerce/1.gif);"></span> -->
                                                     </a>
                                                     <!--end::Thumbnail-->
                                                     <div class="ms-5">
                                                         <!--begin::Title-->
-                                                        <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="product_name">Product 1</a>
+                                                        <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold" data-kt-ecommerce-product-filter="product_name">{{order.product.name}}</a>
                                                         <!--end::Title-->
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="text-end pe-0">
-                                                <span class="fw-bold">02574008</span>
+                                                <span class="fw-bold">{{order.id}}</span>
+                                            </td>
+                                            <td class="text-end pe-0">
+                                                <span class="fw-bold">{{order.date|date:'H:i d.m'}}</span>
                                             </td>
                                             <td class="text-end pe-0" data-order="21">
-                                                <span class="fw-bold ms-3">21</span>
+                                                <span class="fw-bold ms-3">{{user.first_name}} {{user.last_name}}</span>
                                             </td>
-                                            <td class="text-end pe-0">199</td>
-                                            <td class="text-end pe-0" data-order="rating-3">
-                                                <div class="rating justify-content-end">
-                                                    <div class="rating-label checked">
-                                                        <i class="ki-duotone ki-star fs-6"></i>
-                                                    </div>
-                                                    <div class="rating-label checked">
-                                                        <i class="ki-duotone ki-star fs-6"></i>
-                                                    </div>
-                                                    <div class="rating-label checked">
-                                                        <i class="ki-duotone ki-star fs-6"></i>
-                                                    </div>
-                                                    <div class="rating-label">
-                                                        <i class="ki-duotone ki-star fs-6"></i>
-                                                    </div>
-                                                    <div class="rating-label">
-                                                        <i class="ki-duotone ki-star fs-6"></i>
-                                                    </div>
-                                                </div>
+                                            <td class="text-end pe-0" data-order="21">
+                                                <span class="fw-bold ms-3"></span>
                                             </td>
+                                            <td class="text-end pe-0">{{order.city}}</td>
+                                            <td class="text-end pe-0">{{order.amount | floatformat}}</td>
                                             <td class="text-end pe-0" data-order="Published">
                                                 <!--begin::Badges-->
-                                                <div class="badge badge-light-success">Published</div>
+                                                 {% if order.status == 'NEW' %}
+                                                    <div class="badge badge-light-success">{{order.status}}</div>
+                                                 {% else %}
+                                                    <div class="badge badge-light-primary">{{order.status}}</div>
+                                                 {% endif %}
                                                 <!--end::Badges-->
                                             </td>
                                             <td class="text-end">
@@ -257,6 +251,7 @@ context.update({
                                                 <!--end::Menu-->
                                             </td>
                                         </tr>
+                                        {% endfor %}
                                         <tr>
                                             <td>
                                                 <div class="form-check form-check-sm form-check-custom form-check-solid">

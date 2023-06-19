@@ -59,7 +59,11 @@ class Dropshipper(models.Model):
 
 
 class Vendor(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='vendor')
+
+
+    def get_orders(self):
+        return self.user.vendor.orders.all()
 
     def __str__(self) -> str:
         return f'{self.user}'
@@ -78,7 +82,7 @@ class Order(models.Model):
 
     user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='orders')
 
-    data = models.DateTimeField(auto_now_add=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, null=True)
     full_name = models.CharField(max_length=100)
     dropshipper = models.ForeignKey('Dropshipper', null=True, blank=True, on_delete=models.SET_NULL)
     product = models.ForeignKey('Product', null=True, blank=True, on_delete=models.CASCADE)
