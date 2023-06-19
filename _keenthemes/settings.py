@@ -373,7 +373,8 @@ KT_THEME_VENDORS = {
         ],
         "js": [
             "js/custom/pages/user-profile/general.js",
-            "js/custom/account/settings/signin-methods.js"
+            "js/custom/account/settings/signin-methods.js",
+            "/plugins/custom/datatables/datatables.bundle.js"
         ]
     },
 }

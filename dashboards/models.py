@@ -18,6 +18,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
 
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=150)
@@ -50,20 +51,42 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
 
 
+    def __str__(self):
+        return self.email
+
 class Dropshipper(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
 
 class Vendor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return f'{self.user}'
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.name
 
 class Order(models.Model):
-    # Информация о заказе
+    STATUS_CHOICES = (
+        ("NEW", 'Новый'),
+        ("OLD", "Старый")
+    )
+
     user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='orders')
 
+    data = models.DateTimeField(auto_now_add=True, null=True)
     full_name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=20)
     dropshipper = models.ForeignKey('Dropshipper', null=True, blank=True, on_delete=models.SET_NULL)
+    product = models.ForeignKey('Product', null=True, blank=True, on_delete=models.CASCADE)
+    city = models.CharField(max_length=255, blank=True)
+    amount = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=10)    
+    status = models.CharField(max_length=9,
+                  choices=STATUS_CHOICES,
+                  default="NEW")
     
     # # Информация о товарах
     # # Предполагается наличие модели "Товар" с соответствующими полями
