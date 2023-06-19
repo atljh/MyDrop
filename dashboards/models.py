@@ -92,6 +92,7 @@ class Order(models.Model):
                   choices=STATUS_CHOICES,
                   default="NEW")
     
+    # phone_number = models.CharField(max_length=20)
     # # Информация о товарах
     # # Предполагается наличие модели "Товар" с соответствующими полями
     # # Применяем ForeignKey для связи с моделью "Товар"

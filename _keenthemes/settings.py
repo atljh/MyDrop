@@ -377,4 +377,12 @@ KT_THEME_VENDORS = {
             "/plugins/custom/datatables/datatables.bundle.js"
         ]
     },
+    "catalog":{
+        "js": [
+            "/js/custom/pages/catalog/categories.js",
+            "/js/custom/pages/catalog/products.js",
+            "/js/custom/pages/catalog/save-category.js",
+            "/js/custom/pages/catalog/save-product.js",
+        ]
+    }
 }

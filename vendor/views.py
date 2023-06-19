@@ -20,7 +20,8 @@ class VendorView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['user-profile'])
+        KTTheme.addVendors(['user-profile', 'catalog', 'formrepeater'])
+        # KTTheme.addJavascriptFile('js/custom/apps/ecommerce/catalog/save-category.js')
         context.update({
             'layout': KTTheme.setLayout('default.html', context),
         })

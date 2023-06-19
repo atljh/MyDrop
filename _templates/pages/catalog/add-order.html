@@ -1,0 +1,1343 @@
+<!--
+Define in dashboards/views.py file
+context.update({
+    'layout': KTTheme.setLayout('default.html', context),
+})
+-->
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Главная" %}{% endblock %}
+
+{% block content %}
+
+<!--begin::Row-->
+<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+    <!--begin::Col-->
+    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+        <!--begin::Content wrapper-->
+        <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+            <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+                <!--begin::Content wrapper-->
+                <div class="d-flex flex-column flex-column-fluid">
+                    <!--begin::Toolbar-->
+                    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                        <!--begin::Toolbar container-->
+
+                        <!--end::Toolbar container-->
+                    </div>
+                    <!--end::Toolbar-->
+                    <!--begin::Content-->
+                    <div id="kt_app_content" class="app-content flex-column-fluid">
+                        <!--begin::Content container-->
+                        <div id="kt_app_content_container" class="app-container container-xxl">
+                            <!--begin::Form-->
+                            <form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="../../demo1/dist/apps/ecommerce/catalog/products.html">
+                                <!--begin::Aside column-->
+                           
+                                <!--end::Aside column-->
+                                <!--begin::Main column-->
+                                <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+                                    <!--begin:::Tabs-->
+                                    <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
+                                        <!--begin:::Tab item-->
+                                        <li class="nav-item">
+                                            <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_ecommerce_add_product_general">Основные</a>
+                                        </li>
+                                        <!--end:::Tab item-->
+                                        <!--begin:::Tab item-->
+                                        <li class="nav-item">
+                                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_ecommerce_add_product_advanced">Расширенные</a>
+                                        </li>
+                                        <!--end:::Tab item-->
+                                    </ul>
+                                    <!--end:::Tabs-->
+                                    <!--begin::Tab content-->
+                                    <div class="tab-content">
+                                        <!--begin::Tab pane-->
+                                        <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+                                            <div class="d-flex flex-column gap-7 gap-lg-10">
+                                                <!--begin::General options-->
+                                                <div class="card card-flush py-4">
+                                                    <!--begin::Card header-->
+                                                    <div class="card-header">
+                                                        <div class="card-title">
+                                                            <h2>Основные</h2>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Card header-->
+                                                    <!--begin::Card body-->
+                                                    <div class="card-body pt-0">
+                                                        <!--begin::Input group-->
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="required form-label">Полное имя</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="full_name" class="form-control mb-2" placeholder="Полное имя" value="" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="required form-label">Номер телефона</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="phone_number" class="form-control mb-2" placeholder="Номер телефона" value="" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="form-label">Дропшиппер</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <!--end::Input-->
+                                                            <select class="form-select mb-2" data-control="select2" data-placeholder="Выберите дропшиппера" data-allow-clear="true" multiple="multiple">
+                                                                <option></option>
+                                                                <option value="Computers">Компьютеры</option>
+                                                                <option value="Watches">Часы</option>
+                                                                <option value="Headphones">Наушники</option>
+                                                                <option value="Footwear">Обувь</option>
+                                                                <option value="Cameras">Камеры</option>
+                                                                <option value="Shirts">Рубашки</option>
+                                                                <option value="Household">Товары для дома</option>
+                                                                <option value="Handbags">Сумки</option>
+                                                                <option value="Wines">Вина</option>
+                                                                <option value="Sandals">Сандалии</option>
+                                                            </select>
+                                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </span>
+                                                            <!--begin::Description-->
+                                                            <div class="text-muted fs-7">Выберите или добавьте нового.</div>
+                                                            <!--end::Description-->
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="card card-flush py-4">
+                                                    <!--begin::Card header-->
+                                                    <div class="card-header">
+                                                        <div class="card-title">
+                                                            <h2>Выберите товары</h2>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Card header-->
+                                                    <!--begin::Card body-->
+                                                    <div class="card-body pt-0">
+                                                        <div class="d-flex flex-column gap-10">
+                                                            <!--begin::Input group-->
+                                                            <div>
+                                                                <div class="fw-bold fs-4">Стоимость: $
+                                                                <span id="kt_ecommerce_edit_order_total_price">0.00</span></div>
+                                                                <!--end::Total price-->
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                            <!--begin::Separator-->
+                                                            <div class="separator"></div>
+                                                            <!--end::Separator-->
+                                                            <!--begin::Search products-->
+                                                            <div class="d-flex align-items-center position-relative mb-n7">
+                                                                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i>
+                                                                <input type="text" data-kt-ecommerce-edit-order-filter="search" class="form-control form-control-solid w-100 w-lg-50 ps-12" placeholder="Поиск товаров">
+                                                            </div>
+                                                            <!--end::Search products-->
+                                                            <!--begin::Table-->
+                                                            <div id="kt_ecommerce_edit_order_product_table_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="table-responsive"><div class="dataTables_scroll"><div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px none; width: 100%;"><div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 869px; padding-right: 0px;"><table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" style="margin-left: 0px; width: 869px;"><thead>
+                                                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0"><th class="w-25px pe-2 sorting_disabled" rowspan="1" colspan="1" style="width: 25px;" aria-label=""></th><th class="min-w-200px sorting" tabindex="0" aria-controls="kt_ecommerce_edit_order_product_table" rowspan="1" colspan="1" style="width: 513.317px;" aria-label="Product: activate to sort column ascending">Товар</th><th class="min-w-100px text-end pe-5 sorting" tabindex="0" aria-controls="kt_ecommerce_edit_order_product_table" rowspan="1" colspan="1" style="width: 288.433px;" aria-label="Qty Remaining: activate to sort column ascending">Осталось на складе</th></tr>
+                                                                </thead></table></div></div><div class="dataTables_scrollBody" style="position: relative; overflow: auto; max-height: 400px; width: 100%;"><table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_ecommerce_edit_order_product_table" style="width: 100%;"><thead>
+                                                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0" style="height: 0px;"><th class="w-25px pe-2 sorting_disabled" rowspan="1" colspan="1" style="width: 25px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"><div class="dataTables_sizing" style="height: 0px; overflow: hidden;"></div></th><th class="min-w-200px sorting" aria-controls="kt_ecommerce_edit_order_product_table" rowspan="1" colspan="1" style="width: 513.317px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"><div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Product</div></th><th class="min-w-100px text-end pe-5 sorting" aria-controls="kt_ecommerce_edit_order_product_table" rowspan="1" colspan="1" style="width: 288.433px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"><div class="dataTables_sizing" style="height: 0px; overflow: hidden;">Qty Remaining</div></th></tr>
+                                                                </thead>
+                                                                
+                                                                <tbody class="fw-semibold text-gray-600">
+                                                                <tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_1">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(/assets/media//stock/ecommerce/1.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 1</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">177.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01867005</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="23">
+                                                                            <span class="fw-bold ms-3">23</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_2">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(/assets/media//stock/ecommerce/2.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 2</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">246.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 04701002</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="8">
+                                                                            <span class="badge badge-light-warning">Low stock</span>
+                                                                            <span class="fw-bold text-warning ms-3">8</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_3">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(/assets/media//stock/ecommerce/3.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 3</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">273.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02578007</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="49">
+                                                                            <span class="fw-bold ms-3">49</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_4">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/4.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 4</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">152.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02168008</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="15">
+                                                                            <span class="fw-bold ms-3">15</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_5">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/5.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 5</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">64.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 03611004</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="3">
+                                                                            <span class="badge badge-light-warning">Low stock</span>
+                                                                            <span class="fw-bold text-warning ms-3">3</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_6">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/6.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 6</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">61.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02186002</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="31">
+                                                                            <span class="fw-bold ms-3">31</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_7">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/7.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 7</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">182.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02406006</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="40">
+                                                                            <span class="fw-bold ms-3">40</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_8">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/8.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 8</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">241.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01507002</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="15">
+                                                                            <span class="fw-bold ms-3">15</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_9">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/9.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 9</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">193.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02569008</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="13">
+                                                                            <span class="fw-bold ms-3">13</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_10">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/10.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 10</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">198.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01257006</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="21">
+                                                                            <span class="fw-bold ms-3">21</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_11">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/11.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 11</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">168.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02955009</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="17">
+                                                                            <span class="fw-bold ms-3">17</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_12">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/12.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 12</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">100.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01706009</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="27">
+                                                                            <span class="fw-bold ms-3">27</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_13">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/13.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 13</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">67.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02231007</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="17">
+                                                                            <span class="fw-bold ms-3">17</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_14">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/14.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 14</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">28.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01182001</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="0">
+                                                                            <span class="badge badge-light-danger">Sold out</span>
+                                                                            <span class="fw-bold text-danger ms-3">0</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_15">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/15.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 15</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">208.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01844009</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="3">
+                                                                            <span class="badge badge-light-warning">Low stock</span>
+                                                                            <span class="fw-bold text-warning ms-3">3</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_16">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/16.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 16</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">216.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 04418002</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="42">
+                                                                            <span class="fw-bold ms-3">42</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_17">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/17.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 17</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">171.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02980002</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="39">
+                                                                            <span class="fw-bold ms-3">39</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_18">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/18.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 18</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">65.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01634002</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="30">
+                                                                            <span class="fw-bold ms-3">30</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_19">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/19.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 19</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">275.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 03690004</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="21">
+                                                                            <span class="fw-bold ms-3">21</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_20">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/20.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 20</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">27.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 03149009</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="16">
+                                                                            <span class="fw-bold ms-3">16</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_21">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/21.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 21</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">112.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01940002</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="40">
+                                                                            <span class="fw-bold ms-3">40</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_22">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/22.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 22</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">156.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02372008</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="27">
+                                                                            <span class="fw-bold ms-3">27</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_23">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/23.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 23</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">29.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 03112005</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="43">
+                                                                            <span class="fw-bold ms-3">43</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_24">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/24.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 24</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">134.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 03686003</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="25">
+                                                                            <span class="fw-bold ms-3">25</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_25">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/25.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 25</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">295.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01812003</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="19">
+                                                                            <span class="fw-bold ms-3">19</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_26">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/26.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 26</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">14.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 03337005</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="4">
+                                                                            <span class="badge badge-light-warning">Low stock</span>
+                                                                            <span class="fw-bold text-warning ms-3">4</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_27">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/27.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 27</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">144.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 01910009</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="11">
+                                                                            <span class="fw-bold ms-3">11</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_28">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/28.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 28</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">32.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 03676001</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="10">
+                                                                            <span class="fw-bold ms-3">10</span>
+                                                                        </td>
+                                                                    </tr><tr class="odd">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_29">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/29.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 29</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">112.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 04245008</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="0">
+                                                                            <span class="badge badge-light-danger">Sold out</span>
+                                                                            <span class="fw-bold text-danger ms-3">0</span>
+                                                                        </td>
+                                                                    </tr><tr class="even">
+                                                                        <td>
+                                                                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                                                                <input class="form-check-input" type="checkbox" value="1">
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_30">
+                                                                                <!--begin::Thumbnail-->
+                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/30.gif);"></span>
+                                                                                </a>
+                                                                                <!--end::Thumbnail-->
+                                                                                <div class="ms-5">
+                                                                                    <!--begin::Title-->
+                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 30</a>
+                                                                                    <!--end::Title-->
+                                                                                    <!--begin::Price-->
+                                                                                    <div class="fw-semibold fs-7">Price: $
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">259.00</span></div>
+                                                                                    <!--end::Price-->
+                                                                                    <!--begin::SKU-->
+                                                                                    <div class="text-muted fs-7">SKU: 02884009</div>
+                                                                                    <!--end::SKU-->
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td class="text-end pe-5" data-order="14">
+                                                                            <span class="fw-bold ms-3">14</span>
+                                                                        </td>
+                                                                    </tr></tbody>
+                                                            </table></div></div></div><div class="row"><div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"></div><div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"></div></div></div>
+                                                            <!--end::Table-->
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Card header-->
+                                                </div>
+                                                <div class="card card-flush py-4">
+                                                    <!--begin::Card header-->
+
+                                                    <!--end::Card header-->
+                                                    <!--begin::Card body-->
+                                                    <div class="card-body pt-0">
+                                                        <!--begin::Input group-->
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Количество" value="1" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <div class="text-muted fs-7">Количество</div>
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Себестоимость" value="" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <div class="text-muted fs-7">Себестоимость</div>
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">  
+                                                            <!--begin::Label-->
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Дроп цена" value="" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <div class="text-muted fs-7">Дроп цена</div>
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">  
+                                                            <!--begin::Label-->
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Цена продажи" value="" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <div class="text-muted fs-7">Цена продажи</div>
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Размер" value="" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <div class="text-muted fs-7">Размер</div>
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Примечание к размеру" value="" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <div class="text-muted fs-7">Примечание к размеру</div>
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                        <!--begin::Input group-->
+
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Card body-->
+                                                </div>
+                                                <div class="card card-flush py-4">
+                                                    <!--begin::Card header-->
+                                                    <div class="card-header">
+                                                        <div class="card-title">
+                                                            <h2>Доставка</h2>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Card header-->
+                                                    <!--begin::Card body-->
+                                                    <div class="card-body pt-0">
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="required form-label">Контрагент</label>
+                                                            <select class="form-select mb-2" data-control="select2" data-placeholder="Выберите контрагента" data-allow-clear="true" multiple="multiple">
+                                                                <option></option>
+                                                                <option value="Computers">Компьютеры</option>
+                                                                <option value="Watches">Часы</option>
+                                                                <option value="Headphones">Наушники</option>
+                                                                <option value="Footwear">Обувь</option>
+                                                                <option value="Cameras">Камеры</option>
+                                                                <option value="Shirts">Рубашки</option>
+                                                                <option value="Household">Товары для дома</option>
+                                                                <option value="Handbags">Сумки</option>
+                                                                <option value="Wines">Вина</option>
+                                                                <option value="Sandals">Сандалии</option>
+                                                            </select>
+                                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </span>
+                                                        </div>
+                                                        <!--begin::Input group-->
+                                                        <div class="mb-10 fv-row">
+                                                            <label class="required form-label">Вес</label>
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Вес" value="" />
+                                                            <!--end::Input-->
+                                                            <!--begin::Description-->
+                                                            <!--end::Description-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <label class="required form-label">Количество мест</label>
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Количество мест" value="1" />
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <label class="required form-label">Содержимое</label>
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Содержимое" value="" />
+                                                            <div class="text-muted fs-7">Описание содержимого посылки</div>
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="required form-label">Город получателя</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <!--end::Input-->
+                                                            <select class="form-select mb-2" data-control="select2" data-placeholder="Город получателя" data-allow-clear="true" multiple="multiple">
+                                                                <option></option>
+                                                                <option value="Computers">Компьютеры</option>
+                                                                <option value="Watches">Часы</option>
+                                                                <option value="Headphones">Наушники</option>
+                                                                <option value="Footwear">Обувь</option>
+                                                                <option value="Cameras">Камеры</option>
+                                                                <option value="Shirts">Рубашки</option>
+                                                                <option value="Household">Товары для дома</option>
+                                                                <option value="Handbags">Сумки</option>
+                                                                <option value="Wines">Вина</option>
+                                                                <option value="Sandals">Сандалии</option>
+                                                            </select>
+                                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <!--begin::Label-->
+                                                            <label class="required form-label">Отделение почты получателя</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            <!--end::Input-->
+                                                            <select class="form-select mb-2" data-control="select2" data-placeholder="Отделение почты получателя" data-allow-clear="true" multiple="multiple">
+                                                                <option></option>
+                                                                <option value="Computers">Компьютеры</option>
+                                                                <option value="Watches">Часы</option>
+                                                                <option value="Headphones">Наушники</option>
+                                                                <option value="Footwear">Обувь</option>
+                                                                <option value="Cameras">Камеры</option>
+                                                                <option value="Shirts">Рубашки</option>
+                                                                <option value="Household">Товары для дома</option>
+                                                                <option value="Handbags">Сумки</option>
+                                                                <option value="Wines">Вина</option>
+                                                                <option value="Sandals">Сандалии</option>
+                                                            </select>
+                                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="form-check form-check-custom form-check-solid mb-5">
+                                                            <input class="form-check-input" type="checkbox" value="">
+                                                            <label class="form-check-label" style="color: black;">Доставка за счет отправителя</label>
+                                                        </div>
+                                                        <div class="form-check form-check-custom form-check-solid mb-5">
+                                                            <input class="form-check-input" type="checkbox" value="">
+                                                            <label class="form-check-label" style="color: black;">Самовывоз</label>
+                                                        </div>
+                                                        <div class="fv-row">
+                                                            <!--begin::Input-->
+                                                            <div class="form-check form-check-custom form-check-solid mb-5">
+                                                                <input class="form-check-input" type="checkbox" id="kt_ecommerce_add_product_shipping_checkbox" value="1">
+                                                                <label class="form-check-label" style="color: black;">Доставка курьером</label>
+                                                            </div>
+
+                                                        </div>
+                                                        <div id="kt_ecommerce_add_product_shipping" class="mt-10 d-none">
+                                                            <!--begin::Input group-->
+                                                            <div class="mb-10 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label">Weight</label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Editor-->
+                                                                <input type="text" name="weight" class="form-control mb-2" placeholder="Product weight" value="">
+                                                                <!--end::Editor-->
+                                                                <!--begin::Description-->
+                                                                <div class="text-muted fs-7">Set a product weight in kilograms (kg).</div>
+                                                                <!--end::Description-->
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                            <!--begin::Input group-->
+                                                            <div class="fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label">Dimension</label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <div class="d-flex flex-wrap flex-sm-nowrap gap-3">
+                                                                    <input type="number" name="width" class="form-control mb-2" placeholder="Width (w)" value="">
+                                                                    <input type="number" name="height" class="form-control mb-2" placeholder="Height (h)" value="">
+                                                                    <input type="number" name="length" class="form-control mb-2" placeholder="Lengtn (l)" value="">
+                                                                </div>
+                                                                <!--end::Input-->
+                                                                <!--begin::Description-->
+                                                                <div class="text-muted fs-7">Enter the product dimensions in centimeters (cm).</div>
+                                                                <!--end::Description-->
+                                                            </div>
+                                                            <!--end::Input group-->
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <label class="required form-label">Номер ТТН</label>
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Номер ТТН" value="" />
+                                                            <div class="text-muted fs-7">Номер ТТН</div>
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <label class="required form-label">Предоплата</label>
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Предоплата" value="0" />
+                                                            <div class="text-muted fs-7">Предоплата</div>
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <label class="required form-label">Наложенный платеж</label>
+                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Наложенный платеж" value="" />
+                                                            <div class="text-muted fs-7">Наложенный платеж</div>
+                                                        </div>
+                                                        <div class="mb-10 fv-row">
+                                                            <label class="form-label">Примечание</label>
+                                                            <textarea class="form-control form-control-solid" rows="4" name="application" placeholder=""></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Card body-->
+                                                </div>
+                                    </div>
+                                    <!--end::Tab content-->
+                                    <div class="d-flex justify-content-end mt-5">
+                                        <!--begin::Button-->
+                                        <a href="../orders/" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Отменить</a>
+                                        <!--end::Button-->
+                                        <!--begin::Button-->
+                                        <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+                                            <span class="indicator-label">Сохранить</span>
+                                            <span class="indicator-progress">Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        </button>
+                                        <!--end::Button-->
+                                    </div>
+                                </div>
+                                <!--end::Main column-->
+                            </form>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Content container-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+                <!--end::Content wrapper-->
+                <!--begin::Footer-->
+
+                <!--end::Footer-->
+            </div>
+        </div>
+        <!--end::Content wrapper-->
+        <!--begin::Footer-->
+
+        <!--end::Footer-->
+    </div>
+</div>
+<!--end::Row-->
+
+{% endblock content %}
