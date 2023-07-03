@@ -1,0 +1,162 @@
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Главная" %}{% endblock %}
+
+{% block content %}
+
+<!--begin::Row-->
+<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+    <!--begin::Col-->
+    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+        <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+            <!--begin::Content wrapper-->
+            <div class="d-flex flex-column flex-column-fluid">
+                <!--begin::Toolbar-->
+                <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                    <!--begin::Toolbar container-->
+
+                </div>
+                <!--end::Toolbar-->
+                <!--begin::Content-->
+                <div id="kt_app_content" class="app-content flex-column-fluid">
+                    <!--begin::Content container-->
+                    <div id="kt_app_content_container" class="app-container container-xxl">
+                        <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="/vendor/categories/">
+                            {% csrf_token %}
+                            <!--begin::Aside column-->
+                            <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+                                <!--begin::Thumbnail settings-->
+                                <div class="card card-flush py-4">
+                                    <!--begin::Card header-->
+                                    <div class="card-header">
+                                        <!--begin::Card title-->
+                                        <div class="card-title">
+                                            <h2>Изображение обложки</h2>
+                                        </div>
+                                        <!--end::Card title-->
+                                    </div>
+                                    <!--end::Card header-->
+                                    <!--begin::Card body-->
+                                    <div class="card-body text-center pt-0">
+                                        <!--begin::Image input-->
+                                        <!--begin::Image input placeholder-->
+                                        <style>.image-input-placeholder { background-image: url('assets/media/svg/files/blank-image.svg'); } [data-bs-theme="dark"] .image-input-placeholder { background-image: url('assets/media/svg/files/blank-image-dark.svg'); }</style>
+                                        <!--end::Image input placeholder-->
+                                        <!--begin::Image input-->
+                                        <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
+                                            <!--begin::Preview existing avatar-->
+                                            <div class="image-input-wrapper w-150px h-150px"></div>
+                                            <!--end::Preview existing avatar-->
+                                            <!--begin::Label-->
+                                            <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
+                                                <!--begin::Icon-->
+                                                <i class="ki-duotone ki-pencil fs-7">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                                <!--end::Icon-->
+                                                <!--begin::Inputs-->
+                                                <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                                <input type="hidden" name="avatar_remove" />
+                                                <!--end::Inputs-->
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Cancel-->
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel avatar">
+                                                <i class="ki-duotone ki-cross fs-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </span>
+                                            <!--end::Cancel-->
+                                            <!--begin::Remove-->
+                                            <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove avatar">
+                                                <i class="ki-duotone ki-cross fs-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                            </span>
+                                            <!--end::Remove-->
+                                        </div>
+                                        <!--end::Image input-->
+                                        <!--begin::Description-->
+                                        <!--end::Description-->
+                                    </div>
+                                    <!--end::Card body-->
+                                </div>
+                                <!--end::Thumbnail settings-->
+
+                                <!--end::Template settings-->
+                            </div>
+                            <!--end::Aside column-->
+                            <!--begin::Main column-->
+                            <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+                                <!--begin::General options-->
+                                <div class="card card-flush py-4">
+                                    <!--begin::Card header-->
+                                    <div class="card-header">
+                                        <div class="card-title">
+                                            <h2>Добавить категорию</h2>
+                                        </div>
+                                    </div>
+                                    <!--end::Card header-->
+                                    <!--begin::Card body-->
+                                    <div class="card-body pt-0">
+                                        <!--begin::Input group-->
+                                        <div class="mb-10 fv-row">
+                                            <!--begin::Label-->
+                                            <label class="required form-label">Название</label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="text" name="category_name" class="form-control mb-2" placeholder="Футболки" value="" />
+                                            <!--end::Input-->
+                                            <!--begin::Description-->
+                                            <!--end::Description-->
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div>
+                                            <!--begin::Label-->
+                                            <label class="form-label">Описание</label>
+                                            <!--end::Label-->
+                                            <!--begin::Editor-->
+                                            <textarea class="form-control form-control" rows="4" name="application" placeholder="Введите описание"></textarea>
+                                            <!--end::Editor-->
+                                            <!--begin::Description-->
+                                            <!--end::Description-->
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Card header-->
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <!--begin::Button-->
+                                    <a href="../categories/" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Назад</a>
+                                    <!--end::Button-->
+                                    <!--begin::Button-->
+                                    <button type="submit" id="kt_ecommerce_add_category_submit" class="btn btn-primary">
+                                        <span class="indicator-label">Сохранить</span>
+                                        <span class="indicator-progress">Please wait...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+                                    <!--end::Button-->
+                                </div>
+                            </div>
+                            <!--end::Main column-->
+                        </form>
+                    </div>
+                    <!--end::Content container-->
+                </div>
+                <!--end::Content-->
+            </div>
+            <!--end::Content wrapper-->
+            <!--begin::Footer-->
+            <!--end::Footer-->
+        </div>
+    </div>
+</div>
+<!--end::Row-->
+
+{% endblock content %}

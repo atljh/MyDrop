@@ -61,18 +61,15 @@ class Dropshipper(models.Model):
 class Vendor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='vendor')
 
-
     def get_orders(self):
         return self.user.vendor.orders.all()
+
+    def get_categories(self):
+        return self.user.vendor.categories.all()
 
     def __str__(self) -> str:
         return f'{self.user}'
 
-class Product(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self) -> str:
-        return self.name
 
 class Order(models.Model):
     STATUS_CHOICES = (
@@ -154,3 +151,37 @@ class DropOrder(models.Model):
     phone_number = models.CharField(max_length=20)
     vendor = models.ForeignKey('Vendor', null=True, blank=True, on_delete=models.SET_NULL)
     
+
+class Category(models.Model):
+    user = models.ForeignKey(Vendor, on_delete=models.CASCADE, default=False, related_name='categories')
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to ='assets/uploads')
+
+    def get_products(self):
+        return Product.objects.filter(category=self)
+    
+    def __str__(self):
+        return self.name
+    
+
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=False)
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to ='assets/uploads')
+
+    def __str__(self):
+        return self.name
+    
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+
+    user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='products')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.name

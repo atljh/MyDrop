@@ -196,7 +196,7 @@ var KTAppEcommerceSaveCategory = function () {
                     'category_name': {
                         validators: {
                             notEmpty: {
-                                message: 'Category name is required'
+                                message: 'Имя категории обязательно'
                             }
                         }
                     }
@@ -213,55 +213,91 @@ var KTAppEcommerceSaveCategory = function () {
         );
 
         // Handle submit button
-        submitButton.addEventListener('click', e => {
-            e.preventDefault();
+// ...
+// Handle submit button
+submitButton.addEventListener('click', e => {
+    e.preventDefault();
 
-            // Validate form before submit
-            if (validator) {
-                validator.validate().then(function (status) {
-                    console.log('validated!');
+    // Validate form before submit
+    if (validator) {
+        validator.validate().then(function (status) {
+            console.log('validated!');
 
-                    if (status == 'Valid') {
-                        submitButton.setAttribute('data-kt-indicator', 'on');
+            if (status == 'Valid') {
+                submitButton.setAttribute('data-kt-indicator', 'on');
 
-                        // Disable submit button whilst loading
-                        submitButton.disabled = true;
+                // Disable submit button whilst loading
+                submitButton.disabled = true;
 
-                        setTimeout(function () {
-                            submitButton.removeAttribute('data-kt-indicator');
+                // Serialize form data
+                // Get CSRF token from the cookie
+                var csrftoken = $('input[name="csrfmiddlewaretoken"]').prop('value');
 
-                            Swal.fire({
-                                text: "Form has been successfully submitted!",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            }).then(function (result) {
-                                if (result.isConfirmed) {
-                                    // Enable submit button after loading
-                                    submitButton.disabled = false;
+                // Set the CSRF token in the headers
+                const headers = {
+                    'X-CSRFToken': csrftoken
+                };
 
-                                    // Redirect to customers list page
-                                    window.location = form.getAttribute("data-kt-redirect");
-                                }
-                            });
-                        }, 2000);
+                // Serialize form data
+                const formData = new FormData(form);
+
+                // Perform POST request to the server
+                fetch('add_category', {
+                    method: 'POST',
+                    body: formData,
+                    headers: headers
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Process the response as needed
+                    if (data.success) {
+                        Swal.fire({
+                            text: "Категория добавлена успешно!",
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: "Oк",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        }).then(function (result) {
+                            if (result.isConfirmed) {
+                                // Enable submit button after loading
+                                submitButton.disabled = false;
+
+                                // Redirect to customers list page
+                                window.location = form.getAttribute("data-kt-redirect");
+                            }
+                        });
                     } else {
                         Swal.fire({
-                            text: "Sorry, looks like there are some errors detected, please try again.",
+                            text: "Упс, что-то пошло не так.",
                             icon: "error",
                             buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
+                            confirmButtonText: "Ок",
                             customClass: {
                                 confirmButton: "btn btn-primary"
                             }
                         });
                     }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        text: "Упс, что-то пошло не так.",
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ок",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
                 });
             }
-        })
+        });
+    }
+});
+// ...
+
     }
 
     // Public methods
