@@ -130,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-US'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -396,5 +396,16 @@ KT_THEME_VENDORS = {
             "/js/custom/pages/catalog/save-category.js",
             "/js/custom/pages/catalog/save-product.js",
         ]
+    },
+    "orders":{
+        "js": [
+            "/js/custom/pages/catalog/products.js",
+
+        ],
+        "css": [
+            "plugins/global/plugins.bundle.css",
+            "css/style.bundle.css"
+        ],
     }
+    
 }

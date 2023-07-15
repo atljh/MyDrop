@@ -10,16 +10,21 @@ var KTAppEcommerceProducts = function () {
     var initDatatable = function () {
         // Init datatable --- more info on datatables: https://datatables.net/manual/
         datatable = $(table).DataTable({
-            "info": false,
-            'order': [],
-            'pageLength': 10,
-            'columnDefs': [
-                { render: DataTable.render.number(',', '.', 2), targets: 4},
-                { orderable: false, targets: 0 }, // Disable ordering on column 0 (checkbox)
-                { orderable: false, targets: 7 }, // Disable ordering on column 7 (actions)
-            ]
+          info: false,
+          order: [],
+          pageLength: 10,
+          columnDefs: [
+            { 
+              targets: 4,
+              render: function (data, type, row) {
+                return parseFloat(data).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              }
+            },
+            { orderable: false, targets: 0 }, // Disable ordering on column 0 (checkbox)
+            { orderable: false, targets: 7 }, // Disable ordering on column 7 (actions)
+          ]
         });
-
+      
         // Re-init functions on datatable re-draws
         datatable.on('draw', function () {
             handleDeleteRows();
