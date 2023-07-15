@@ -400,12 +400,17 @@ KT_THEME_VENDORS = {
     "orders":{
         "js": [
             "/js/custom/pages/catalog/products.js",
-
         ],
         "css": [
             "plugins/global/plugins.bundle.css",
             "css/style.bundle.css"
         ],
+    },
+    "edit-order":{
+        "js":[
+            'js/custom/apps/ecommerce/sales/save-order.js',
+            'js/custom/apps/ecommerce/sales/listing.js',
+        ]
     }
     
 }

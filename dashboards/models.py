@@ -36,7 +36,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomUserManager()
 
-    # Add related_name arguments to resolve clashes
     groups = models.ManyToManyField(
         'auth.Group',
         blank=True,
@@ -57,9 +56,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class Dropshipper(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return str(self.user)
+
 
 class Vendor(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='vendor')
+    dropshippers = models.ManyToManyField(Dropshipper, related_name='dropshippers')
 
     def get_orders(self):
         return self.user.vendor.orders.all()
@@ -174,7 +177,6 @@ class SubCategory(models.Model):
     def __str__(self):
         return self.name
     
-
 
 class Product(models.Model):
     name = models.CharField(max_length=255)
