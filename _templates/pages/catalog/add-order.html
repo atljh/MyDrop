@@ -33,11 +33,8 @@ context.update({
                         <!--begin::Content container-->
                         <div id="kt_app_content_container" class="app-container container-xxl">
                             <!--begin::Form-->
-                            <form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="../../demo1/dist/apps/ecommerce/catalog/products.html">
-                                <!--begin::Aside column-->
-                           
-                                <!--end::Aside column-->
-                                <!--begin::Main column-->
+                            <form id="kt_ecommerce_edit_order_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="../../demo1/dist/apps/ecommerce/catalog/products.html">
+                                {% csrf_token %}
                                 <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
                                     <!--begin:::Tabs-->
                                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
@@ -57,7 +54,7 @@ context.update({
                                     <div class="tab-content">
                                         <!--begin::Tab pane-->
                                         <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
-                                            <div class="d-flex flex-column gap-7 gap-lg-10">
+                                            <div class="d-flex flex-column gap-7 gap-lg-7">
                                                 <!--begin::General options-->
                                                 <div class="card card-flush py-4">
                                                     <!--begin::Card header-->
@@ -72,34 +69,31 @@ context.update({
                                                         <!--begin::Input group-->
                                                         <div class="mb-10 fv-row">
                                                             <!--begin::Label-->
-                                                            <label class="required form-label">Полное имя {{products}}</label>
+                                                            <label class="form-label" for="full_name">Полное имя</label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" name="full_name" class="form-control mb-2" placeholder="Полное имя" value="" />
+                                                            <input type="text" id="full_name" name="full_name" class="form-control mb-2" placeholder="Полное имя" value="" />
                                                             <!--end::Input-->
                                                             <!--begin::Description-->
                                                             <!--end::Description-->
                                                         </div>
                                                         <div class="mb-10 fv-row">
                                                             <!--begin::Label-->
-                                                            <label class="form-label">Номер телефона</label>
+                                                            <label class="form-label" for="phone_number">Номер телефона</label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" name="phone_number" class="form-control mb-2" placeholder="Номер телефона" value="" />
+                                                            <input type="text" id="phone_number" name="phone_number" class="form-control mb-2" placeholder="Номер телефона" value="" />
                                                             <!--end::Input-->
                                                             <!--begin::Description-->
                                                             <!--end::Description-->
                                                         </div>
                                                         <div class="mb-10 fv-row">
                                                             <!--begin::Label-->
-                                                            <label class="form-label">Дропшиппер</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <!--end::Input-->
-                                                            <select class="form-select mb-2" data-control="select2" data-placeholder="Выберите дропшиппера" data-allow-clear="true" multiple="multiple">
+                                                            <label class="form-label" for="dropshipper">Дропшиппер</label>
+                                                            <select id="dropshipper" name="dropshipper" class="form-select mb-2" data-control="select2" data-placeholder="Выберите дропшиппера" data-allow-clear="true" multiple="multiple">
                                                                 <option></option>
                                                                 {% for drop in dropshippers.all %}
-                                                                <option value="Computers">{{drop.user.first_name}} {{drop.user.last_name}}</option>
+                                                                <option value="{{drop}}">{{ drop.user.first_name }} {{ drop.user.last_name }}</option>
                                                                 {% endfor %}
                                                             </select>
                                                             <span class="dropdown-wrapper" aria-hidden="true"></span>
@@ -108,14 +102,14 @@ context.update({
                                                             <div class="text-muted fs-7">Выберите или добавьте нового.</div>
                                                             <!--end::Description-->
                                                         </div>
-
                                                     </div>
                                                 </div>
-                                                <div class="card card-flush py-4">
+                                                <div id="products">
+                                                <div class="card card-flush py-4" name="add_product_card" id="add_product_card">
                                                     <!--begin::Card header-->
                                                     <div class="card-header">
                                                         <div class="card-title">
-                                                            <h2>Выберите товары</h2>
+                                                            <h2>Выберите товар</h2>
                                                         </div>
                                                     </div>
                                                     <!--end::Card header-->
@@ -123,22 +117,6 @@ context.update({
                                                     <div class="card-body pt-0">
                                                         <div class="d-flex flex-column gap-10">
                                                             <!--begin::Input group-->
-                                                            <div>
-                                                                <!--begin::Label-->
-                                                                <label class="form-label">Add products to this order</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Selected products-->
-                                                                <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 border border-dashed rounded pt-3 pb-1 px-2 mb-5 mh-300px overflow-scroll" id="kt_ecommerce_edit_order_selected_products">
-                                                                    <!--begin::Empty message-->
-                                                                    <span class="w-100 text-muted">Select one or more products from the list below by ticking the checkbox.</span>
-                                                                    <!--end::Empty message-->
-                                                                </div>
-                                                                <!--begin::Selected products-->
-                                                                <!--begin::Total price-->
-                                                                <div class="fw-bold fs-4">Total Cost: $
-                                                                <span id="kt_ecommerce_edit_order_total_price">0.00</span></div>
-                                                                <!--end::Total price-->
-                                                            </div>
                                                             <!--end::Input group-->
                                                             <!--begin::Separator-->
                                                             <div class="separator"></div>
@@ -149,7 +127,7 @@ context.update({
                                                                     <span class="path1"></span>
                                                                     <span class="path2"></span>
                                                                 </i>
-                                                                <input type="text" data-kt-ecommerce-edit-order-filter="search" class="form-control form-control-solid w-100 w-lg-50 ps-12" placeholder="Search Products" />
+                                                                <input type="text" data-kt-ecommerce-edit-order-filter="search" class="form-control form-control-solid w-100 w-lg-50 ps-12" placeholder="Поиск товаров" />
                                                             </div>
                                                             <!--end::Search products-->
                                                             <!--begin::Table-->
@@ -162,290 +140,205 @@ context.update({
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="fw-semibold text-gray-600">
+                                                                    {% for prod in products %}
                                                                     <tr>
                                                                         <td>
                                                                             <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                                                                <input class="form-check-input" type="checkbox" value="1" />
-                                                                            </div>
+                                                                                <input class="form-check-input" type="checkbox" value="1" data-product-id="{{prod.id}}" data-fv-not-empty="true" data-fv-not-empty___message="Выберите продукт" />
+                                                                              </div>                                                                              
                                                                         </td>
                                                                         <td>
                                                                             <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_1">
                                                                                 <!--begin::Thumbnail-->
-                                                                                <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="symbol symbol-50px">
-                                                                                    <span class="symbol-label" style="background-image:url(assets/media//stock/ecommerce/1.gif);"></span>
+                                                                                <a href="{{prod.id}}" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(/{{prod.image}});"></span>
                                                                                 </a>
                                                                                 <!--end::Thumbnail-->
                                                                                 <div class="ms-5">
                                                                                     <!--begin::Title-->
-                                                                                    <a href="../../demo1/dist/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary fs-5 fw-bold">Product 1</a>
+                                                                                    <a href="../product/{{prod.id}}" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{prod.name}}</a>
                                                                                     <!--end::Title-->
                                                                                     <!--begin::Price-->
-                                                                                    <div class="fw-semibold fs-7">Price: $
-                                                                                    <span data-kt-ecommerce-edit-order-filter="price">177.00</span></div>
+                                                                                    <div class="fw-semibold fs-7">Цена: 
+                                                                                    <span data-kt-ecommerce-edit-order-filter="price">{{prod.price}}</span></div>
                                                                                     <!--end::Price-->
                                                                                     <!--begin::SKU-->
-                                                                                    <div class="text-muted fs-7">SKU: 01867005</div>
+                                                                                    <div class="text-muted fs-7" name="product_id" id="{{prod.id}}">{{prod.id}}</div>
                                                                                     <!--end::SKU-->
                                                                                 </div>
                                                                             </div>
                                                                         </td>
                                                                         <td class="text-end pe-5" data-order="23">
-                                                                            <span class="fw-bold ms-3">23</span>
+                                                                            <span class="fw-bold ms-3">{{prod.quantity}}</span>
                                                                         </td>
                                                                     </tr>
+                                                                    {% endfor %}
                                                                 </tbody>
                                                             </table>
+                                                            <div>
+                                                                <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 border border-dashed rounded pt-3 pb-1 px-2 mb-5 mh-300px overflow-scroll" id="kt_ecommerce_edit_order_selected_products">
+                                                                    <!--begin::Empty message-->
+                                                                    <span class="w-100 text-muted" name="product"></span>
+                                                                    <!--end::Empty message-->
+                                                                </div>
+                                                            </div>
                                                             <!--end::Table-->
                                                         </div>
                                                     </div>
                                                     <!--end::Card header-->
-                                                </div>
-                                                <div class="form-check form-check-custom form-check-solid">
-                                                    <input class="form-check-input" type="checkbox" value="" id="same_as_billing" checked="checked" />
-                                                    <label class="form-check-label" for="same_as_billing">Shipping address is the same as billing address</label>
-                                                </div>
-                                                <div class="card card-flush py-4">
-                                                    <!--begin::Card header-->
-
-                                                    <!--end::Card header-->
-                                                    <!--begin::Card body-->
-                                                    <div class="card-body pt-0">
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Количество" value="1" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <div class="text-muted fs-7">Количество</div>
-                                                            <!--end::Description-->
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Себестоимость" value="" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <div class="text-muted fs-7">Себестоимость</div>
-                                                            <!--end::Description-->
-                                                        </div>
-                                                        <div class="mb-10 fv-row">  
-                                                            <!--begin::Label-->
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Дроп цена" value="" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <div class="text-muted fs-7">Дроп цена</div>
-                                                            <!--end::Description-->
-                                                        </div>
-                                                        <div class="mb-10 fv-row">  
-                                                            <!--begin::Label-->
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Цена продажи" value="" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <div class="text-muted fs-7">Цена продажи</div>
-                                                            <!--end::Description-->
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Размер" value="" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <div class="text-muted fs-7">Размер</div>
-                                                            <!--end::Description-->
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Примечание к размеру" value="" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <div class="text-muted fs-7">Примечание к размеру</div>
-                                                            <!--end::Description-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Input group-->
-
-                                                        <!--end::Input group-->
-                                                    </div>
-                                                    <!--end::Card body-->
-                                                </div>
-                                                <div class="card card-flush py-4">
-                                                    <!--begin::Card header-->
-                                                    <div class="card-header">
-                                                        <div class="card-title">
-                                                            <h2>Доставка</h2>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Card header-->
-                                                    <!--begin::Card body-->
-                                                    <div class="card-body pt-0">
-                                                        <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
-                                                            <label class="required form-label">Контрагент</label>
-                                                            <select class="form-select mb-2" data-control="select2" data-placeholder="Выберите контрагента" data-allow-clear="true" multiple="multiple">
-                                                                <option></option>
-                                                                <option value="Computers">Компьютеры</option>
-                                                                <option value="Watches">Часы</option>
-                                                                <option value="Headphones">Наушники</option>
-                                                                <option value="Footwear">Обувь</option>
-                                                                <option value="Cameras">Камеры</option>
-                                                                <option value="Shirts">Рубашки</option>
-                                                                <option value="Household">Товары для дома</option>
-                                                                <option value="Handbags">Сумки</option>
-                                                                <option value="Wines">Вина</option>
-                                                                <option value="Sandals">Сандалии</option>
-                                                            </select>
-                                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
-                                                            </span>
-                                                        </div>
-                                                        <!--begin::Input group-->
-                                                        <div class="mb-10 fv-row">
-                                                            <label class="required form-label">Вес</label>
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Вес" value="" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <!--end::Description-->
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <label class="required form-label">Количество мест</label>
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Количество мест" value="1" />
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <label class="required form-label">Содержимое</label>
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Содержимое" value="" />
-                                                            <div class="text-muted fs-7">Описание содержимого посылки</div>
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
-                                                            <label class="required form-label">Город получателя</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <!--end::Input-->
-                                                            <select class="form-select mb-2" data-control="select2" data-placeholder="Город получателя" data-allow-clear="true" multiple="multiple">
-                                                                <option></option>
-                                                                <option value="Computers">Компьютеры</option>
-                                                                <option value="Watches">Часы</option>
-                                                                <option value="Headphones">Наушники</option>
-                                                                <option value="Footwear">Обувь</option>
-                                                                <option value="Cameras">Камеры</option>
-                                                                <option value="Shirts">Рубашки</option>
-                                                                <option value="Household">Товары для дома</option>
-                                                                <option value="Handbags">Сумки</option>
-                                                                <option value="Wines">Вина</option>
-                                                                <option value="Sandals">Сандалии</option>
-                                                            </select>
-                                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
-                                                            </span>
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
-                                                            <label class="required form-label">Отделение почты получателя</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <!--end::Input-->
-                                                            <select class="form-select mb-2" data-control="select2" data-placeholder="Отделение почты получателя" data-allow-clear="true" multiple="multiple">
-                                                                <option></option>
-                                                                <option value="Computers">Компьютеры</option>
-                                                                <option value="Watches">Часы</option>
-                                                                <option value="Headphones">Наушники</option>
-                                                                <option value="Footwear">Обувь</option>
-                                                                <option value="Cameras">Камеры</option>
-                                                                <option value="Shirts">Рубашки</option>
-                                                                <option value="Household">Товары для дома</option>
-                                                                <option value="Handbags">Сумки</option>
-                                                                <option value="Wines">Вина</option>
-                                                                <option value="Sandals">Сандалии</option>
-                                                            </select>
-                                                            <span class="dropdown-wrapper" aria-hidden="true"></span>
-                                                            </span>
-                                                        </div>
-                                                        <div class="form-check form-check-custom form-check-solid mb-5">
-                                                            <input class="form-check-input" type="checkbox" value="">
-                                                            <label class="form-check-label" style="color: black;">Доставка за счет отправителя</label>
-                                                        </div>
-                                                        <div class="form-check form-check-custom form-check-solid mb-5">
-                                                            <input class="form-check-input" type="checkbox" value="">
-                                                            <label class="form-check-label" style="color: black;">Самовывоз</label>
-                                                        </div>
-                                                        <div class="fv-row">
-                                                            <!--begin::Input-->
-                                                            <div class="form-check form-check-custom form-check-solid mb-5">
-                                                                <input class="form-check-input" type="checkbox" id="kt_ecommerce_add_product_shipping_checkbox" value="1">
-                                                                <label class="form-check-label" style="color: black;">Доставка курьером</label>
-                                                            </div>
-
-                                                        </div>
-                                                        <div id="kt_ecommerce_add_product_shipping" class="mt-10 d-none">
+                                                    <div class="card card-flush py-4">
+                                                        <!--begin::Card header-->
+                                                        <!--end::Card header-->
+                                                        <!--begin::Card body-->
+                                                        <div class="card-body pt-0">
                                                             <!--begin::Input group-->
                                                             <div class="mb-10 fv-row">
                                                                 <!--begin::Label-->
-                                                                <label class="form-label">Weight</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Editor-->
-                                                                <input type="text" name="weight" class="form-control mb-2" placeholder="Product weight" value="">
-                                                                <!--end::Editor-->
-                                                                <!--begin::Description-->
-                                                                <div class="text-muted fs-7">Set a product weight in kilograms (kg).</div>
-                                                                <!--end::Description-->
-                                                            </div>
-                                                            <!--end::Input group-->
-                                                            <!--begin::Input group-->
-                                                            <div class="fv-row">
-                                                                <!--begin::Label-->
-                                                                <label class="form-label">Dimension</label>
+                                                                <label class="form-label" for="products_amount">Количество</label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Input-->
-                                                                <div class="d-flex flex-wrap flex-sm-nowrap gap-3">
-                                                                    <input type="number" name="width" class="form-control mb-2" placeholder="Width (w)" value="">
-                                                                    <input type="number" name="height" class="form-control mb-2" placeholder="Height (h)" value="">
-                                                                    <input type="number" name="length" class="form-control mb-2" placeholder="Lengtn (l)" value="">
-                                                                </div>
+                                                                <input type="text" name="products_amount" class="form-control mb-2" placeholder="Количество" value="1" />
                                                                 <!--end::Input-->
                                                                 <!--begin::Description-->
-                                                                <div class="text-muted fs-7">Enter the product dimensions in centimeters (cm).</div>
                                                                 <!--end::Description-->
                                                             </div>
-                                                            <!--end::Input group-->
+                                                            <div class="mb-10 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label" for="cost_price">Себестоимость</label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" name="cost_price" class="form-control mb-2" placeholder="Себестоимость" value="" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Description-->
+                                                                <!--end::Description-->
+                                                            </div>
+                                                            <div class="mb-10 fv-row">  
+                                                                <!--begin::Label-->
+                                                                <label class="form-label" for="drop_price">Дроп цена</label>
+
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" name="drop_price" class="form-control mb-2" placeholder="Дроп цена" value="" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Description-->
+                                                                <!--end::Description-->
+                                                            </div>
+                                                            <div class="mb-10 fv-row">  
+                                                                <!--begin::Label-->
+                                                                <label class="form-label" for="sell_price">Цена продажи</label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Input-->
+                                                                <input type="text" name="sell_price" class="form-control mb-2" placeholder="Цена продажи" value="" />
+                                                                <!--end::Input-->
+                                                                <!--begin::Description-->
+                                                                <!--end::Description-->
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label">Размер</label>
+                                                                <select class="form-select mb-2" data-control="select2" data-placeholder="Выберите размер" data-allow-clear="true" multiple="multiple" name="sizes">
+                                                                    <option></option>
+                                                                    <option value="S">S</option>
+                                                                    <option value="M">M</option>
+                                                                    <option value="L">L</option>
+                                                                </select>
+                                                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </div>
                                                         </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <label class="required form-label">Номер ТТН</label>
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Номер ТТН" value="" />
-                                                            <div class="text-muted fs-7">Номер ТТН</div>
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <label class="required form-label">Предоплата</label>
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Предоплата" value="0" />
-                                                            <div class="text-muted fs-7">Предоплата</div>
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <label class="required form-label">Наложенный платеж</label>
-                                                            <input type="text" name="products_amount" class="form-control mb-2" placeholder="Наложенный платеж" value="" />
-                                                            <div class="text-muted fs-7">Наложенный платеж</div>
-                                                        </div>
-                                                        <div class="mb-10 fv-row">
-                                                            <label class="form-label">Примечание</label>
-                                                            <textarea class="form-control form-control" rows="4" name="application" placeholder=""></textarea>
-                                                        </div>
+                                                        <!--end::Card body-->
                                                     </div>
-                                                    <!--end::Card body-->
+                                                </div>
+                                                </div>
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <button type="button" class="btn btn-outline btn-light-primary" id="add_product"><i class="ki ki-duotone ki-plus icon"></i>Добавить товар</button>
+                                                </div>
+                                                                 
+                                                    <div class="card card-flush py-4">
+                                                        <!--begin::Card header-->
+                                                        <div class="card-header">
+                                                            <div class="card-title">
+                                                                <h2>Доставка</h2>
+                                                            </div>
+                                                        </div>
+                                                        <!--end::Card header-->
+                                                        <!--begin::Card body-->
+                                                        <div class="card-body pt-0">
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="contractor">Контрагент</label>
+                                                                <select id="contractor" name="contractor" class="form-select mb-2" data-control="select2" data-placeholder="Выберите контрагента" data-allow-clear="true" multiple="multiple">
+                                                                    <option></option>
+                                                                    <option value="Computers">Компьютеры</option>
+  
+                                                                </select>
+                                                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="weight">Вес</label>
+                                                                <input type="text" id="weight" name="weight" class="form-control mb-2" placeholder="Вес" value="" />
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="quantity">Количество мест</label>
+                                                                <input type="text" id="quantity" name="quantity" class="form-control mb-2" placeholder="Количество мест" value="1" />
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="contents">Содержимое</label>
+                                                                <input type="text" id="contents" name="contents" class="form-control mb-2" placeholder="Содержимое" value="" />
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="recipient_city">Город получателя</label>
+                                                                <select id="recipient_city" name="recipient_city" class="form-select mb-2" data-control="select2" data-placeholder="Город получателя" data-allow-clear="true" multiple="multiple">
+                                                                    <option></option>
+                                                                    <option value="Computers">Компьютеры</option>
+                                                                </select>
+                                                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="recipient_post_office">Отделение почты получателя</label>
+                                                                <select id="recipient_post_office" name="recipient_post_office" class="form-select mb-2" data-control="select2" data-placeholder="Отделение почты получателя" data-allow-clear="true" multiple="multiple">
+                                                                    <option></option>
+                                                                    <option value="Computers">Компьютеры</option>
+                                                                </select>
+                                                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                            </div>
+                                                            <div class="form-check form-check-custom form-check-solid mb-5">
+                                                                <input class="form-check-input" type="checkbox" id="sender_shipping" name="sender_shipping" value="">
+                                                                <label class="form-check-label" for="sender_shipping" style="color: black;">Доставка за счет отправителя</label>
+                                                            </div>
+                                                            <div class="form-check form-check-custom form-check-solid mb-5">
+                                                                <input class="form-check-input" type="checkbox" id="pickup" name="pickup" value="">
+                                                                <label class="form-check-label" for="pickup" style="color: black;">Самовывоз</label>
+                                                            </div>
+                                                            <div class="fv-row">
+                                                                <div class="form-check form-check-custom form-check-solid mb-5">
+                                                                    <input class="form-check-input" type="checkbox" id="courier_shipping" name="courier_shipping" value="1">
+                                                                    <label class="form-check-label" for="courier_shipping" style="color: black;">Доставка курьером</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="ttn_number">Номер ТТН</label>
+                                                                <input type="text" id="ttn_number" name="ttn_number" class="form-control mb-2" placeholder="Номер ТТН" value="" />
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="prepayment">Предоплата</label>
+                                                                <input type="text" id="prepayment" name="prepayment" class="form-control mb-2" placeholder="Предоплата" value="0" />
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="cod">Наложенный платеж</label>
+                                                                <input type="text" id="cod" name="cod" class="form-control mb-2" placeholder="Наложенный платеж" value="" />
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="note">Примечание</label>
+                                                                <textarea id="note" class="form-control form-control" rows="4" name="note" placeholder=""></textarea>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!--end::Card body-->
+                                                    </div>
                                                 </div>
                                     </div>
-                                    <!--end::Tab content-->
                                     <div class="d-flex justify-content-end mt-5">
-                                        <!--begin::Button-->
                                         <a href="../orders/" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Отменить</a>
-                                        <!--end::Button-->
-                                        <!--begin::Button-->
-                                        <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-primary">
+                                        <button type="button" id="kt_ecommerce_edit_order_submit" class="btn btn-primary">
                                             <span class="indicator-label">Сохранить</span>
                                             <span class="indicator-progress">Please wait...
                                             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

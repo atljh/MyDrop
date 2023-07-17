@@ -82,10 +82,10 @@ class Order(models.Model):
 
     user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='orders')
 
+    phone_number = models.CharField(max_length=30, default='')
     date = models.DateTimeField(auto_now_add=True, null=True)
     full_name = models.CharField(max_length=100)
     dropshipper = models.ForeignKey('Dropshipper', null=True, blank=True, on_delete=models.SET_NULL)
-    product = models.ForeignKey('Product', null=True, blank=True, on_delete=models.CASCADE)
     city = models.CharField(max_length=255, blank=True)
     amount = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=10)    
     status = models.CharField(max_length=9,
@@ -153,7 +153,7 @@ class DropOrder(models.Model):
     full_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=20)
     vendor = models.ForeignKey('Vendor', null=True, blank=True, on_delete=models.SET_NULL)
-    
+
 
 class Category(models.Model):
     user = models.ForeignKey(Vendor, on_delete=models.CASCADE, default=False, related_name='categories')
@@ -177,13 +177,25 @@ class SubCategory(models.Model):
     def __str__(self):
         return self.name
     
-
 class Product(models.Model):
     name = models.CharField(max_length=255)
-
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='products')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
+    quantity = models.IntegerField(default=1)
 
+    image = models.ImageField(upload_to='assets/uploads/', null=True, blank=True)
+    
     def __str__(self) -> str:
         return self.name
+    
+
+
+class OrderProduct(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='products')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    cost_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    drop_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    sell_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)

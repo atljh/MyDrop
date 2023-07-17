@@ -48,7 +48,7 @@ License: For each use you must have a valid license purchased only from above li
                                 <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_641d51003cf1f">
                                     <!--begin::Header-->
                                     <div class="px-7 py-5">
-                                        <div class="fs-5 text-dark fw-bold">Filter Options</div>
+                                        <div class="fs-5 text-dark fw-bold">Параметры</div>
                                     </div>
                                     <!--end::Header-->
                                     <!--begin::Menu separator-->
@@ -59,16 +59,15 @@ License: For each use you must have a valid license purchased only from above li
                                         <!--begin::Input group-->
                                         <div class="mb-10">
                                             <!--begin::Label-->
-                                            <label class="form-label fw-semibold">Status:</label>
+                                            <label class="form-label fw-semibold">Статус:</label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
                                             <div>
-                                                <select class="form-select form-select-solid" data-kt-select2="true" data-placeholder="Select option" data-dropdown-parent="#kt_menu_641d51003cf1f" data-allow-clear="true">
+                                                <select class="form-select form-select-solid" data-kt-select2="true" data-placeholder="Выберите" data-dropdown-parent="#kt_menu_641d51003cf1f" data-allow-clear="true">
                                                     <option></option>
-                                                    <option value="1">Approved</option>
-                                                    <option value="2">Pending</option>
-                                                    <option value="2">In Process</option>
-                                                    <option value="2">Rejected</option>
+                                                    <option value="1">Разрешен</option>
+                                                    <option value="2">В процессе</option>
+                                                    <option value="2">Отменен</option>
                                                 </select>
                                             </div>
                                             <!--end::Input-->
@@ -155,13 +154,13 @@ License: For each use you must have a valid license purchased only from above li
                                 <!--end::Card title-->
                                 <!--begin::Card toolbar-->
                                 <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                                    <div class="w-100 mw-150px">
+                                    <div class="w-100 mw-300px">
                                         <!--begin::Select2-->
-                                        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="Все" data-kt-ecommerce-product-filter="status">
+                                        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="За последние 30 дней" data-kt-ecommerce-product-filter="status">
                                             <option></option>
                                             <option value="all">Все</option>
                                             <option value="published">За последние 30 дней</option>
-                                            <option value="scheduled">За этот месяц</option>
+                                            <option value="scheduled">За эту неделю</option>
                                             <option value="inactive">За этот день</option>
                                         </select>
                                         <!--end::Select2-->

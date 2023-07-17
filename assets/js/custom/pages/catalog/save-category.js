@@ -213,8 +213,6 @@ var KTAppEcommerceSaveCategory = function () {
         );
 
         // Handle submit button
-// ...
-// Handle submit button
 submitButton.addEventListener('click', e => {
     e.preventDefault();
 
@@ -231,7 +229,7 @@ submitButton.addEventListener('click', e => {
 
                 // Serialize form data
                 // Get CSRF token from the cookie
-                var csrftoken = $('input[name="csrfmiddlewaretoken"]').prop('value');
+                let csrftoken = $('input[name="csrfmiddlewaretoken"]').prop('value');
 
                 // Set the CSRF token in the headers
                 const headers = {

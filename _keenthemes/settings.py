@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     # Keenthemes Apps
     'dashboards.apps.DashboardsConfig',
     'auth.apps.AuthConfig',
+    # Custom
+    'rest_framework',
+    'corsheaders',
 ]
 AUTH_USER_MODEL = 'dashboards.CustomUser'
 
@@ -49,6 +52,7 @@ AUTH_USER_MODEL = 'dashboards.CustomUser'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -56,6 +60,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 ]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = '_keenthemes.urls'
 
@@ -401,10 +412,7 @@ KT_THEME_VENDORS = {
         "js": [
             "/js/custom/pages/catalog/products.js",
         ],
-        "css": [
-            "plugins/global/plugins.bundle.css",
-            "css/style.bundle.css"
-        ],
+
     },
     "edit-order":{
         "js":[
@@ -413,4 +421,14 @@ KT_THEME_VENDORS = {
         ]
     }
     
+}
+
+
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
 }

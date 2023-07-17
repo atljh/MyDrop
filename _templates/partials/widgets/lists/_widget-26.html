@@ -83,9 +83,10 @@
 	<!--begin::Body-->
 	<div class="card-body pt-5">
 		<!--begin::Item-->
+		{% for order in request.user.vendor.orders.all %}
 		<div class="d-flex flex-stack">
 			<!--begin::Section-->
-			<a href="#" class="text-primary fw-semibold fs-6 me-2">Товар #3</a>
+			<a href="../orders/{{order.id}}" class="text-primary fw-semibold fs-6 me-2">Товар #{{order.id}}</a>
 			<!--end::Section-->
 			<!--begin::Action-->
 			<button type="button" class="btn btn-icon btn-sm h-auto btn-color-gray-400 btn-active-color-primary justify-content-end">{% getIcon 'exit-right-corner' 'fs-2' %}</button>
@@ -94,30 +95,8 @@
 		<!--end::Item-->
 		<!--begin::Separator-->
 		<div class="separator separator-dashed my-3"></div>
-		<!--end::Separator-->
-		<!--begin::Item-->
-		<div class="d-flex flex-stack">
-			<!--begin::Section-->
-			<a href="#" class="text-primary fw-semibold fs-6 me-2">Товар #2</a>
-			<!--end::Section-->
-			<!--begin::Action-->
-			<button type="button" class="btn btn-icon btn-sm h-auto btn-color-gray-400 btn-active-color-primary justify-content-end">{% getIcon 'exit-right-corner' 'fs-2' %}</button>
-			<!--end::Action-->
-		</div>
-		<!--end::Item-->
-		<!--begin::Separator-->
-		<div class="separator separator-dashed my-3"></div>
-		<!--end::Separator-->
-		<!--begin::Item-->
-		<div class="d-flex flex-stack">
-			<!--begin::Section-->
-			<a href="#" class="text-primary fw-semibold fs-6 me-2">Товар #1</a>
-			<!--end::Section-->
-			<!--begin::Action-->
-			<button type="button" class="btn btn-icon btn-sm h-auto btn-color-gray-400 btn-active-color-primary justify-content-end">{% getIcon 'exit-right-corner' 'fs-2' %}</button>
-			<!--end::Action-->
-		</div>
-		<!--end::Item-->
+		{% endfor %}
+
 	</div>
 	<!--end::Body-->
 </div>
