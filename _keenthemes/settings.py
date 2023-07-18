@@ -408,9 +408,15 @@ KT_THEME_VENDORS = {
             "/js/custom/pages/catalog/save-product.js",
         ]
     },
+    "categories":{
+        "js":[
+            "/js/custom/pages/catalog/categories.js",
+        ]
+    },
     "orders":{
         "js": [
-            "/js/custom/pages/catalog/products.js",
+            "/js/custom/apps/ecommerce/sales/listing.js",
+            # "/js/custom/pages/catalog/products.js",
         ],
 
     },

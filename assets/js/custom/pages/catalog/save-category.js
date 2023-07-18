@@ -63,54 +63,7 @@ var KTAppEcommerceSaveCategory = function () {
         });
     }
 
-    // Init form repeater --- more info: https://github.com/DubFriend/jquery.repeater
-    const initFormRepeater = () => {
-        $('#kt_ecommerce_add_category_conditions').repeater({
-            initEmpty: false,
 
-            defaultValues: {
-                'text-input': 'foo'
-            },
-
-            show: function () {
-                $(this).slideDown();
-
-                // Init select2 on new repeated items
-                initConditionsSelect2();
-            },
-
-            hide: function (deleteElement) {
-                $(this).slideUp(deleteElement);
-            }
-        });
-    }
-
-    // Init condition select2
-    const initConditionsSelect2 = () => {
-        // Tnit new repeating condition types
-        const allConditionTypes = document.querySelectorAll('[data-kt-ecommerce-catalog-add-category="condition_type"]');
-        allConditionTypes.forEach(type => {
-            if ($(type).hasClass("select2-hidden-accessible")) {
-                return;
-            } else {
-                $(type).select2({
-                    minimumResultsForSearch: -1
-                });
-            }
-        });
-
-        // Tnit new repeating condition equals
-        const allConditionEquals = document.querySelectorAll('[data-kt-ecommerce-catalog-add-category="condition_equals"]');
-        allConditionEquals.forEach(equal => {
-            if ($(equal).hasClass("select2-hidden-accessible")) {
-                return;
-            } else {
-                $(equal).select2({
-                    minimumResultsForSearch: -1
-                });
-            }
-        });
-    }
 
     // Category status handler
     const handleStatus = () => {
@@ -304,8 +257,6 @@ submitButton.addEventListener('click', e => {
             // Init forms
             initQuill();
             initTagify();
-            initFormRepeater();
-            initConditionsSelect2();
 
             // Handle forms
             handleStatus();

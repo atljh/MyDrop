@@ -23,7 +23,7 @@
                 <div id="kt_app_content" class="app-content flex-column-fluid">
                     <!--begin::Content container-->
                     <div id="kt_app_content_container" class="app-container container-xxl">
-                        <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="/vendor/categories/"  enctype="multipart/form-data">
+                        <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row" data-kt-redirect="/vendor/categories/{{category.id}}"  enctype="multipart/form-data">
                             {% csrf_token %}
                             <!--begin::Aside column-->
                             <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
@@ -80,15 +80,10 @@
                                             </span>
                                             <!--end::Remove-->
                                         </div>
-                                        <!--end::Image input-->
-                                        <!--begin::Description-->
-                                        <!--end::Description-->
+
                                     </div>
                                     <!--end::Card body-->
                                 </div>
-                                <!--end::Thumbnail settings-->
-
-                                <!--end::Template settings-->
                             </div>
                             <!--end::Aside column-->
                             <!--begin::Main column-->
@@ -98,7 +93,7 @@
                                     <!--begin::Card header-->
                                     <div class="card-header">
                                         <div class="card-title">
-                                            <h2>Добавить категорию</h2>
+                                            <h2>Добавить подкатегорию для категории "{{category.name}}"</h2>
                                         </div>
                                     </div>
                                     <div class="card-body pt-0">
@@ -114,7 +109,7 @@
                                         <div class="form-check form-check-custom form-check-solid mb-5" style="margin-top: 20px;">
                                             <input class="form-check-input" type="checkbox" id="hidden_from_drop" name="hidden_from_drop" value="">
                                             <label class="form-check-label" for="hidden_from_drop" style="color: black;">Скрытый от дропшиппера</label>
-                                        </div>       
+                                        </div>
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     <a href="../categories/" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Назад</a>

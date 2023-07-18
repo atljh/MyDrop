@@ -1,7 +1,5 @@
 from django import forms
-from django.forms import inlineformset_factory, formset_factory
-
-from dashboards.models import Order, OrderProduct, Product
+from dashboards.models import Order, OrderProduct, Product, Category, SubCategory
 
 
 class OrderProductForm(forms.ModelForm):
@@ -25,4 +23,21 @@ class OrderProductForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['full_name', 'phone_number']
+        fields = ['full_name', 'phone_number', 'city']
+
+
+class CategoryForm(forms.ModelForm):
+    image = forms.ImageField(required=False)  # Make the image field optional
+
+    class Meta:
+        model = Category
+        fields = ['name', 'description', 'hidden_from_drop', 'image']
+
+    
+
+class SubCategoryForm(forms.ModelForm):
+    image = forms.ImageField(required=False)
+
+    class Meta:
+        model = SubCategory
+        fields = ['name', 'description', 'hidden_from_drop', 'image']

@@ -15,9 +15,8 @@ from django.http import HttpResponseRedirect
 from django.forms import formset_factory
 
 import json
-from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct
-from .serializers import CategorySerializer, OrderSerializer, ProductSerializer, DropshipperSerializer
-from .forms import OrderForm, OrderProductForm
+from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory
+from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -96,7 +95,6 @@ class AddOrderView(LoginRequiredMixin, TemplateView):
     def post(self, request):
         data = json.loads(request.body)
         order_form = OrderForm(data)
-        print(data)
         if order_form.is_valid():
             order = order_form.save(commit=False)
             order.user = request.user.vendor
@@ -109,51 +107,123 @@ class AddOrderView(LoginRequiredMixin, TemplateView):
                     product.order = order
                     product.save()
                 else:
-                    return JsonResponse({'success': False, 'errors': product_form.errors})
+                    return JsonResponse({'success': False, 'errors': product_form.errors}, status=400)
             return JsonResponse({'success': True})
         else:
-            return JsonResponse({'success': False, 'errors': order_form.errors})
+            return JsonResponse({'success': False, 'errors': order_form.errors}, status=400)
+
+
+
+class CategoryView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['categories'])
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
+        return context
+
+class AddCategory(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addJavascriptFile('/js/custom/pages/catalog/save-category.js')
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
+        return context
 
 
 class AddCategoryView(LoginRequiredMixin, View):
     def post(self, request):
-        try:
-            data = request.POST 
-            name = data.get('category_name')
-            
-            description = data.get('description', '')
-            image = request.FILES.get('avatar')
+        form = CategoryForm(request.POST, request.FILES)
 
-            if not name:
-                return JsonResponse({'error': 'Name is required'}, status=400)
-
-            category = Category(user=request.user.vendor, name=name, description=description, image=image)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.user = request.user.vendor
             category.save()
 
             return JsonResponse({'success': True})
-        except json.JSONDecodeError:
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-        
+
+        return JsonResponse({'errors': form.errors}, status=400)
+
 
 class CategoryDetailView(TemplateView):
     template_name = 'pages/catalog/category.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
 
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['user-profile', 'catalog', 'formrepeater'])
+        KTTheme.addVendors(['categories'])
+
+        user = self.request.user.vendor
 
         category_id = kwargs['id']
-        category = get_object_or_404(Category, id=category_id)
+        category = get_object_or_404(Category, id=category_id, user=user)        
         
-        user = self.request.user.vendor
-        
-        products = Product.objects.filter(category=category, user=user)
+        subcategories = SubCategory.objects.filter(category=category, user=user)
         
         context['category'] = category
+        context['subcategories'] = subcategories
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
+        return context
+    
+
+class SubCategoryDetailView(TemplateView):
+    template_name = 'pages/catalog/subcategory.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['categories'])
+
+        user = self.request.user.vendor
+
+        category_id = kwargs['sub']
+        category = get_object_or_404(Category, id=category_id, user=user)
+        
+
+        subcategory_id = kwargs['id']
+        subcategory = get_object_or_404(SubCategory, id=subcategory_id, user=user)
+        
+        
+        products = Product.objects.filter(subcategory=subcategory, user=user)
+        
+        context['category'] = category
+        context['subcategory'] = subcategory
         context['products'] = products
 
         context.update({
@@ -161,3 +231,47 @@ class CategoryDetailView(TemplateView):
         })
 
         return context
+
+
+class AddSubCategory(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addJavascriptFile('/js/custom/pages/catalog/save-subcategory.js')
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
+        user = self.request.user.vendor
+
+        category_id = kwargs['id']
+        category = get_object_or_404(Category, id=category_id, user=user)
+                
+        context['category'] = category
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
+        return context
+
+    def post(self, request, id):
+        form = SubCategoryForm(request.POST, request.FILES)
+        category = get_object_or_404(Category, id=id, user=request.user.vendor)
+
+        if form.is_valid():
+            subcategory = form.save(commit=False)
+            subcategory.user = request.user.vendor
+            subcategory.category = category
+            subcategory.save()
+
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'errors': form.errors}, status=400)

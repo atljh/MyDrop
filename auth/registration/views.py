@@ -5,7 +5,7 @@ from _keenthemes.libs.theme import KTTheme
 from django.views import View
 from django.http import JsonResponse
 from django.shortcuts import render
-from dashboards.models import User
+from dashboards.models import Vendor, Dropshipper
 from django.contrib.auth import get_user_model
 
 import json
@@ -49,6 +49,7 @@ class AuthRegisterVendorView(TemplateView):
         user = CustomUser(email=email, password=password)
         user.set_password(password)
         user.save()
+        Vendor.objects.create(user=user)
 
         response_data = {'success': True, 'message': 'Registration successful'}
         return JsonResponse(response_data)

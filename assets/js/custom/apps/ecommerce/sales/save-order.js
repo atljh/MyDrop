@@ -69,35 +69,58 @@ var KTAppEcommerceSalesSaveOrder = function () {
             datatable.search(e.target.value).draw();
         });
     }
-
- // Handle shipping form
- const handleShippingForm = () => {
-  // Select elements
-  const addProductButton = document.getElementById('add_product');
-
-  // Clone and insert the card
-  addProductButton.addEventListener('click', e => {
-    const addProductCard = document.getElementById('add_product_card');
-    const clonedCard = addProductCard.cloneNode(true);
-    clonedCard.classList.add('mt-7', 'mt-lg-10'); // Add margin between cards
-
-    // Reset field values
-    const inputFields = clonedCard.querySelectorAll('input, select');
-    inputFields.forEach(field => {
-      if (field.type === 'checkbox') {
-        field.checked = false;
-      } else {
-        field.value = '';
+    
+    const handleShippingForm = () => {
+      // Select elements
+      const addProductButton = $('#add_product');
+    
+      // Clone and insert the card
+      addProductButton.on('click', e => {
+        const addProductCard = $('#add_product_card');
+        const clonedCard = addProductCard.clone(true);
+        const newCardId = generateUniqueId(); // Generate unique ID for the cloned card
+        clonedCard.attr('id', newCardId);
+        clonedCard.addClass('mt-7 mt-lg-10'); // Add margin between cards
+    
+        // Reset field values
+        const inputFields = clonedCard.find('input, select');
+        inputFields.each(function () {
+          if (this.type === 'checkbox') {
+            this.checked = false;
+          } else {
+            this.value = '';
+          }
+        });
+    
+        const generalContainer = $('#products');
+        generalContainer.append(clonedCard);
+    
+        // Clone event listeners from original card to cloned card
+        cloneEventListeners(addProductCard, clonedCard, newCardId);
+      });
+    };
+    
+    // Function to clone event listeners from original element to cloned element
+    const cloneEventListeners = (originalElement, clonedElement, newCardId) => {
+      const events = $._data(originalElement[0], 'events');
+    
+      if (events) {
+        $.each(events, (eventType, handlers) => {
+          $.each(handlers, (index, handler) => {
+            const originalHandler = handler.handler;
+            const clonedHandler = function (event) {
+              originalHandler.call($(this), event); // Ensure correct "this" context inside the handler
+            };
+            clonedElement.on(eventType, clonedHandler);
+          });
+        });
       }
-    });
-
-    const generalContainer = document.getElementById('products');
-    generalContainer.appendChild(clonedCard);
-
-  });
-};
-
-
+    };
+    
+    // Function to generate a unique ID
+    const generateUniqueId = () => {
+      return 'card_' + Math.random().toString(36).substr(2, 9);
+    };
 
     const handleProductSelect = () => {
         const checkboxes = table.querySelectorAll('[type="checkbox"]');
@@ -245,7 +268,7 @@ var KTAppEcommerceSalesSaveOrder = function () {
           if (checkboxes.length === 0) {
             // Show error message for no selected checkboxes
             Swal.fire({
-              text: "Выберите хотя бы один продукт",
+              text: "Выберите хотя бы один товар",
               icon: "error",
               buttonsStyling: false,
               confirmButtonText: "Ок",

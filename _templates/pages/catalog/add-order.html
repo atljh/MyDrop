@@ -63,34 +63,18 @@ context.update({
                                                             <h2>Основные</h2>
                                                         </div>
                                                     </div>
-                                                    <!--end::Card header-->
-                                                    <!--begin::Card body-->
                                                     <div class="card-body pt-0">
-                                                        <!--begin::Input group-->
                                                         <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
                                                             <label class="form-label" for="full_name">Полное имя</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
                                                             <input type="text" id="full_name" name="full_name" class="form-control mb-2" placeholder="Полное имя" value="" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <!--end::Description-->
                                                         </div>
                                                         <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
                                                             <label class="form-label" for="phone_number">Номер телефона</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
                                                             <input type="text" id="phone_number" name="phone_number" class="form-control mb-2" placeholder="Номер телефона" value="" />
-                                                            <!--end::Input-->
-                                                            <!--begin::Description-->
-                                                            <!--end::Description-->
                                                         </div>
                                                         <div class="mb-10 fv-row">
-                                                            <!--begin::Label-->
                                                             <label class="form-label" for="dropshipper">Дропшиппер</label>
-                                                            <select id="dropshipper" name="dropshipper" class="form-select mb-2" data-control="select2" data-placeholder="Выберите дропшиппера" data-allow-clear="true" multiple="multiple">
+                                                            <select id="dropshipper" name="dropshipper" class="form-select mb-2" data-control="select2" data-placeholder="Выберите дропшиппера" data-allow-clear="true">
                                                                 <option></option>
                                                                 {% for drop in dropshippers.all %}
                                                                 <option value="{{drop}}">{{ drop.user.first_name }} {{ drop.user.last_name }}</option>
@@ -98,9 +82,7 @@ context.update({
                                                             </select>
                                                             <span class="dropdown-wrapper" aria-hidden="true"></span>
                                                             </span>
-                                                            <!--begin::Description-->
                                                             <div class="text-muted fs-7">Выберите или добавьте нового.</div>
-                                                            <!--end::Description-->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -112,16 +94,10 @@ context.update({
                                                             <h2>Выберите товар</h2>
                                                         </div>
                                                     </div>
-                                                    <!--end::Card header-->
-                                                    <!--begin::Card body-->
+
                                                     <div class="card-body pt-0">
                                                         <div class="d-flex flex-column gap-10">
-                                                            <!--begin::Input group-->
-                                                            <!--end::Input group-->
-                                                            <!--begin::Separator-->
                                                             <div class="separator"></div>
-                                                            <!--end::Separator-->
-                                                            <!--begin::Search products-->
                                                             <div class="d-flex align-items-center position-relative mb-n7">
                                                                 <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
                                                                     <span class="path1"></span>
@@ -129,9 +105,8 @@ context.update({
                                                                 </i>
                                                                 <input type="text" data-kt-ecommerce-edit-order-filter="search" class="form-control form-control-solid w-100 w-lg-50 ps-12" placeholder="Поиск товаров" />
                                                             </div>
-                                                            <!--end::Search products-->
-                                                            <!--begin::Table-->
-                                                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_edit_order_product_table">
+                                                            <div class="bg-light p-5 rounded">
+                                                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_edit_order_product_table">
                                                                 <thead>
                                                                     <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                                                         <th class="w-25px pe-2"></th>
@@ -150,21 +125,14 @@ context.update({
                                                                         <td>
                                                                             <div class="d-flex align-items-center" data-kt-ecommerce-edit-order-filter="product" data-kt-ecommerce-edit-order-id="product_1">
                                                                                 <!--begin::Thumbnail-->
-                                                                                <a href="{{prod.id}}" class="symbol symbol-50px">
-                                                                                    <span class="symbol-label" style="background-image:url(/{{prod.image}});"></span>
+                                                                                <a href="../products/{{prod.id}}" class="symbol symbol-50px">
+                                                                                    <span class="symbol-label" style="background-image:url(/{{prod.image}})"></span>
                                                                                 </a>
-                                                                                <!--end::Thumbnail-->
                                                                                 <div class="ms-5">
-                                                                                    <!--begin::Title-->
                                                                                     <a href="../product/{{prod.id}}" class="text-gray-800 text-hover-primary fs-5 fw-bold">{{prod.name}}</a>
-                                                                                    <!--end::Title-->
-                                                                                    <!--begin::Price-->
                                                                                     <div class="fw-semibold fs-7">Цена: 
                                                                                     <span data-kt-ecommerce-edit-order-filter="price">{{prod.price}}</span></div>
-                                                                                    <!--end::Price-->
-                                                                                    <!--begin::SKU-->
                                                                                     <div class="text-muted fs-7" name="product_id" id="{{prod.id}}">{{prod.id}}</div>
-                                                                                    <!--end::SKU-->
                                                                                 </div>
                                                                             </div>
                                                                         </td>
@@ -175,21 +143,15 @@ context.update({
                                                                     {% endfor %}
                                                                 </tbody>
                                                             </table>
-                                                            <div>
+                                                            </div>
+                                                            <div class="bg-light p-1 rounded">
                                                                 <div class="row row-cols-1 row-cols-xl-3 row-cols-md-2 border border-dashed rounded pt-3 pb-1 px-2 mb-5 mh-300px overflow-scroll" id="kt_ecommerce_edit_order_selected_products">
-                                                                    <!--begin::Empty message-->
                                                                     <span class="w-100 text-muted" name="product"></span>
-                                                                    <!--end::Empty message-->
                                                                 </div>
                                                             </div>
-                                                            <!--end::Table-->
                                                         </div>
                                                     </div>
-                                                    <!--end::Card header-->
                                                     <div class="card card-flush py-4">
-                                                        <!--begin::Card header-->
-                                                        <!--end::Card header-->
-                                                        <!--begin::Card body-->
                                                         <div class="card-body pt-0">
                                                             <!--begin::Input group-->
                                                             <div class="mb-10 fv-row">
@@ -267,7 +229,7 @@ context.update({
                                                                 <label class="form-label" for="contractor">Контрагент</label>
                                                                 <select id="contractor" name="contractor" class="form-select mb-2" data-control="select2" data-placeholder="Выберите контрагента" data-allow-clear="true" multiple="multiple">
                                                                     <option></option>
-                                                                    <option value="Computers">Компьютеры</option>
+                                                                    <option value="Computers"></option>
   
                                                                 </select>
                                                                 <span class="dropdown-wrapper" aria-hidden="true"></span>
@@ -285,18 +247,22 @@ context.update({
                                                                 <input type="text" id="contents" name="contents" class="form-control mb-2" placeholder="Содержимое" value="" />
                                                             </div>
                                                             <div class="mb-10 fv-row">
-                                                                <label class="form-label" for="recipient_city">Город получателя</label>
-                                                                <select id="recipient_city" name="recipient_city" class="form-select mb-2" data-control="select2" data-placeholder="Город получателя" data-allow-clear="true" multiple="multiple">
+                                                                <label class="form-label" for="city">Город получателя</label>
+                                                                <select id="city" name="city" class="form-select mb-2" data-control="select2" data-placeholder="Город получателя" data-allow-clear="true">
                                                                     <option></option>
-                                                                    <option value="Computers">Компьютеры</option>
-                                                                </select>
+                                                                    <option value="Киев">Киев</option>
+                                                                    <option value="Харьков">Харьков</option>
+                                                                    <option value="Днепр">Днепр</option>
+                                                                    <option value="Львов">Львов</option>
+                                                                    <option value="Одеса">Одеса</option>
+                                                                  </select>
                                                                 <span class="dropdown-wrapper" aria-hidden="true"></span>
                                                             </div>
                                                             <div class="mb-10 fv-row">
                                                                 <label class="form-label" for="recipient_post_office">Отделение почты получателя</label>
-                                                                <select id="recipient_post_office" name="recipient_post_office" class="form-select mb-2" data-control="select2" data-placeholder="Отделение почты получателя" data-allow-clear="true" multiple="multiple">
+                                                                <select id="recipient_post_office" name="recipient_post_office" class="form-select mb-2" data-control="select2" data-placeholder="Отделение почты получателя" data-allow-clear="true">
                                                                     <option></option>
-                                                                    <option value="Computers">Компьютеры</option>
+                                                                    <option value="Computers"></option>
                                                                 </select>
                                                                 <span class="dropdown-wrapper" aria-hidden="true"></span>
                                                             </div>
