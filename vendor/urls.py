@@ -1,6 +1,8 @@
 from django.urls import path
 from django.conf import settings
-from vendor.views import VendorView, AddCategoryView, CategoryDetailView, OrdersView, AddOrderView, CategoryView, AddCategory, SubCategoryDetailView, AddSubCategory
+from vendor.views import (VendorView, AddCategoryView, CategoryDetailView,
+                          OrdersView, AddOrderView, CategoryView, AddCategory,
+                          SubCategoryDetailView, AddSubCategory, AddProductView)
 
 app_name = 'vendor'
 
@@ -17,6 +19,9 @@ urlpatterns = [
     path('categories/', CategoryView.as_view(template_name = 'pages/catalog/categories.html'), name='vendor-categories'),
     path('categories/new', AddCategory.as_view(template_name = 'pages/catalog/categories-new.html'), name='vendor-categories-new'),
     path('categories/<int:id>', CategoryDetailView.as_view(), name='category_detail'),
+
+    path('categories/<int:id>/add_product', AddProductView.as_view(template_name = 'pages/catalog/add-product.html'), name='add-subcategory'),
+    path('categories/<int:id>/<int:sub>/add_product', AddProductView.as_view(template_name = 'pages/catalog/add-product.html'), name='subcategory_detail'),
 
     path('categories/<int:id>/add_subcategory', AddSubCategory.as_view(template_name = 'pages/catalog/subcategory-new.html'), name='add-subcategory'),
     path('categories/<int:sub>/<int:id>', SubCategoryDetailView.as_view(), name='subcategory_detail'),

@@ -275,3 +275,36 @@ class AddSubCategory(TemplateView):
             return JsonResponse({'success': True})
 
         return JsonResponse({'errors': form.errors}, status=400)
+
+
+
+class AddProductView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['add-product', 'formrepeater'])
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
+        user = self.request.user.vendor
+
+        category_id = kwargs['id']
+        category = get_object_or_404(Category, id=category_id, user=user)
+        subcategory_id = kwargs.get('sub')
+        subcategory = SubCategory.objects.filter(id=subcategory_id, user=user).first()
+        
+        
+        context['category'] = category
+        context['subcategory'] = subcategory
+
+
+        return context

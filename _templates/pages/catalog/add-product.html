@@ -24,7 +24,33 @@ context.update({
                     <!--begin::Toolbar-->
                     <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
                         <!--begin::Toolbar container-->
-
+                        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+                            <!--begin::Page title-->
+                            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                                <!--begin::Title-->
+                                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Добавить товар</h1>
+                                <!--end::Title-->
+                                <!--begin::Breadcrumb-->
+                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-4 my-0 pt-1">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="../{{category.id}}" class="text text-hover-primary">{{category.name}}</a>
+                                    </li>
+                                    <!--end::Item-->
+                                    {% if subcategory %}
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">{{subcategory.name}}</li>
+                                    <!--end::Item-->
+                                    {% endif %}
+                                </ul>
+                                <!--end::Breadcrumb-->
+                            </div>
+                            <!--end::Page title-->
+                        </div>
                         <!--end::Toolbar container-->
                     </div>
                     <!--end::Toolbar-->
@@ -318,6 +344,64 @@ context.update({
                                                     <!--begin::Card header-->
                                                     <div class="card-header">
                                                         <div class="card-title">
+                                                            <h2>Variations</h2>
+                                                        </div>
+                                                    </div>
+                                                    <!--end::Card header-->
+                                                    <!--begin::Card body-->
+                                                    <div class="card-body pt-0">
+                                                        <!--begin::Input group-->
+                                                        <div class="" data-kt-ecommerce-catalog-add-product="auto-options">
+                                                            <!--begin::Label-->
+                                                            <label class="form-label">Add Product Variations</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Repeater-->
+                                                            <div id="kt_ecommerce_add_product_options">
+                                                                <!--begin::Form group-->
+                                                                <div class="form-group">
+                                                                    <div data-repeater-list="kt_ecommerce_add_product_options" class="d-flex flex-column gap-3">
+                                                                        <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
+                                                                            <!--begin::Select2-->
+                                                                            <div class="w-100 w-md-200px">
+                                                                                <select class="form-select" name="product_option" data-placeholder="Select a variation" data-kt-ecommerce-catalog-add-product="product_option">
+                                                                                    <option></option>
+                                                                                    <option value="color">Color</option>
+                                                                                    <option value="size">Size</option>
+                                                                                    <option value="material">Material</option>
+                                                                                    <option value="style">Style</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <!--end::Select2-->
+                                                                            <!--begin::Input-->
+                                                                            <input type="text" class="form-control mw-100 w-200px" name="product_option_value" placeholder="Variation" />
+                                                                            <!--end::Input-->
+                                                                            <button type="button" data-repeater-delete="" class="btn btn-sm btn-icon btn-light-danger">
+                                                                                <i class="ki-duotone ki-cross fs-1">
+                                                                                    <span class="path1"></span>
+                                                                                    <span class="path2"></span>
+                                                                                </i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!--end::Form group-->
+                                                                <!--begin::Form group-->
+                                                                <div class="form-group mt-5">
+                                                                    <button type="button" data-repeater-create="" class="btn btn-sm btn-light-primary">
+                                                                    <i class="ki-duotone ki-plus fs-2"></i>Add another variation</button>
+                                                                </div>
+                                                                <!--end::Form group-->
+                                                            </div>
+                                                            <!--end::Repeater-->
+                                                        </div>
+                                                        <!--end::Input group-->
+                                                    </div>
+                                                    <!--end::Card header-->
+                                                </div>
+                                                <div class="card card-flush py-4">
+                                                    <!--begin::Card header-->
+                                                    <div class="card-header">
+                                                        <div class="card-title">
                                                             <h2>Pricing</h2>
                                                         </div>
                                                     </div>
@@ -560,64 +644,7 @@ context.update({
                                                 </div>
                                                 <!--end::Inventory-->
                                                 <!--begin::Variations-->
-                                                <div class="card card-flush py-4">
-                                                    <!--begin::Card header-->
-                                                    <div class="card-header">
-                                                        <div class="card-title">
-                                                            <h2>Variations</h2>
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Card header-->
-                                                    <!--begin::Card body-->
-                                                    <div class="card-body pt-0">
-                                                        <!--begin::Input group-->
-                                                        <div class="" data-kt-ecommerce-catalog-add-product="auto-options">
-                                                            <!--begin::Label-->
-                                                            <label class="form-label">Add Product Variations</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Repeater-->
-                                                            <div id="kt_ecommerce_add_product_options">
-                                                                <!--begin::Form group-->
-                                                                <div class="form-group">
-                                                                    <div data-repeater-list="kt_ecommerce_add_product_options" class="d-flex flex-column gap-3">
-                                                                        <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
-                                                                            <!--begin::Select2-->
-                                                                            <div class="w-100 w-md-200px">
-                                                                                <select class="form-select" name="product_option" data-placeholder="Select a variation" data-kt-ecommerce-catalog-add-product="product_option">
-                                                                                    <option></option>
-                                                                                    <option value="color">Color</option>
-                                                                                    <option value="size">Size</option>
-                                                                                    <option value="material">Material</option>
-                                                                                    <option value="style">Style</option>
-                                                                                </select>
-                                                                            </div>
-                                                                            <!--end::Select2-->
-                                                                            <!--begin::Input-->
-                                                                            <input type="text" class="form-control mw-100 w-200px" name="product_option_value" placeholder="Variation" />
-                                                                            <!--end::Input-->
-                                                                            <button type="button" data-repeater-delete="" class="btn btn-sm btn-icon btn-light-danger">
-                                                                                <i class="ki-duotone ki-cross fs-1">
-                                                                                    <span class="path1"></span>
-                                                                                    <span class="path2"></span>
-                                                                                </i>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!--end::Form group-->
-                                                                <!--begin::Form group-->
-                                                                <div class="form-group mt-5">
-                                                                    <button type="button" data-repeater-create="" class="btn btn-sm btn-light-primary">
-                                                                    <i class="ki-duotone ki-plus fs-2"></i>Add another variation</button>
-                                                                </div>
-                                                                <!--end::Form group-->
-                                                            </div>
-                                                            <!--end::Repeater-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                    </div>
-                                                    <!--end::Card header-->
-                                                </div>
+
                                                 <!--end::Variations-->
                                                 <!--begin::Shipping-->
                                                 <div class="card card-flush py-4">

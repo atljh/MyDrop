@@ -18,8 +18,14 @@
                     <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
                         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-3 my-0 pt-1">
+                              <li class="breadcrumb-item text-muted">
+                                <a href="../" class="text text-hover-primary">Все категории</a>
+                              </li>
+                              <li class="breadcrumb-item">
+                                <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                              </li>
                                 <li class="breadcrumb-item text-muted">
-                                    <a href="../{{category.id}}" class="text text-hover-primary">{{category.name}}</a>
+                                    <a href="../categories/{{category.id}}" class="text text-hover-primary">{{category.name}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -50,6 +56,8 @@
                                     </div>
                                     <!--begin::Add product-->
                                     <a href="{{category.id}}/add_subcategory" class="btn btn-primary">Добавить подкатегорию</a>
+                                    <a href="{{category.id}}/add_product" class="btn btn-primary">Добавить товар</a>
+
                                     <!--end::Add product-->
                                 </div>
                                 <!--end::Card toolbar-->

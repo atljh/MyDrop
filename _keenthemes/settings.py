@@ -416,7 +416,6 @@ KT_THEME_VENDORS = {
     "orders":{
         "js": [
             "/js/custom/apps/ecommerce/sales/listing.js",
-            # "/js/custom/pages/catalog/products.js",
         ],
 
     },
@@ -424,6 +423,13 @@ KT_THEME_VENDORS = {
         "js":[
             'js/custom/apps/ecommerce/sales/save-order.js',
             'js/custom/apps/ecommerce/sales/listing.js',
+        ]
+    },
+    "add-product":{
+        "js":[
+            'js/custom/pages/catalog/products.js',
+            'js/custom/pages/catalog/save-product.js',
+            "/plugins/custom/datatables/datatables.bundle.js",
         ]
     }
     
