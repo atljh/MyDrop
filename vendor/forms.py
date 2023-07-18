@@ -41,3 +41,12 @@ class SubCategoryForm(forms.ModelForm):
     class Meta:
         model = SubCategory
         fields = ['name', 'description', 'hidden_from_drop', 'image']
+
+    
+
+class ProductForm(forms.ModelForm):
+    image = forms.ImageField(required=False)
+
+    class Meta:
+        model = Product
+        fields = ['name', 'description', 'hidden_from_drop', 'image', 'category', 'sell_price', 'subcategory']

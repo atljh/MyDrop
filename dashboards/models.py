@@ -178,11 +178,15 @@ class SubCategory(models.Model):
     
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    cost_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    drop_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    sell_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='products')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
-    quantity = models.IntegerField(default=1)
+    description = models.TextField(blank=True)
+    hidden_from_drop = models.BooleanField(default=False)
+    preorder = models.BooleanField(default=False)
 
     image = models.ImageField(upload_to='assets/uploads/', null=True, blank=True)
     

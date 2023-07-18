@@ -16,7 +16,7 @@ from django.forms import formset_factory
 
 import json
 from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory
-from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm
+from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm, ProductForm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -185,9 +185,11 @@ class CategoryDetailView(TemplateView):
         category = get_object_or_404(Category, id=category_id, user=user)        
         
         subcategories = SubCategory.objects.filter(category=category, user=user)
-        
+        products = Product.objects.filter(category=category, user=user
+                                          )
         context['category'] = category
         context['subcategories'] = subcategories
+        context['products'] = products
 
         context.update({
             'layout': KTTheme.setLayout('default.html', context),
@@ -263,7 +265,7 @@ class AddSubCategory(TemplateView):
         return context
 
     def post(self, request, id):
-        form = SubCategoryForm(request.POST, request.FILES)
+        form = SubCategoryForm(request.POST, request.FILE)
         category = get_object_or_404(Category, id=id, user=request.user.vendor)
 
         if form.is_valid():
@@ -296,7 +298,7 @@ class AddProductView(TemplateView):
         })
 
         user = self.request.user.vendor
-
+        
         category_id = kwargs['id']
         category = get_object_or_404(Category, id=category_id, user=user)
         subcategory_id = kwargs.get('sub')
@@ -306,5 +308,46 @@ class AddProductView(TemplateView):
         context['category'] = category
         context['subcategory'] = subcategory
 
+        return context
+    
+    def post(self, request, id = None, sub = None):
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user.vendor
+            product.save()
+
+
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'errors': form.errors}, status=400)
+
+
+
+class ProductView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['add-product', 'formrepeater'])
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
+        user = self.request.user.vendor
+        
+        product_id = kwargs['id']
+        product = get_object_or_404(Product, id=product_id, user=user) 
+
+        print(product, '_'*100, product.description)
+        
+        context['product'] = product
 
         return context

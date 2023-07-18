@@ -109,45 +109,6 @@ var KTAppEcommerceSaveProduct = function () {
     }
 
 
-    // Init noUIslider
-    const initSlider = () => {
-        var slider = document.querySelector("#kt_ecommerce_add_product_discount_slider");
-        var value = document.querySelector("#kt_ecommerce_add_product_discount_label");
-
-        noUiSlider.create(slider, {
-            start: [10],
-            connect: true,
-            range: {
-                "min": 1,
-                "max": 100
-            }
-        });
-
-        slider.noUiSlider.on("update", function (values, handle) {
-            value.innerHTML = Math.round(values[handle]);
-            if (handle) {
-                value.innerHTML = Math.round(values[handle]);
-            }
-        });
-    }
-
-    // Init DropzoneJS --- more info:
-    const initDropzone = () => {
-        var myDropzone = new Dropzone("#kt_ecommerce_add_product_media", {
-            url: "https://keenthemes.com/scripts/void.php", // Set the url for your upload script location
-            paramName: "file", // The name that will be used to transfer the file
-            maxFiles: 10,
-            maxFilesize: 10, // MB
-            addRemoveLinks: true,
-            accept: function (file, done) {
-                if (file.name == "wow.jpg") {
-                    done("Naha, you don't.");
-                } else {
-                    done();
-                }
-            }
-        });
-    }
 
     // Handle discount options
     const handleDiscount = () => {
@@ -180,21 +141,7 @@ var KTAppEcommerceSaveProduct = function () {
         });
     }
 
-    // Shipping option handler
-    const handleShipping = () => {
-        const shippingOption = document.getElementById('kt_ecommerce_add_product_shipping_checkbox');
-        const shippingForm = document.getElementById('kt_ecommerce_add_product_shipping');
 
-        shippingOption.addEventListener('change', e => {
-            const value = e.target.checked;
-
-            if (value) {
-                shippingForm.classList.remove('d-none');
-            } else {
-                shippingForm.classList.add('d-none');
-            }
-        });
-    }
 
     // Category status handler
     const handleStatus = () => {
@@ -283,48 +230,20 @@ var KTAppEcommerceSaveProduct = function () {
             form,
             {
                 fields: {
-                    'product_name': {
+                    'name': {
                         validators: {
                             notEmpty: {
-                                message: 'Product name is required'
+                                message: 'Название товара обязательно'
                             }
                         }
                     },
-                    'sku': {
+                    'sell_price': {
                         validators: {
                             notEmpty: {
-                                message: 'SKU is required'
+                                message: 'Цена продажи'
                             }
                         }
-                    },
-                    'sku': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Product barcode is required'
-                            }
-                        }
-                    },
-                    'shelf': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Shelf quantity is required'
-                            }
-                        }
-                    },
-                    'price': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Product base price is required'
-                            }
-                        }
-                    },
-                    'tax': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Product tax class is required'
-                            }
-                        }
-                    }
+                    },  
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -352,30 +271,69 @@ var KTAppEcommerceSaveProduct = function () {
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
 
-                        setTimeout(function () {
-                            submitButton.removeAttribute('data-kt-indicator');
+                        let csrftoken = $('input[name="csrfmiddlewaretoken"]').prop('value');
 
+                        // Set the CSRF token in the headers
+                        const headers = {
+                            'X-CSRFToken': csrftoken
+                        };
+        
+                        // Serialize form data
+                        const formData = new FormData(form);
+
+                        fetch(window.location.href, {
+                            method: 'POST',
+                            body: formData,
+                            headers: headers
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Process the response as needed
+                            if (data.success) {
+                                Swal.fire({
+                                    text: "Товар успешно добавлен",
+                                    icon: "success",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Oк",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                }).then(function (result) {
+                                    if (result.isConfirmed) {
+                                        // Enable submit button after loading
+                                        submitButton.disabled = false;
+        
+                                        // Redirect to customers list page
+                                        window.location = form.getAttribute("data-kt-redirect");
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    text: "Упс, что-то пошло не так.",
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ок",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
                             Swal.fire({
-                                text: "Form has been successfully submitted!",
-                                icon: "success",
+                                text: "Упс, что-то пошло не так.",
+                                icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
+                                confirmButtonText: "Ок",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
-                            }).then(function (result) {
-                                if (result.isConfirmed) {
-                                    // Enable submit button after loading
-                                    submitButton.disabled = false;
-
-                                    // Redirect to customers list page
-                                    window.location = form.getAttribute("data-kt-redirect");
-                                }
                             });
-                        }, 2000);
+                        });
                     } else {
                         Swal.fire({
-                            html: "Sorry, looks like there are some errors detected, please try again. <br/><br/>Please note that there may be errors in the <strong>General</strong> or <strong>Advanced</strong> tabs",
+                            html: "Извините, возникли ошибки. Попробуйте еще раз",
                             icon: "error",
                             buttonsStyling: false,
                             confirmButtonText: "Ok, got it!",
@@ -395,16 +353,13 @@ var KTAppEcommerceSaveProduct = function () {
             // Init forms
             initQuill();
             initTagify();
-            initSlider();
             initFormRepeater();
-            initDropzone();
             initConditionsSelect2();
 
             // Handle forms
             handleStatus();
             handleConditions();
             handleDiscount();
-            handleShipping();
             handleSubmit();
         }
     };
