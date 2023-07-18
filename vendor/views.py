@@ -351,3 +351,29 @@ class ProductView(TemplateView):
         context['product'] = product
 
         return context
+    
+
+
+
+class StatsView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['amcharts',])
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+        
+        user = self.request.user.vendor
+        orders_amount = user.orders.count()
+        context['orders_amount'] = orders_amount
+
+        return context

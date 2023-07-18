@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf import settings
 from vendor.views import (VendorView, AddCategoryView, CategoryDetailView,
                           OrdersView, AddOrderView, CategoryView, AddCategory,
-                          SubCategoryDetailView, AddSubCategory, AddProductView, ProductView)
+                          SubCategoryDetailView, AddSubCategory, AddProductView, ProductView, StatsView)
 
 app_name = 'vendor'
 
@@ -29,4 +29,5 @@ urlpatterns = [
 
     path('products/<int:id>', ProductView.as_view(template_name = 'pages/catalog/product.html'), name='product'),
 
-]
+    path('stats/', StatsView.as_view(template_name = 'pages/catalog/stats.html'), name='stats'),
+]   

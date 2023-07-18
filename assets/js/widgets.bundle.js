@@ -12831,11 +12831,11 @@ var KTChartsWidget36 = function () {
 
         var options = {
             series: [{
-                name: 'Inbound Calls',
-                data: [65, 80, 80, 60, 60, 45, 45, 80, 80, 70, 70, 90, 90, 80, 80, 80, 60, 60, 50]
+                name: 'Заказов доставлено',
+                data: [0]
             }, {
-                name: 'Outbound Calls',
-                data: [90, 110, 110, 95, 95, 85, 85, 95, 95, 115, 115, 100, 100, 115, 115, 95, 95, 85, 85]
+                name: 'Заказов доставлено',
+                data: [0]
             }],
             chart: {
                 fontFamily: 'inherit',

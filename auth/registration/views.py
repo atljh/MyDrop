@@ -36,7 +36,6 @@ class AuthRegisterVendorView(TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        # Получение данных регистрации из запроса
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
         password = data.get('password')

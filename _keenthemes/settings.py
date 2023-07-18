@@ -109,7 +109,7 @@ DATABASES = {
 
         'USER': 'myuser',
 
-        'PASSWORD': 'cnU4MCGS',
+        'PASSWORD': 'r',
 
         'HOST': 'localhost',
 
