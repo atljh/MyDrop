@@ -20,16 +20,16 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=150)
-    last_name = models.CharField(max_length=150)
+    email = models.EmailField('Почта', unique=True)
+    first_name = models.CharField("Имя", max_length=150)
+    last_name = models.CharField("Фамилия", max_length=150)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
-    phone_number = models.IntegerField(default=False)
+    phone_number = models.IntegerField("Номер телефона", default=False)
 
-    is_vendor = models.BooleanField(default=False)
-    is_dropshipper = models.BooleanField(default=False)
+    is_vendor = models.BooleanField("Поставщик", default=False)
+    is_dropshipper = models.BooleanField("Дропшиппер", default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
@@ -53,16 +53,24 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    class Meta:
+        verbose_name = 'Пользователь',
+        verbose_name_plural = 'Пользователи'
+
+
 class Dropshipper(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name="Пользователь", on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return str(self.user)
 
+    class Meta:
+        verbose_name = 'Дропшиппер',
+        verbose_name_plural = 'Дропшипперы'
 
 class Vendor(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='vendor')
-    dropshippers = models.ManyToManyField(Dropshipper, related_name='dropshippers')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, verbose_name="Пользователь", on_delete=models.CASCADE, related_name='vendor')
+    dropshippers = models.ManyToManyField(Dropshipper, verbose_name="Дропшипперы", blank=True, related_name='dropshippers')
 
     def get_orders(self):
         return self.user.vendor.orders.all()
@@ -73,6 +81,9 @@ class Vendor(models.Model):
     def __str__(self) -> str:
         return f'{self.user}'
 
+    class Meta:
+        verbose_name = 'Поставщик',
+        verbose_name_plural = 'Поставщики'
 
 class Order(models.Model):
     STATUS_CHOICES = (
@@ -80,22 +91,18 @@ class Order(models.Model):
         ("OLD", "Старый")
     )
 
-    user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='orders')
+    user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE, related_name='orders')
 
-    phone_number = models.CharField(max_length=30, default='')
-    date = models.DateTimeField(auto_now_add=True, null=True)
-    full_name = models.CharField(max_length=100)
-    dropshipper = models.ForeignKey('Dropshipper', null=True, blank=True, on_delete=models.SET_NULL)
-    city = models.CharField(max_length=255, blank=True)
-    amount = models.DecimalField(blank=True, null=True, max_digits=20,  decimal_places=10)    
-    status = models.CharField(max_length=9,
+    phone_number = models.CharField(verbose_name="Номер телефона", max_length=30, default='')
+    date = models.DateTimeField(verbose_name="Дата", auto_now_add=True, null=True)
+    full_name = models.CharField(verbose_name="Полное имя", max_length=100)
+    dropshipper = models.ForeignKey('Dropshipper', verbose_name="Дропшиппер", null=True, blank=True, on_delete=models.SET_NULL)
+    city = models.CharField(verbose_name="Город", max_length=255, blank=True)
+    amount = models.DecimalField(verbose_name="Сумма", blank=True, null=True, max_digits=20,  decimal_places=10)    
+    status = models.CharField(max_length=9, verbose_name="Статус",  
                   choices=STATUS_CHOICES,
                   default="NEW")
     
-    # phone_number = models.CharField(max_length=20)
-    # # Информация о товарах
-    # # Предполагается наличие модели "Товар" с соответствующими полями
-    # # Применяем ForeignKey для связи с моделью "Товар"
     # products = models.ManyToManyField('Product', through='OrderProduct')
 
     # # Информация о доставке
@@ -143,6 +150,10 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.id}"
 
+    class Meta:
+        verbose_name = 'Заказ',
+        verbose_name_plural = 'Заказы'
+
 
 class DropOrder(models.Model):
     user = models.ForeignKey(Dropshipper, on_delete=models.CASCADE, related_name='orders')
@@ -153,11 +164,11 @@ class DropOrder(models.Model):
 
 
 class Category(models.Model):
-    user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='categories')
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    hidden_from_drop = models.BooleanField(default=False)
-    image = models.ImageField(upload_to ='assets/uploads')
+    user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE, related_name='categories')
+    name = models.CharField(verbose_name="Название", max_length=100)
+    description = models.TextField(verbose_name="Название", blank=True)
+    hidden_from_drop = models.BooleanField(verbose_name="Скрыт от поставщика", default=False)
+    image = models.ImageField(verbose_name="Изображение", upload_to ='assets/uploads')
 
     def get_products(self):
         return Product.objects.filter(category=self)
@@ -165,34 +176,49 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Категория',
+        verbose_name_plural = 'Категории'
+
+
+
 class SubCategory(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
-    user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='subcategories')
-    name = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
-    hidden_from_drop = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='assets/uploads', null=True, blank=True)
+    category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.CASCADE, related_name='subcategories')
+    user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE, related_name='subcategories')
+    name = models.CharField(verbose_name="Название", max_length=100)
+    description = models.TextField(verbose_name="Название", blank=True)
+    hidden_from_drop = models.BooleanField(verbose_name="Скрыт от дропшиппера", default=False)
+    image = models.ImageField(verbose_name="Изображение", upload_to='assets/uploads', null=True, blank=True)
 
     def __str__(self):
         return self.name
     
-class Product(models.Model):
-    name = models.CharField(max_length=255)
-    cost_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    drop_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    sell_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    user = models.ForeignKey(Vendor, on_delete=models.CASCADE, related_name='products')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE, null=True, blank=True)
-    description = models.TextField(blank=True)
-    hidden_from_drop = models.BooleanField(default=False)
-    preorder = models.BooleanField(default=False)
+    class Meta:
+        verbose_name = 'Подкатегория',
+        verbose_name_plural = 'Подкатегории'
 
-    image = models.ImageField(upload_to='assets/uploads/', null=True, blank=True)
+
+
+class Product(models.Model):
+    name = models.CharField(verbose_name="Название", max_length=255)
+    cost_price = models.DecimalField(verbose_name="Себестоимость", max_digits=10, decimal_places=2, default=0)
+    drop_price = models.DecimalField("Дроп цена", max_digits=10, decimal_places=2, default=0)
+    sell_price = models.DecimalField("Цена продажи", max_digits=10, decimal_places=2, default=0)
+    user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE, related_name='products')
+    category = models.ForeignKey(Category, verbose_name="Категория", on_delete=models.CASCADE, null=True)
+    subcategory = models.ForeignKey(SubCategory, verbose_name="Подкатегория", on_delete=models.CASCADE, null=True, blank=True)
+    description = models.TextField("Описание", blank=True)
+    hidden_from_drop = models.BooleanField("Скрыт от дропшиппера", default=False)
+    preorder = models.BooleanField("Предзаказ", default=False)
+
+    image = models.ImageField("Изображение", upload_to='assets/uploads/', null=True, blank=True)
     
     def __str__(self) -> str:
         return self.name
     
+    class Meta:
+        verbose_name = 'Товар',
+        verbose_name_plural = 'Товары'
 
 
 class OrderProduct(models.Model):
@@ -202,3 +228,7 @@ class OrderProduct(models.Model):
     cost_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     drop_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     sell_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    class Meta:
+        verbose_name = 'Товар заказа',
+        verbose_name_plural = 'Товары заказа'

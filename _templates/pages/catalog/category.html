@@ -46,6 +46,7 @@
                 </div>
                 <div id="kt_app_content" class="app-content flex-column-fluid">
                     <div id="kt_app_content_container" class="app-container container-xxl">
+                      <div class="tab-content">
                       <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
                         <div class="card card-flush">
                             <div class="card-header align-items-center py-5 gap-2 gap-md-5">
@@ -146,8 +147,8 @@
                                 <!--end::Table-->
                             </div>
                             <!--end::Card body-->
-                        </div>
-                        </div>
+                          </div>
+                      </div>
 												<div class="tab-pane fade" id="kt_ecommerce_add_product_advanced" role="tab-panel">
                           <div class="card card-flush">
                             <div class="card-header align-items-center py-5 gap-2 gap-md-5">
@@ -204,13 +205,13 @@
                                             <td>
                                               <div class="d-flex">
                                                 <!--begin::Thumbnail-->
-                                                <a href="../../products/{{product.id}}" class="symbol symbol-50px">
+                                                <a href="../products/{{product.id}}" class="symbol symbol-50px">
                                                   <span class="symbol-label" style="background-image:url(/{{product.image}});"></span>
                                                 </a>
                                                 <!--end::Thumbnail-->
                                                 <div class="ms-5">
                                                   <!--begin::Title-->
-                                                  <a href="../../products/{{product.id}}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1" data-kt-ecommerce-category-filter="category_name">{{product.name}}</a>
+                                                  <a href="../products/{{product.id}}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1" data-kt-ecommerce-category-filter="category_name">{{product.name}}</a>
                                                   <!--end::Title-->
                                                   <!--begin::Description-->
                                                   <!--end::Description-->
@@ -247,6 +248,7 @@
                             <!--end::Card body-->
                         </div>
                         </div>
+                      </div>
                         <!--end::Products-->
                     </div>
                     <!--end::Content container-->
