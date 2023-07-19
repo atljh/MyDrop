@@ -49978,3 +49978,35 @@ body,
     color: #ffffff !important;
   }
 }
+
+/* Custom styles for checkboxes */
+.form-check-input[type="checkbox"] {
+  /* Change the size of the checkbox */
+  width: 20px;
+  height: 20px;
+  /* Add a custom border */
+  border: 2px solid #4CAF50; /* Green color */
+  /* Add some padding to the checkbox for better visual */
+  padding: 2px;
+  /* Adjust the position to align with the content */
+  position: relative;
+  top: 2px;
+}
+
+/* Style for unchecked checkboxes */
+.form-check-input[type="checkbox"]:not(:checked) {
+  /* Change the background color for unchecked state */
+  background-color: #CCCCCC  !important; /* Gray color with !important */
+}
+
+/* Custom style for the checked state of the checkbox (previous styles) */
+.form-check-input[type="checkbox"]:checked {
+  /* Change the background color for checked state (previous styles) */
+  background-color: #0095e8; /* Green color */
+}
+
+
+
+.table-container {
+  border-bottom: 2px solid #ccc;
+}

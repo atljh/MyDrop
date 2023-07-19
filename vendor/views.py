@@ -45,6 +45,24 @@ class VendorView(TemplateView):
         })
 
         return context
+    
+
+class ProfileView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+
+        return context
 
 
 class OrdersView(TemplateView):
