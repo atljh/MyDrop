@@ -514,7 +514,7 @@ class SectorDetailView(TemplateView):
         return context
     
     def post(self, request, sec: int, id: int):
-        sector = get_object_or_404(Sector, id=sec, user=self.request.user.vendor) 
+        sector = get_object_or_404(Sector, id=id, user=self.request.user.vendor) 
         form = ShelfForm(request.POST)
         if form.is_valid():
             shelf = form.save(commit=False)
@@ -539,7 +539,6 @@ class ShelfDetailView(TemplateView):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
         KTTheme.addVendors(['stotage', 'categories'])
-        # KTTheme.addJavascriptFile("/js/custom/pages/catalog/products.js")
         shelf = get_object_or_404(Shelf, id=kwargs['id'], user=self.request.user.vendor) 
 
         context.update({

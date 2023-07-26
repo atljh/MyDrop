@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, Vendor, Dropshipper, Order, Product, Category, OrderProduct, SubCategory, Employee, Storage, Sector
+from .models import CustomUser, Vendor, Dropshipper, Order, Product, Category, OrderProduct, SubCategory, Employee, Storage, Sector, Shelf
 
 admin.site.register(CustomUser)
 admin.site.register(Vendor)
@@ -21,3 +21,4 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Employee)
 admin.site.register(Storage)
 admin.site.register(Sector)
+admin.site.register(Shelf)
