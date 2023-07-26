@@ -180,11 +180,8 @@ submitButton.addEventListener('click', e => {
                 // Disable submit button whilst loading
                 submitButton.disabled = true;
 
-                // Serialize form data
-                // Get CSRF token from the cookie
                 let csrftoken = $('input[name="csrfmiddlewaretoken"]').prop('value');
 
-                // Set the CSRF token in the headers
                 const headers = {
                     'X-CSRFToken': csrftoken
                 };
@@ -237,7 +234,7 @@ submitButton.addEventListener('click', e => {
                         text: "Упс, что-то пошло не так.",
                         icon: "error",
                         buttonsStyling: false,
-                        confirmButtonText: "Ок",
+                        confirmButtonText: "Понятно",
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }

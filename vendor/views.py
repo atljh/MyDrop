@@ -15,8 +15,8 @@ from django.http import HttpResponseRedirect
 from django.forms import formset_factory
 
 import json
-from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory
-from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm, ProductForm
+from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory, Storage, Sector, Shelf
+from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm, ProductForm, EmployeeForm, StorageForm, SectorForm, ShelfForm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -317,14 +317,14 @@ class AddProductView(TemplateView):
 
         user = self.request.user.vendor
         
-        category_id = kwargs['id']
-        category = get_object_or_404(Category, id=category_id, user=user)
-        subcategory_id = kwargs.get('sub')
-        subcategory = SubCategory.objects.filter(id=subcategory_id, user=user).first()
+        # category_id = kwargs['id']
+        # category = get_object_or_404(Category, id=category_id, user=user)
+        # subcategory_id = kwargs.get('sub')
+        # subcategory = SubCategory.objects.filter(id=subcategory_id, user=user).first()
         
         
-        context['category'] = category
-        context['subcategory'] = subcategory
+        # context['category'] = category
+        # context['subcategory'] = subcategory
 
         return context
     
@@ -334,7 +334,6 @@ class AddProductView(TemplateView):
             product = form.save(commit=False)
             product.user = request.user.vendor
             product.save()
-
 
             return JsonResponse({'success': True})
 
@@ -363,14 +362,10 @@ class ProductView(TemplateView):
         
         product_id = kwargs['id']
         product = get_object_or_404(Product, id=product_id, user=user) 
-
-        print(product, '_'*100, product.description)
         
         context['product'] = product
 
         return context
-    
-
 
 
 class StatsView(TemplateView):
@@ -394,4 +389,163 @@ class StatsView(TemplateView):
         orders_amount = user.orders.count()
         context['orders_amount'] = orders_amount
 
+        return context
+    
+
+class EmployeesView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['employees',])
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+        
+
+        return context
+    
+    def post(self, request):
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            employee = form.save(commit=False)
+            employee.user = request.user.vendor
+            employee.save()
+
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'errors': form.errors}, status=400)
+    
+
+
+class StorageView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['stotage'])
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+        })
+        
+        return context
+    
+    def post(self, request):
+        form = StorageForm(request.POST)
+        if form.is_valid():
+            storage = form.save(commit=False)
+            storage.user = request.user.vendor
+            storage.save()
+
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'errors': form.errors}, status=400)
+    
+
+class StorageDetailView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['stotage'])
+
+        storage = get_object_or_404(Storage, id=kwargs['id'], user=self.request.user.vendor) 
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+            'storage': storage
+        })
+        return context
+    
+    def post(self, request, id: int):
+        storage = get_object_or_404(Storage, id=id, user=self.request.user.vendor) 
+        form = SectorForm(request.POST)
+        if form.is_valid():
+            sector = form.save(commit=False)
+            sector.user = request.user.vendor
+            sector.storage = storage
+            sector.save()
+
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'errors': form.errors}, status=400)
+    
+
+class SectorDetailView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['stotage'])
+
+        sector = get_object_or_404(Sector, id=kwargs['id'], user=self.request.user.vendor) 
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+            'storage': sector.storage,
+            'sector': sector
+        })
+        return context
+    
+    def post(self, request, sec: int, id: int):
+        sector = get_object_or_404(Sector, id=sec, user=self.request.user.vendor) 
+        form = ShelfForm(request.POST)
+        if form.is_valid():
+            shelf = form.save(commit=False)
+            shelf.user = request.user.vendor
+            shelf.sector = sector
+            shelf.save()
+
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'errors': form.errors}, status=400)
+
+
+class ShelfDetailView(TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/vendor/login/')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['stotage', 'categories'])
+        # KTTheme.addJavascriptFile("/js/custom/pages/catalog/products.js")
+        shelf = get_object_or_404(Shelf, id=kwargs['id'], user=self.request.user.vendor) 
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+            'shelf': shelf,
+            'sector': shelf.sector,
+            'storage': shelf.sector.storage
+        })
         return context

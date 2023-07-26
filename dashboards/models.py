@@ -232,3 +232,60 @@ class OrderProduct(models.Model):
     class Meta:
         verbose_name = 'Товар заказа',
         verbose_name_plural = 'Товары заказа'
+
+
+
+class Storage(models.Model):
+    user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE, related_name='storages')
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=200, blank=True)
+    schedule = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Склад'
+        verbose_name_plural = 'Склады'
+
+
+class Sector(models.Model):
+    user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    storage = models.ForeignKey(Storage, verbose_name="Склад", on_delete=models.CASCADE, related_name='sectors')
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Сектор"
+        verbose_name_plural = "Сектора"
+
+
+class Shelf(models.Model):
+    user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    sector = models.ForeignKey(Sector, verbose_name="Сектор", on_delete=models.CASCADE, related_name='shelves')
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Отделение'
+        verbose_name_plural = 'Отделения'
+        
+
+class Employee(models.Model):
+    user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE, related_name='employees')
+    name = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='employee_photos/', blank=True, null=True)
+    description = models.TextField(blank=True)
+    phone_number = models.CharField(max_length=200)
+    storage = models.ForeignKey(Storage, on_delete=models.CASCADE, related_name='employees', null=True)
+
+    def __str__(self):
+        return f"{self.name}"
+    
+    class Meta:
+        verbose_name = "Сотрудник"
+        verbose_name_plural= "Сотрудники"

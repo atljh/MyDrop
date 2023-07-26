@@ -1,8 +1,6 @@
 from django.urls import path
 from django.conf import settings
-from vendor.views import (VendorView, AddCategoryView, CategoryDetailView,
-                          OrdersView, AddOrderView, CategoryView, AddCategory,
-                          SubCategoryDetailView, AddSubCategory, AddProductView, ProductView, StatsView, ProfileView)
+from vendor.views import *
 
 app_name = 'vendor'
 
@@ -28,6 +26,17 @@ urlpatterns = [
     path('categories/add_category', AddCategoryView.as_view(), name='add_category'),
 
     path('products/<int:id>', ProductView.as_view(template_name = 'pages/catalog/product.html'), name='product'),
+
+    path('storage/', StorageView.as_view(template_name = 'pages/vendor/storage.html'), name='storage'),
+    path('storage/<int:id>', StorageDetailView.as_view(template_name = 'pages/vendor/storage-detail.html'), name='storage-detail'),
+    path('storage/<int:sec>/<int:id>', SectorDetailView.as_view(template_name = 'pages/vendor/sector-detail.html'), name='sector-detail'),
+    path('storage/<int:stor>/<int:sec>/<int:id>', ShelfDetailView.as_view(template_name = 'pages/vendor/shelf-detail.html'), name='shelf-detail'),
+
+    path('add_product', AddProductView.as_view(template_name = 'pages/catalog/add-product.html'), name='add-product'),
+
+
+    path('employees/', EmployeesView.as_view(template_name = 'pages/catalog/employees.html'), name='employees'),
+
 
     path('stats/', StatsView.as_view(template_name = 'pages/catalog/stats.html'), name='stats'),
 ]   

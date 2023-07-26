@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, Vendor, Dropshipper, Order, Product, Category, OrderProduct, SubCategory
+from .models import CustomUser, Vendor, Dropshipper, Order, Product, Category, OrderProduct, SubCategory, Employee, Storage, Sector
 
 admin.site.register(CustomUser)
 admin.site.register(Vendor)
@@ -18,3 +18,6 @@ class OrderProductInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderProductInline]
 
+admin.site.register(Employee)
+admin.site.register(Storage)
+admin.site.register(Sector)

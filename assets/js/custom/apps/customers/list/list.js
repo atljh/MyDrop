@@ -13,11 +13,6 @@ var KTCustomersList = function () {
         // Set date data order
         const tableRows = table.querySelectorAll('tbody tr');
 
-        tableRows.forEach(row => {
-            const dateRow = row.querySelectorAll('td');
-            const realDate = moment(dateRow[5].innerHTML, "DD MMM YYYY, LT").format(); // select date from 5th column in table
-            dateRow[5].setAttribute('data-order', realDate);
-        });
 
         // Init datatable --- more info on datatables: https://datatables.net/manual/
         datatable = $(table).DataTable({
@@ -25,7 +20,7 @@ var KTCustomersList = function () {
             'order': [],
             'columnDefs': [
                 { orderable: false, targets: 0 }, // Disable ordering on column 0 (checkbox)
-                { orderable: false, targets: 6 }, // Disable ordering on column 6 (actions)
+                { orderable: false, targets: 3 }, // Disable ordering on column 6 (actions)
             ]
         });
 
@@ -97,12 +92,12 @@ var KTCustomersList = function () {
 
                 // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
                 Swal.fire({
-                    text: "Are you sure you want to delete " + customerName + "?",
+                    text: "Вы уверены что  хотите удалть " + customerName + "?",
                     icon: "warning",
                     showCancelButton: true,
                     buttonsStyling: false,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
+                    confirmButtonText: "Да, удалить",
+                    cancelButtonText: "Нет, отменить",
                     customClass: {
                         confirmButton: "btn fw-bold btn-danger",
                         cancelButton: "btn fw-bold btn-active-light-primary"
@@ -110,10 +105,10 @@ var KTCustomersList = function () {
                 }).then(function (result) {
                     if (result.value) {
                         Swal.fire({
-                            text: "You have deleted " + customerName + "!.",
+                            text: "Вы удалили " + customerName + "!.",
                             icon: "success",
                             buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
+                            confirmButtonText: "Понятно",
                             customClass: {
                                 confirmButton: "btn fw-bold btn-primary",
                             }
@@ -123,10 +118,10 @@ var KTCustomersList = function () {
                         });
                     } else if (result.dismiss === 'cancel') {
                         Swal.fire({
-                            text: customerName + " was not deleted.",
+                            text: customerName + " был не удален",
                             icon: "error",
                             buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
+                            confirmButtonText: "Понятно",
                             customClass: {
                                 confirmButton: "btn fw-bold btn-primary",
                             }
@@ -178,12 +173,12 @@ var KTCustomersList = function () {
         deleteSelected.addEventListener('click', function () {
             // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
             Swal.fire({
-                text: "Are you sure you want to delete selected customers?",
+                text: "Вы уверены что хотите удалить выбранных сотрудников?",
                 icon: "warning",
                 showCancelButton: true,
                 buttonsStyling: false,
-                confirmButtonText: "Yes, delete!",
-                cancelButtonText: "No, cancel",
+                confirmButtonText: "Да, удалить",
+                cancelButtonText: "Нет, отменить",
                 customClass: {
                     confirmButton: "btn fw-bold btn-danger",
                     cancelButton: "btn fw-bold btn-active-light-primary"
@@ -191,10 +186,10 @@ var KTCustomersList = function () {
             }).then(function (result) {
                 if (result.value) {
                     Swal.fire({
-                        text: "You have deleted all selected customers!.",
+                        text: "Вы удалили всех выбранных сотрудников",
                         icon: "success",
                         buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "Понятно",
                         customClass: {
                             confirmButton: "btn fw-bold btn-primary",
                         }
@@ -212,10 +207,10 @@ var KTCustomersList = function () {
                     });
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
-                        text: "Selected customers was not deleted.",
+                        text: "Выбранные сотрудники не были удалены",
                         icon: "error",
                         buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
+                        confirmButtonText: "Понятно",
                         customClass: {
                             confirmButton: "btn fw-bold btn-primary",
                         }

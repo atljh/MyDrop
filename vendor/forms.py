@@ -1,5 +1,5 @@
 from django import forms
-from dashboards.models import Order, OrderProduct, Product, Category, SubCategory
+from dashboards.models import Order, OrderProduct, Product, Category, SubCategory, Employee, Storage, Sector, Shelf
 
 
 class OrderProductForm(forms.ModelForm):
@@ -50,3 +50,32 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'description', 'hidden_from_drop', 'image', 'category', 'sell_price', 'subcategory']
+
+
+class EmployeeForm(forms.ModelForm):
+    image = forms.ImageField(required=False)
+
+    class Meta:
+        model = Employee
+        fields = ['name', 'phone_number', 'description', 'image', 'storage']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['storage'].required = False
+
+
+class StorageForm(forms.ModelForm):
+    class Meta:
+        model = Storage
+        fields = ['name', 'address', 'schedule']
+
+
+class SectorForm(forms.ModelForm):
+    class Meta:
+        model = Sector
+        fields = ['name']
+
+class ShelfForm(forms.ModelForm):
+    class Meta:
+        model = Shelf
+        fields = ['name']

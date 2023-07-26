@@ -431,7 +431,22 @@ KT_THEME_VENDORS = {
             'js/custom/pages/catalog/save-product.js',
             "/plugins/custom/datatables/datatables.bundle.js",
         ]
-    }
+    },
+    "employees":{
+        "js":[
+            'js/custom/apps/customers/list/list.js',
+            'js/custom/apps/customers/add.js'
+        ]
+    },
+    "stotage": {
+        "js": [
+            # "js/custom/pages/storage/general.js",
+            "js/custom/pages/storage/new-storage.js",
+            "js/custom/pages/storage/new-sector.js",
+            "js/custom/pages/storage/new-shelf.js",
+
+        ]
+    },
     
 }
 
