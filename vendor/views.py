@@ -436,12 +436,11 @@ class StorageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['stotage'])
+        KTTheme.addVendors(['storage', 'formrepeater'])
 
         context.update({
             'layout': KTTheme.setLayout('default.html', context),
         })
-        
         return context
     
     def post(self, request):
@@ -467,7 +466,7 @@ class StorageDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['stotage'])
+        KTTheme.addVendors(['storage', 'formrepeater'])
 
         storage = get_object_or_404(Storage, id=kwargs['id'], user=self.request.user.vendor) 
 
@@ -475,7 +474,7 @@ class StorageDetailView(TemplateView):
             'layout': KTTheme.setLayout('default.html', context),
             'storage': storage
         })
-        return context
+        return contexts
     
     def post(self, request, id: int):
         storage = get_object_or_404(Storage, id=id, user=self.request.user.vendor) 
@@ -502,7 +501,7 @@ class SectorDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['stotage'])
+        KTTheme.addVendors(['storage'])
 
         sector = get_object_or_404(Sector, id=kwargs['id'], user=self.request.user.vendor) 
 
@@ -538,7 +537,7 @@ class ShelfDetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['stotage', 'categories'])
+        KTTheme.addVendors(['storage', 'categories'])
         shelf = get_object_or_404(Shelf, id=kwargs['id'], user=self.request.user.vendor) 
 
         context.update({

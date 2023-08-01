@@ -73,7 +73,7 @@ var KTAppEcommerceSaveProduct = function () {
 
     // Init form repeater --- more info: https://github.com/DubFriend/jquery.repeater
     const initFormRepeater = () => {
-        $('#kt_ecommerce_add_product_options').repeater({
+        $('#F').repeater({
             initEmpty: false,
 
             defaultValues: {

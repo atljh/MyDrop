@@ -438,7 +438,7 @@ KT_THEME_VENDORS = {
             'js/custom/apps/customers/add.js'
         ]
     },
-    "stotage": {
+    "storage": {
         "js": [
             # "js/custom/pages/storage/general.js",
             "js/custom/pages/storage/new-storage.js",

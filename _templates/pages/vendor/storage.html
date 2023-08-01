@@ -37,7 +37,6 @@
                         <div class="col-md-6 col-lg-4 col-xl-3">
                             <!--begin::Card-->
                             <div class="card h-100">
-                                <!--begin::Card body-->
                                 <div class="card-body d-flex justify-content-center text-center flex-column p-8">
                                     <!--begin::Name-->
                                     <a href="{{storage.id}}" class="text-gray-800 text-hover-primary d-flex flex-column">
@@ -48,6 +47,21 @@
                                         <div class="fs-5 fw-bold mb-2">{{storage.name}}</div>
                                     </a>
                                     <div class="fs-7 fw-semibold text-gray-400">{{storage.address}}</div>
+                                </div>
+                                <div class="card-toolbar">
+                                    <button class="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true">
+                                        <i class="ki-duotone ki-dots-square fs-1">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+                                    </button>
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px" data-kt-menu="true">
+                                        <div class="menu-item px-4">
+                                            <a href="#" class="menu-link px-3">Редактировать</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -79,8 +93,6 @@
                                         <h1 class="mb-3">Добавить склад</h1>
                                         <!--end::Title-->
                                     </div>
-                                    <!--end::Heading-->
-                                    <!--begin::Input group-->
                                     <div class="d-flex flex-column mb-8 fv-row">
                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                             <span class="required">Название</span>
@@ -99,7 +111,42 @@
                                         </label>
                                         <input type="text" class="form-control form-control-solid" placeholder="Введите график работы склада" name="schedule" />
                                     </div>
-                                    <div class="mb-10 fv-row">
+                                    <div class="" data-kt-ecommerce-catalog-add-product="auto-options">
+                                        <!--begin::Label-->
+                                        <label class="form-label">Контакты склада</label>
+                                        <!--end::Label-->
+                                        <!--begin::Repeater-->
+                                        <div id="kt_ecommerce_add_product_options">
+                                            <div class="form-group">
+                                                <div data-repeater-list="kt_ecommerce_add_product_options" class="d-flex flex-column gap-3">
+                                                    <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
+                                                        <div class="w-50 w-md-100px">
+                                                            <select class="form-select" name="product_option" data-placeholder="Выберите тип" data-kt-ecommerce-catalog-add-product="product_option">
+                                                                <option></option>
+                                                                <option value="color">Телефон</option>
+                                                                <option value="size">Вайбер</option>
+                                                                <option value="material">Почта</option>
+                                                            </select>
+                                                        </div>
+                                                        <input type="text" class="form-control mw-100 w-150px" name="product_option_value" placeholder="Значение" />
+                                                        <input type="text" class="form-control mw-100 w-200px" name="product_option_value" placeholder="Примечание" />
+
+                                                        <button type="button" data-repeater-delete="" class="btn btn-sm btn-icon btn-light-danger">
+                                                            <i class="ki-duotone ki-cross fs-1">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-5">
+                                                <button type="button" data-repeater-create="" class="btn btn-sm btn-light-primary">
+                                                <i class="ki-duotone ki-plus fs-2"></i>Добавить еще контакт</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-10 fv-row" style="margin-top: 20px;">
                                         <label class="form-label" for="dropshipper">Люди склада</label>
                                         <select id="employees" name="employees" class="form-select mb-2" data-control="select2" data-placeholder="Выберите сотрудников" data-allow-clear="true" multiple="multiple">
                                             <option></option>

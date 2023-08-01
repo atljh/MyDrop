@@ -17,7 +17,41 @@ var KTModalNewStorage = function () {
     //         validator.revalidateField('team_assign');
     //     });
 	// }
+    const initFormRepeater = () => {
+        $('#kt_ecommerce_add_product_options').repeater({
+            initEmpty: false,
 
+            defaultValues: {
+                'text-input': 'foo'
+            },
+
+            show: function () {
+                $(this).slideDown();
+
+                // Init select2 on new repeated items
+                initConditionsSelect2();
+            },
+
+            hide: function (deleteElement) {
+                $(this).slideUp(deleteElement);
+            }
+        });
+    }
+
+	// Init condition select2
+	const initConditionsSelect2 = () => {
+		// Tnit new repeating condition types
+		const allConditionTypes = document.querySelectorAll('[data-kt-ecommerce-catalog-add-product="product_option"]');
+		allConditionTypes.forEach(type => {
+			if ($(type).hasClass("select2-hidden-accessible")) {
+				return;
+			} else {
+				$(type).select2({
+					minimumResultsForSearch: -1
+				});
+			}
+		});
+	}
 	// Handle form validation and submittion
 	var handleForm = function() {
 		// Stepper custom navigation
@@ -175,7 +209,8 @@ var KTModalNewStorage = function () {
 			submitButton = document.getElementById('kt_modal_new_storage_submit');
 			cancelButton = document.getElementById('kt_modal_new_storage_cancel');
 
-			// initForm();
+			initFormRepeater();
+			initConditionsSelect2();
 			handleForm();
 		}
 	};
