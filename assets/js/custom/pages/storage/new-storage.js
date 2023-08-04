@@ -9,16 +9,8 @@ var KTModalNewStorage = function () {
 	var modal;
 	var modalEl;
 
-	// Init form inputs
-	// var initForm = function() {
-	// 	// Team assign. For more info, plase visit the official plugin site: https://select2.org/
-    //     $(form.querySelector('[name="team_assign"]')).on('change', function() {
-    //         // Revalidate the field when an option is chosen
-    //         validator.revalidateField('team_assign');
-    //     });
-	// }
     const initFormRepeater = () => {
-        $('#kt_ecommerce_add_product_options').repeater({
+        $('#contact_options').repeater({
             initEmpty: false,
 
             defaultValues: {
@@ -41,7 +33,7 @@ var KTModalNewStorage = function () {
 	// Init condition select2
 	const initConditionsSelect2 = () => {
 		// Tnit new repeating condition types
-		const allConditionTypes = document.querySelectorAll('[data-kt-ecommerce-catalog-add-product="product_option"]');
+		const allConditionTypes = document.querySelectorAll('[storage-contacts="contact_option"]');
 		allConditionTypes.forEach(type => {
 			if ($(type).hasClass("select2-hidden-accessible")) {
 				return;
@@ -103,7 +95,31 @@ var KTModalNewStorage = function () {
 		
 						// Serialize form data
 						const formData = new FormData(form);
-		
+
+						const contactOptionsContainer = document.getElementById('contact_options');
+						const contactOptionItems = contactOptionsContainer.querySelectorAll('[data-repeater-item]');
+						
+						const contactOptions = [];
+						
+						contactOptionItems.forEach(item => {
+							const optionTypeElement = item.querySelector('[name^="contact_options["][name$="[type]"]');
+							const optionValueElement = item.querySelector('[name^="contact_options["][name$="[value]"]');
+							const optionDescriptionElement = item.querySelector('[name^="contact_options["][name$="[description]"]');
+						
+							const optionType = optionTypeElement ? optionTypeElement.value : '';
+							const optionValue = optionValueElement ? optionValueElement.value : '';
+							const optionDescription = optionDescriptionElement ? optionDescriptionElement.value : '';
+						
+							contactOptions.push({
+								'type': optionType,
+								'value': optionValue,
+								'description': optionDescription
+							});
+						});
+						
+						formData.delete('contact_options'); // Remove the previous contact_options data
+						formData.append('contact_options', JSON.stringify(contactOptions));
+						console.log(contactOptions);
 						// Perform POST request to the server
 						fetch(window.location.href, {
 							method: 'POST',
@@ -192,6 +208,74 @@ var KTModalNewStorage = function () {
 			});
 		});
 	}
+	
+	$('a.delete-storage').on('click', function (e) {
+		e.preventDefault();
+	
+		const storageId = $(this).data('storage-id');
+	
+		Swal.fire({
+			text: "Вы уверены, что хотите удалить этот склад?",
+			icon: "warning",
+			showCancelButton: true,
+			buttonsStyling: false,
+			confirmButtonText: "Да, удалить!",
+			cancelButtonText: "Отмена",
+			customClass: {
+				confirmButton: "btn btn-danger",
+				cancelButton: "btn btn-active-light"
+			}
+		}).then(function (result) {
+			if (result.isConfirmed) {
+				$.ajax({
+                    type: 'POST',
+                    url: `/vendor/storage/${storageId}/delete/`,
+                    data: {
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.success) {
+                            // Обновляем интерфейс после успешного удаления
+                            Swal.fire({
+                                text: "Склад успешно удален!",
+                                icon: "success",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ок",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            }).then(function () {
+                                // Перезагружаем страницу для обновления данных
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                text: "Не удалось удалить склад.",
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ок",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            text: "Произошла ошибка при удалении склада.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ок",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
 
 	return {
 		// Public functions
@@ -208,7 +292,6 @@ var KTModalNewStorage = function () {
 			form = document.querySelector('#kt_modal_new_storage_form');
 			submitButton = document.getElementById('kt_modal_new_storage_submit');
 			cancelButton = document.getElementById('kt_modal_new_storage_cancel');
-
 			initFormRepeater();
 			initConditionsSelect2();
 			handleForm();
@@ -216,7 +299,32 @@ var KTModalNewStorage = function () {
 	};
 }();
 
-// On document ready
+
+
 KTUtil.onDOMContentLoaded(function () {
-	KTModalNewStorage.init();
+    KTModalNewStorage.init();
+
+    const searchInput = document.querySelector('input[name="search"]');
+    const cards = document.querySelectorAll('.col-md-6.col-xxl-4');
+
+    searchInput.addEventListener('input', function () {
+        const searchText = this.value.trim().toLowerCase();
+
+        cards.forEach(card => {
+            const nameElement = card.querySelector('.text-gray-700.fs-2.fw-bold');
+            const addressElement = card.querySelector('.text-gray-700.mb-6.fs-5:nth-child(2)');
+
+            if (nameElement && addressElement) {
+                const name = nameElement.textContent.toLowerCase();
+                const address = addressElement.textContent.toLowerCase();
+
+                if (name.includes(searchText) || address.includes(searchText)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        });
+    });
 });
+

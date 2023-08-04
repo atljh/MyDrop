@@ -237,9 +237,9 @@ class OrderProduct(models.Model):
 
 class Storage(models.Model):
     user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE, related_name='storages')
-    name = models.CharField(max_length=100)
-    address = models.CharField(max_length=200, blank=True)
-    schedule = models.CharField(max_length=200, blank=True)
+    name = models.CharField(verbose_name='Название', max_length=100)
+    address = models.CharField('Адрес', max_length=200, blank=True)
+    schedule = models.CharField('График работы', max_length=200, blank=True)
 
     def __str__(self):
         return self.name
@@ -247,6 +247,19 @@ class Storage(models.Model):
     class Meta:
         verbose_name = 'Склад'
         verbose_name_plural = 'Склады'
+
+class StorageContact(models.Model):
+    storage = models.ForeignKey(Storage, verbose_name="Склад", on_delete=models.CASCADE, related_name='contacts')
+    type = models.CharField(verbose_name="Тип", max_length=100)
+    value = models.CharField(verbose_name='Значение', max_length=100)
+    description = models.CharField(verbose_name='Примечание', max_length=255, blank=True)
+
+    def __str__(self):
+        return f'{self.storage} - {self.type} {self.value}'
+
+    class Meta:
+        verbose_name = 'Контакт склада'
+        verbose_name_plural = 'Контакты склада'
 
 
 class Sector(models.Model):
@@ -281,7 +294,7 @@ class Employee(models.Model):
     photo = models.ImageField(upload_to='employee_photos/', blank=True, null=True)
     description = models.TextField(blank=True)
     phone_number = models.CharField(max_length=200)
-    storage = models.ForeignKey(Storage, on_delete=models.CASCADE, related_name='employees', null=True)
+    storage = models.ForeignKey(Storage, on_delete=models.SET_NULL, related_name='employees', null=True)
 
     def __str__(self):
         return f"{self.name}"

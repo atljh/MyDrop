@@ -4,15 +4,11 @@ from django.urls import resolve
 from _keenthemes.__init__ import KTLayout
 from _keenthemes.libs.theme import KTTheme
 from pprint import pprint
-from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.http import JsonResponse
 from django.core.files.storage import default_storage
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.forms import formset_factory
 
 import json
 from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory, Storage, Sector, Shelf
@@ -26,10 +22,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from django.http import JsonResponse, HttpResponseRedirect
+from django.views.generic import TemplateView
 
 
-class VendorView(TemplateView):
+class VendorView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
+    login_url = '/vendor/login/'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -47,8 +48,9 @@ class VendorView(TemplateView):
         return context
     
 
-class ProfileView(TemplateView):
+class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
+    login_url = '/vendor/login/'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -65,8 +67,9 @@ class ProfileView(TemplateView):
         return context
 
 
-class OrdersView(TemplateView):
+class OrdersView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
+    login_url = '/vendor/login/'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -86,12 +89,7 @@ class OrdersView(TemplateView):
 
 class AddOrderView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/catalog/add-order.html'
-    permission_classes = [IsAuthenticated]
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -132,13 +130,9 @@ class AddOrderView(LoginRequiredMixin, TemplateView):
 
 
 
-class CategoryView(TemplateView):
+class CategoryView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -150,13 +144,9 @@ class CategoryView(TemplateView):
 
         return context
 
-class AddCategory(TemplateView):
+class AddCategory(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -170,6 +160,7 @@ class AddCategory(TemplateView):
 
 
 class AddCategoryView(LoginRequiredMixin, View):
+    login_url = '/vendor/login/'
     def post(self, request):
         form = CategoryForm(request.POST, request.FILES)
 
@@ -183,14 +174,9 @@ class AddCategoryView(LoginRequiredMixin, View):
         return JsonResponse({'errors': form.errors}, status=400)
 
 
-class CategoryDetailView(TemplateView):
+class CategoryDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/catalog/category.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
-
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -216,14 +202,9 @@ class CategoryDetailView(TemplateView):
         return context
     
 
-class SubCategoryDetailView(TemplateView):
+class SubCategoryDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/catalog/subcategory.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
-
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -255,12 +236,7 @@ class SubCategoryDetailView(TemplateView):
 
 class AddSubCategory(TemplateView):
     template_name = 'pages/dashboards/profile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
-
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
@@ -298,8 +274,9 @@ class AddSubCategory(TemplateView):
 
 
 
-class AddProductView(TemplateView):
+class AddProductView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
+    login_url = '/vendor/login/'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -341,13 +318,9 @@ class AddProductView(TemplateView):
 
 
 
-class ProductView(TemplateView):
+class ProductView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -368,13 +341,9 @@ class ProductView(TemplateView):
         return context
 
 
-class StatsView(TemplateView):
+class StatsView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -392,8 +361,9 @@ class StatsView(TemplateView):
         return context
     
 
-class EmployeesView(TemplateView):
+class EmployeesView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
+    login_url = '/vendor/login/'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -425,48 +395,64 @@ class EmployeesView(TemplateView):
     
 
 
-class StorageView(TemplateView):
+class StorageView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
+    paginate_by = 10
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['storage', 'formrepeater'])
+        KTTheme.addVendors(['storage', 'formrepeater', 'datatables'])
+
+        all_storages = self.request.user.vendor.storages.all()
+        paginator = Paginator(all_storages, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page = paginator.get_page(page_number)
 
         context.update({
             'layout': KTTheme.setLayout('default.html', context),
+            'orders_len': all_storages.count(),
+            'storages': page,
         })
         return context
-    
+
+
     def post(self, request):
         form = StorageForm(request.POST)
+        employees = request.POST.getlist('employees')
         if form.is_valid():
             storage = form.save(commit=False)
             storage.user = request.user.vendor
             storage.save()
 
+            form.save_contact_options(storage)
+            form.save_employees(employees, storage)
             return JsonResponse({'success': True})
 
         return JsonResponse({'errors': form.errors}, status=400)
-    
 
-class StorageDetailView(TemplateView):
+
+def delete_storage(request, pk):
+    try:
+        storage = get_object_or_404(Storage, pk=pk, user=request.user.vendor)
+        storage.delete()
+        return JsonResponse({'success': True})
+    except Storage.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Storage not found'}, status=404)
+    except:
+        return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
+
+
+class EditStorageView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context = KTLayout.init(context)
-        KTTheme.addVendors(['storage', 'formrepeater'])
+        KTTheme.addVendors(['formrepeater'])
+        KTTheme.addJavascriptFile('/js/custom/pages/storage/edit-storage.js')
 
         storage = get_object_or_404(Storage, id=kwargs['id'], user=self.request.user.vendor) 
 
@@ -474,7 +460,35 @@ class StorageDetailView(TemplateView):
             'layout': KTTheme.setLayout('default.html', context),
             'storage': storage
         })
-        return contexts
+        return context
+    
+    def post(self, request, id: int):
+        storage = get_object_or_404(Storage, id=id, user=self.request.user.vendor) 
+        form = StorageForm(request.POST, instance=storage) 
+        if form.is_valid():
+            form.save() 
+
+            return JsonResponse({'success': True})
+
+        return JsonResponse({'errors': form.errors}, status=400)
+    
+    
+class StorageDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+    login_url = '/vendor/login/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['storage', 'formrepeater', 'datatables'])
+
+        storage = get_object_or_404(Storage, id=kwargs['id'], user=self.request.user.vendor) 
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+            'storage': storage
+        })
+        return context
     
     def post(self, request, id: int):
         storage = get_object_or_404(Storage, id=id, user=self.request.user.vendor) 
@@ -490,8 +504,9 @@ class StorageDetailView(TemplateView):
         return JsonResponse({'errors': form.errors}, status=400)
     
 
-class SectorDetailView(TemplateView):
+class SectorDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
+    login_url = '/vendor/login/'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -526,13 +541,9 @@ class SectorDetailView(TemplateView):
         return JsonResponse({'errors': form.errors}, status=400)
 
 
-class ShelfDetailView(TemplateView):
+class ShelfDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
+    login_url = '/vendor/login/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

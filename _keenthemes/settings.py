@@ -440,10 +440,10 @@ KT_THEME_VENDORS = {
     },
     "storage": {
         "js": [
-            # "js/custom/pages/storage/general.js",
             "js/custom/pages/storage/new-storage.js",
             "js/custom/pages/storage/new-sector.js",
             "js/custom/pages/storage/new-shelf.js",
+            "js/custom/pages/storage/table.js"
 
         ]
     },

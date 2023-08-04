@@ -1,0 +1,175 @@
+{% extends layout %}
+
+{% load i18n %}
+
+{% block title %}{% translate "Главная" %}{% endblock %}
+
+{% block content %}
+
+<!--begin::Row-->
+<div class="row g-5 g-xl-10 mb-5 mb-xl-10">
+    <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+        <!--begin::Content wrapper-->
+        <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+            <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+                <!--begin::Content wrapper-->
+                <div class="d-flex flex-column flex-column-fluid">У
+                    <!--begin::Toolbar-->
+                    <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+                        <!--begin::Toolbar container-->
+                        <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+                            <!--begin::Page title-->
+                            <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+                                <!--begin::Title-->
+                                <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Редактировать склад</h1>
+                                <!--end::Title-->
+                                <!--begin::Breadcrumb-->
+                                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-4 my-0 pt-1">
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">
+                                        <a href="../{{category.id}}" class="text text-hover-primary">{{category.name}}</a>
+                                    </li>
+                                    <!--end::Item-->
+                                    {% if subcategory %}
+                                    <li class="breadcrumb-item">
+                                        <span class="bullet bg-gray-400 w-5px h-2px"></span>
+                                    </li>
+                                    <!--end::Item-->
+                                    <!--begin::Item-->
+                                    <li class="breadcrumb-item text-muted">{{subcategory.name}}</li>
+                                    <!--end::Item-->
+                                    {% endif %}
+                                </ul>
+                                <!--end::Breadcrumb-->
+                            </div>
+                            <!--end::Page title-->
+                        </div>
+                        <!--end::Toolbar container-->
+                    </div>
+                    <!--end::Toolbar-->
+                    <!--begin::Content-->
+                    <div id="kt_app_content" class="app-content flex-column-fluid">
+                        <!--begin::Content container-->
+                        <div id="kt_app_content_container" class="app-container container-xxl">
+                            <!--begin::Form-->
+                            <div class="tab-pane fade show active" id="kt_modal_new_storage" tabindex="-1" aria-hidden="true">
+                                <!--begin::Main column-->
+                                <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+                                    <div class="tab-content">
+                                        <!--begin::Tab pane-->
+                                        <div class="tab-pane fade show active" id="kt_ecommerce_add_product_general" role="tab-panel">
+                                            <div class="d-flex flex-column gap-7 gap-lg-10">
+                                                <!--begin::General options-->
+                                                <div class="card card-flush py-4">
+
+                                                    <div class="card-body pt-0">
+                                                        <form id="kt_modal_new_storage_form" class="form" action="#" data-kt-redirect="/vendor/storage/">
+                                                            {% csrf_token %}
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="name">Название</label>
+                                                                <input type="text" id="name" name="name" class="form-control mb-2" placeholder="Название" value="{{storage.name}}" />
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="address">Адрес</label>
+                                                                <input type="text" id="address" name="address" class="form-control mb-2" placeholder="Адрес" value="{{storage.address}}" />
+                                                            </div>
+                                                            <div class="mb-10 fv-row">
+                                                                <label class="form-label" for="schedule">График работы</label>
+                                                                <input type="text" id="schedule" name="schedule" class="form-control mb-2" placeholder="График работы" value="{{storage.schedule}}" />
+                                                            </div>
+                                                            <div class="" data-kt-ecommerce-catalog-add-product="auto-options">
+                                                                <!--begin::Label-->
+                                                                <label class="form-label">Контакты склада</label>
+                                                                <!--end::Label-->
+                                                                <!--begin::Repeater-->
+                                                                <div id="kt_ecommerce_add_product_options">
+                                                                    <div class="form-group">
+                                                                        {% for contact in storage.contacts.all %}
+                                                                        <div data-repeater-list="kt_ecommerce_add_product_options" class="d-flex flex-column gap-3 mb-3">
+                                                                            <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
+                                                                                <div class="w-50 w-md-100px">
+                                                                                    <select class="form-select" name="product_option" data-placeholder="Выберите тип" data-kt-ecommerce-catalog-add-product="product_option">
+                                                                                        <option selected>{{contact.type}}</option>
+                                                                                        <option value="color">Телефон</option>
+                                                                                        <option value="size">Вайбер</option>
+                                                                                        <option value="material">Почта</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <input type="text" class="form-control mw-100 w-150px" name="product_option_value" placeholder="Значение" value="{{contact.value}}" />
+                                                                                <input type="text" class="form-control mw-100 w-200px" name="product_option_description" placeholder="Примечание" value="{{contact.description}}"/>
+                                                                                <button type="button" data-repeater-delete="" class="btn btn-sm btn-icon btn-light-danger">
+                                                                                    <i class="ki-duotone ki-cross fs-1">
+                                                                                        <span class="path1"></span>
+                                                                                        <span class="path2"></span>
+                                                                                    </i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    <div class="form-group mt-5">
+                                                                        <button type="button" data-repeater-create="" class="btn btn-sm btn-light-primary">
+                                                                        <i class="ki-duotone ki-plus fs-2"></i>Добавить еще контакт</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="mb-10 fv-row" style="margin-top: 20px;">
+                                                                <label class="form-label" for="dropshipper">Люди склада</label>
+                                                                <select id="employees" name="employees" class="form-select mb-2" data-control="select2" data-placeholder="Выберите сотрудников" data-allow-clear="true" multiple="multiple">
+                                                                    <option></option>
+                                                                    {% for employee in user.vendor.employees.all %}
+                                                                    <option value="{{employee}}">{{ employee.name }}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                                <span class="dropdown-wrapper" aria-hidden="true"></span>
+                                                                </span>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Tab pane-->
+                                        <!--begin::Tab pane-->
+                                        <div class="tab-pane fade" id="kt_ecommerce_add_product_advanced" role="tab-panel">
+                                            <div class="d-flex flex-column gap-7 gap-lg-10">
+                                                <!--begin::Inventory-->
+                                                <!--end::Meta options-->
+                                            </div>
+                                        </div>
+                                        <!--end::Tab pane-->
+                                    </div>
+                                    <!--end::Tab content-->
+                                    <div class="d-flex justify-content-end">
+                                        <!--begin::Button-->
+                                        <a href="../{{category.id}}" id="kt_modal_new_storage_cancel" class="btn btn-light me-5">Отменить</a>
+                                        <!--end::Button-->
+                                        <!--begin::Button-->
+                                        <button type="submit" id="kt_modal_new_storage_submit" class="btn btn-primary">
+                                            <span class="indicator-label">Сохранить</span>
+                                            <span class="indicator-progress">Пожалуйста подождите
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        </button>
+                                        <!--end::Button-->
+                                    </div>
+                                </div>
+                                <!--end::Main column-->
+                            </div>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Content container-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+                <!--end::Content wrapper-->
+                <!--begin::Footer-->
+
+                <!--end::Footer-->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--end::Row-->
+
+{% endblock content %}
