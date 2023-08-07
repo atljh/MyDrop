@@ -81,7 +81,7 @@ var KTModalNewShelf = function () {
 							// Process the response as needed
 							if (data.success) {
 								Swal.fire({
-									text: "Отделение успешно добавлено!",
+									text: "Сектор добавлено успешно!",
 									icon: "success",
 									buttonsStyling: false,
 									confirmButtonText: "Oк",

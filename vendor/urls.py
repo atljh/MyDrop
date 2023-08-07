@@ -38,6 +38,7 @@ urlpatterns = [
 
 
     path('employees/', EmployeesView.as_view(template_name = 'pages/catalog/employees.html'), name='employees'),
+    path('employee/<int:pk>/delete/', delete_employee, name='delete_storage'),
 
 
     path('stats/', StatsView.as_view(template_name = 'pages/catalog/stats.html'), name='stats'),

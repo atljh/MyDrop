@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from django.core.files.storage import default_storage
 
 import json
-from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory, Storage, Sector, Shelf
+from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory, Storage, Sector, Shelf, Employee
 from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm, ProductForm, EmployeeForm, StorageForm, SectorForm, ShelfForm
 
 from rest_framework.views import APIView
@@ -393,6 +393,16 @@ class EmployeesView(LoginRequiredMixin, TemplateView):
 
         return JsonResponse({'errors': form.errors}, status=400)
     
+def delete_employee(request, pk):
+    try:
+        employee = get_object_or_404(Employee, pk=pk, user=request.user.vendor)
+        employee.storage = None
+        employee.save()
+        return JsonResponse({'success': True})
+    except Storage.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Storage not found'}, status=404)
+    except:
+        return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
 
 
 class StorageView(LoginRequiredMixin, TemplateView):
@@ -416,7 +426,6 @@ class StorageView(LoginRequiredMixin, TemplateView):
             'storages': page,
         })
         return context
-
 
     def post(self, request):
         form = StorageForm(request.POST)

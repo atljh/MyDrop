@@ -3,7 +3,6 @@
 // Class definition
 var KTModalEditStorage = function () {
 	var submitButton;
-	var cancelButton;
 	var validator;
 	var form;
 	var modal;
@@ -152,32 +151,68 @@ var KTModalEditStorage = function () {
 			}
 		});
 
-		cancelButton.addEventListener('click', function (e) {
+		$('a.delete-employee').on('click', function (e) {
 			e.preventDefault();
-
+		
+			const employeeId = $(this).data('employee-id');
+		
 			Swal.fire({
-				text: "Are you sure you would like to cancel?",
+				text: "Вы уверены, что хотите удалить этого сотрудника?",
 				icon: "warning",
 				showCancelButton: true,
 				buttonsStyling: false,
-				confirmButtonText: "Yes, cancel it!",
-				cancelButtonText: "No, return",
+				confirmButtonText: "Да, удалить!",
+				cancelButtonText: "Отмена",
 				customClass: {
-					confirmButton: "btn btn-primary",
+					confirmButton: "btn btn-danger",
 					cancelButton: "btn btn-active-light"
 				}
 			}).then(function (result) {
-				if (result.value) {
-					form.reset(); // Reset form	
-					modal.hide(); // Hide modal				
-				} else if (result.dismiss === 'cancel') {
-					Swal.fire({
-						text: "Your form has not been cancelled!.",
-						icon: "error",
-						buttonsStyling: false,
-						confirmButtonText: "Ok, got it!",
-						customClass: {
-							confirmButton: "btn btn-primary",
+				if (result.isConfirmed) {
+					$.ajax({
+						type: 'POST',
+						url: `/vendor/employee/${employeeId}/delete/`,
+						data: {
+							csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+						},
+						dataType: 'json',
+						success: function (response) {
+							if (response.success) {
+								// Обновляем интерфейс после успешного удаления
+								Swal.fire({
+									text: "Сотрудник успешно удален!",
+									icon: "success",
+									buttonsStyling: false,
+									confirmButtonText: "Ок",
+									customClass: {
+										confirmButton: "btn btn-primary"
+									}
+								}).then(function () {
+									// Перезагружаем страницу для обновления данных
+									window.location.reload();
+								});
+							} else {
+								Swal.fire({
+									text: "Не удалось удалить сотрудника.",
+									icon: "error",
+									buttonsStyling: false,
+									confirmButtonText: "Ок",
+									customClass: {
+										confirmButton: "btn btn-primary"
+									}
+								});
+							}
+						},
+						error: function () {
+							Swal.fire({
+								text: "Произошла ошибка при удалении сотрудника.",
+								icon: "error",
+								buttonsStyling: false,
+								confirmButtonText: "Ок",
+								customClass: {
+									confirmButton: "btn btn-primary"
+								}
+							});
 						}
 					});
 				}
@@ -195,7 +230,6 @@ var KTModalEditStorage = function () {
 
 			form = document.querySelector('#kt_modal_new_storage_form');
 			submitButton = document.getElementById('kt_modal_new_storage_submit');
-			cancelButton = document.getElementById('kt_modal_new_storage_cancel');
 			initFormRepeater();
 			initConditionsSelect2();
 			handleForm();
