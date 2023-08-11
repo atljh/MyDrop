@@ -16,15 +16,16 @@
                     <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
                         <!--begin::Toolbar container-->
                         <div id="kt_app_toolbar_containerd" class="app-container container-md d-flex flex-stack">
-                            <!--begin::Page title-->
 
                         </div>
                     </div>
+
                     <!--end::Toolbar-->
                     <!--begin::Content-->
                     <div id="kt_app_content" class="app-content flex-column-fluid">
                         <!--begin::Content container-->
                         <div id="kt_app_content_container" class="app-container container-sm" style="max-width: 1000px;">
+
                             <!--begin::Form-->
                             <div class="tab-pane fade show active" id="kt_modal_new_storage" tabindex="-1" aria-hidden="true">
                                 <!--begin::Main column-->
@@ -56,26 +57,30 @@
                                                                 <label class="form-label">Контакты склада</label>
                                                                 <!--end::Label-->
                                                                 <!--begin::Repeater-->
+                                                                
                                                                 <div id="kt_ecommerce_add_product_options">
                                                                     <div class="form-group">
                                                                         {% for contact in storage.contacts.all %}
                                                                         <div data-repeater-list="kt_ecommerce_add_product_options" class="d-flex flex-column gap-3 mb-3">
                                                                             <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
-                                                                                <div class="w-50 w-md-100px">
-                                                                                    <select class="form-select" name="product_option" data-placeholder="Выберите тип" data-kt-ecommerce-catalog-add-product="product_option">
-                                                                                        <option selected>{{contact.type}}</option>
-                                                                                        <option value="color">Телефон</option>
-                                                                                        <option value="size">Вайбер</option>
-                                                                                        <option value="material">Почта</option>
-                                                                                    </select>
+
+                                                                                <div class="input-group pb-1">
+                                                                                    <div class="w-300 w-md-150px">
+                                                                                        <select class="form-select" name="type" data-placeholder="Выберите тип" data-kt-ecommerce-catalog-add-product="product_option">
+                                                                                            <option></option>
+                                                                                            {% for contact in user.vendor.contacts.all %}
+                                                                                            <option value="{{contact.value}}">{{contact.type}}</option>
+                                                                                            {% endfor %}
+                                                                                        </select>
+                                                                                    </div>
+                                                                                    <button class="border border-secondary btn btn-icon btn-flex btn-light-primary" data-bs-toggle="modal" data-bs-target="#add_type" type="button">
+                                                                                        <i class="ki-duotone ki-plus fs-4"></i>
+                                                                                    </button>
                                                                                 </div>
                                                                                 <input type="text" class="form-control mw-100 w-150px" name="product_option_value" placeholder="Значение" value="{{contact.value}}" />
                                                                                 <input type="text" class="form-control mw-100 w-200px" name="product_option_description" placeholder="Примечание" value="{{contact.description}}"/>
-                                                                                <button type="button" data-repeater-delete="" class="btn btn-sm btn-icon btn-light-danger">
-                                                                                    <i class="ki-duotone ki-cross fs-1">
-                                                                                        <span class="path1"></span>
-                                                                                        <span class="path2"></span>
-                                                                                    </i>
+                                                                                <button class="border border-secondary btn btn-icon btn-flex btn-light-danger" data-repeater-delete type="button">
+                                                                                    <i class="ki-duotone ki-trash fs-5"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
                                                                                 </button>
                                                                             </div>
                                                                         </div>
@@ -148,6 +153,7 @@
                                                 <!--end::Meta options-->
                                             </div>
                                         </div>
+                                        
                                         <!--end::Tab pane-->
                                     </div>
                                     <!--end::Tab content-->
@@ -168,6 +174,22 @@
                             </div>
                             <!--end::Form-->
                         </div>
+                        <div class="modal fade" tabindex="1" id="add_type">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Добавить новый тип контакта</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" id="newContactType" class="form-control" placeholder="Новый тип контакта">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                        <button type="button" id="confirmAddContact" class="btn btn-primary">Добавить</button>
+                                    </div>
+                                </div>
+                            </div>
                         <!--end::Content container-->
                     </div>
                     <!--end::Content-->
