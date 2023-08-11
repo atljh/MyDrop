@@ -1,5 +1,5 @@
 from django import forms
-from dashboards.models import Order, OrderProduct, Product, Category, SubCategory, Employee, Storage, Sector, Shelf, StorageContact
+from dashboards.models import Order, OrderProduct, Product, Category, SubCategory, Employee, Storage, Sector, Shelf, StorageContact, ContactType
 import json
 
 class OrderProductForm(forms.ModelForm):
@@ -27,7 +27,7 @@ class OrderForm(forms.ModelForm):
 
 
 class CategoryForm(forms.ModelForm):
-    image = forms.ImageField(required=False)  # Make the image field optional
+    image = forms.ImageField(required=False)
 
     class Meta:
         model = Category
@@ -109,3 +109,17 @@ class ShelfForm(forms.ModelForm):
     class Meta:
         model = Shelf
         fields = ['name']
+
+
+class ContactTypeForm(forms.ModelForm):
+    class Meta:
+        model = ContactType
+        fields = ['type', 'value']
+    
+    def __init__(self, user=None, *args, **kwargs):
+        super(ContactTypeForm, self).__init__(*args, **kwargs)
+        self.fields['type'].widget.attrs['class'] = 'form-select'
+        self.fields['value'].widget.attrs['class'] = 'form-control'
+        
+        if user:
+            self.instance.user = user

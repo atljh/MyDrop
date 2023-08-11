@@ -8,6 +8,7 @@ var KTModalNewStorage = function () {
 	var form;
 	var modal;
 	var modalEl;
+	var addContactButton;
 
     const initFormRepeater = () => {
         $('#contact_options').repeater({
@@ -207,8 +208,59 @@ var KTModalNewStorage = function () {
 				}
 			});
 		});
+
+		addContactButton.addEventListener('click', function (e) {
+			e.preventDefault();
+			let type = document.getElementById('newContactType').value;
+			$.ajax({
+				type: 'POST',
+				url: `/vendor/storage/add_contact/`,
+				data: {
+					contact_type: type,
+					csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+				},
+				dataType: 'json',
+				success: function (response) {
+					if (response.success) {
+						Swal.fire({
+							text: "Контакт успешно добавлен!",
+							icon: "success",
+							buttonsStyling: false,
+							confirmButtonText: "Ок",
+							customClass: {
+								confirmButton: "btn btn-primary"
+							}
+						}).then(function () {
+							window.location.reload();
+						});
+					} else {
+						Swal.fire({
+							text: "Не удалось добавить контакт.",
+							icon: "error",
+							buttonsStyling: false,
+							confirmButtonText: "Ок",
+							customClass: {
+								confirmButton: "btn btn-primary"
+							}
+						});
+					}
+				},
+				error: function () {
+					Swal.fire({
+						text: "Произошла ошибка при добавлении контакта.",
+						icon: "error",
+						buttonsStyling: false,
+						confirmButtonText: "Ок",
+						customClass: {
+							confirmButton: "btn btn-primary"
+						}
+					});
+				}
+			});
+		});
 	}
 	
+
 	$('a.delete-storage').on('click', function (e) {
 		e.preventDefault();
 	
@@ -292,6 +344,8 @@ var KTModalNewStorage = function () {
 			form = document.querySelector('#kt_modal_new_storage_form');
 			submitButton = document.getElementById('kt_modal_new_storage_submit');
 			cancelButton = document.getElementById('kt_modal_new_storage_cancel');
+			addContactButton = document.getElementById('confirmAddContact');
+
 			initFormRepeater();
 			initConditionsSelect2();
 			handleForm();

@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import CustomUser, Vendor, Dropshipper, Order, Product, Category, OrderProduct, SubCategory, Employee, Storage, Sector, Shelf, StorageContact
+from .models import CustomUser, Vendor, Dropshipper, Order, Product, Category, OrderProduct, SubCategory, Employee, Storage, Sector, Shelf, StorageContact, ContactType
 
 admin.site.register(CustomUser)
 admin.site.register(Vendor)
 admin.site.register(Dropshipper)
-# admin.site.register(DropOrder)
+admin.site.register(ContactType)
 admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(SubCategory)

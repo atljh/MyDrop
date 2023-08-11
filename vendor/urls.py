@@ -33,6 +33,7 @@ urlpatterns = [
     path('storage/<int:pk>/delete/', delete_storage, name='delete_storage'),
     path('storage/<int:sec>/<int:id>', SectorDetailView.as_view(template_name = 'pages/vendor/sector-detail.html'), name='sector-detail'),
     path('storage/<int:stor>/<int:sec>/<int:id>', ShelfDetailView.as_view(template_name = 'pages/vendor/shelf-detail.html'), name='shelf-detail'),
+    path('storage/add_contact/', AddContactView.as_view(), name='add-contact'),
 
     path('add_product', AddProductView.as_view(template_name = 'pages/catalog/add-product.html'), name='add-product'),
 

@@ -151,6 +151,7 @@ var KTModalEditStorage = function () {
 			}
 		});
 
+
 		$('a.delete-employee').on('click', function (e) {
 			e.preventDefault();
 		
@@ -230,6 +231,7 @@ var KTModalEditStorage = function () {
 
 			form = document.querySelector('#kt_modal_new_storage_form');
 			submitButton = document.getElementById('kt_modal_new_storage_submit');
+
 			initFormRepeater();
 			initConditionsSelect2();
 			handleForm();

@@ -11,8 +11,8 @@ from django.http import JsonResponse
 from django.core.files.storage import default_storage
 
 import json
-from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory, Storage, Sector, Shelf, Employee
-from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm, ProductForm, EmployeeForm, StorageForm, SectorForm, ShelfForm
+from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory, Storage, Sector, Shelf, Employee, ContactType
+from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm, ProductForm, EmployeeForm, StorageForm, SectorForm, ShelfForm, ContactTypeForm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -357,7 +357,6 @@ class StatsView(LoginRequiredMixin, TemplateView):
         user = self.request.user.vendor
         orders_amount = user.orders.count()
         context['orders_amount'] = orders_amount
-
         return context
     
 
@@ -379,7 +378,6 @@ class EmployeesView(LoginRequiredMixin, TemplateView):
             'layout': KTTheme.setLayout('default.html', context),
         })
         
-
         return context
     
     def post(self, request):
@@ -451,7 +449,34 @@ def delete_storage(request, pk):
         return JsonResponse({'success': False, 'error': 'Storage not found'}, status=404)
     except:
         return JsonResponse({'success': False, 'error': 'Forbidden'}, status=403)
+    
 
+class AddContactView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/dashboards/profile.html'
+    login_url = '/vendor/login/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = KTLayout.init(context)
+        KTTheme.addVendors(['formrepeater'])
+        KTTheme.addJavascriptFile('/js/custom/pages/storage/edit-storage.js')
+
+        storage = get_object_or_404(Storage, id=kwargs['id'], user=self.request.user.vendor) 
+
+        context.update({
+            'layout': KTTheme.setLayout('default.html', context),
+            'storage': storage
+        })
+        return context
+    
+    def post(self, request):
+        contact_type=request.POST.get('contact_type')
+        try:
+            contact = ContactType.objects.create(type=contact_type,value=contact_type, user=request.user.vendor)
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'errors': e}, status=400)
+    
 
 class EditStorageView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
