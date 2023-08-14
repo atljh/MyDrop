@@ -67,9 +67,9 @@
                                                                                 <div class="input-group pb-1">
                                                                                     <div class="w-300 w-md-150px">
                                                                                         <select class="form-select" name="type" data-placeholder="Выберите тип" data-kt-ecommerce-catalog-add-product="product_option">
-                                                                                            <option></option>
-                                                                                            {% for contact in user.vendor.contacts.all %}
-                                                                                            <option value="{{contact.value}}">{{contact.type}}</option>
+                                                                                            <option selected>{{contact.type}}</option>
+                                                                                            {% for cont in user.vendor.contacts.all %}
+                                                                                            <option value="{{cont.value}}">{{cont.type}}</option>
                                                                                             {% endfor %}
                                                                                         </select>
                                                                                     </div>
