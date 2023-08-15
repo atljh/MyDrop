@@ -497,6 +497,7 @@ class EditStorageView(LoginRequiredMixin, TemplateView):
         return context
     
     def post(self, request, id: int):
+        print(request.POST)
         storage = get_object_or_404(Storage, id=id, user=self.request.user.vendor) 
         form = StorageForm(request.POST, instance=storage) 
         if form.is_valid():

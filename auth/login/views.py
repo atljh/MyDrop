@@ -17,6 +17,11 @@ Refer to urls.py file for more pages.
 class AuthVendorSigninView(TemplateView):
     template_name = 'pages/auth/login.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/vendor/main/')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)

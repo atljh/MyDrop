@@ -105,6 +105,7 @@ class SectorForm(forms.ModelForm):
         model = Sector
         fields = ['name']
 
+
 class ShelfForm(forms.ModelForm):
     class Meta:
         model = Shelf

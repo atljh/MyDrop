@@ -27,7 +27,7 @@ urlpatterns = [
 
     path('products/<int:id>', ProductView.as_view(template_name = 'pages/catalog/product.html'), name='product'),
 
-    path('storage/', StorageView.as_view(template_name = 'pages/vendor/test-storage.html'), name='storage'),
+    path('storage/', StorageView.as_view(template_name = 'pages/vendor/storage.html'), name='storage'),
     path('storage/<int:id>', StorageDetailView.as_view(template_name = 'pages/vendor/storage-detail.html'), name='storage-detail'),
     path('storage/<int:id>/edit', EditStorageView.as_view(template_name = 'pages/vendor/edit-storage.html'), name='edit-storage'),
     path('storage/<int:pk>/delete/', delete_storage, name='delete_storage'),

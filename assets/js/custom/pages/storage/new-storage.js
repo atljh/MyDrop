@@ -120,7 +120,6 @@ var KTModalNewStorage = function () {
 						
 						formData.delete('contact_options'); // Remove the previous contact_options data
 						formData.append('contact_options', JSON.stringify(contactOptions));
-						console.log(contactOptions);
 						// Perform POST request to the server
 						fetch(window.location.href, {
 							method: 'POST',

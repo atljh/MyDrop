@@ -52,21 +52,16 @@
                                                                 <label class="form-label" for="schedule">График работы</label>
                                                                 <input type="text" id="schedule" name="schedule" class="form-control mb-2" placeholder="График работы" value="{{storage.schedule}}" />
                                                             </div>
-                                                            <div class="" data-kt-ecommerce-catalog-add-product="auto-options">
-                                                                <!--begin::Label-->
+                                                            <div class="" storage-contacts="auto-options">
                                                                 <label class="form-label">Контакты склада</label>
-                                                                <!--end::Label-->
-                                                                <!--begin::Repeater-->
-                                                                
-                                                                <div id="kt_ecommerce_add_product_options">
+                                                                <div id="contact_options">
                                                                     <div class="form-group">
                                                                         {% for contact in storage.contacts.all %}
-                                                                        <div data-repeater-list="kt_ecommerce_add_product_options" class="d-flex flex-column gap-3 mb-3">
+                                                                        <div data-repeater-list="contact_options" class="d-flex flex-column gap-3 mb-3">
                                                                             <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
-
                                                                                 <div class="input-group pb-1">
                                                                                     <div class="w-300 w-md-150px">
-                                                                                        <select class="form-select" name="type" data-placeholder="Выберите тип" data-kt-ecommerce-catalog-add-product="product_option">
+                                                                                        <select class="form-select" name="type" data-placeholder="Выберите тип" storage-contacts="product_option">
                                                                                             <option selected>{{contact.type}}</option>
                                                                                             {% for cont in user.vendor.contacts.all %}
                                                                                             <option value="{{cont.value}}">{{cont.type}}</option>

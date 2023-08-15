@@ -11,7 +11,7 @@ var KTModalEditStorage = function () {
 
 
     const initFormRepeater = () => {
-        $('#kt_ecommerce_add_product_options').repeater({
+        $('#contact_options').repeater({
             initEmpty: false,
 
             defaultValues: {
@@ -30,11 +30,10 @@ var KTModalEditStorage = function () {
             }
         });
     }
-
 	// Init condition select2
 	const initConditionsSelect2 = () => {
 		// Tnit new repeating condition types
-		const allConditionTypes = document.querySelectorAll('[data-kt-ecommerce-catalog-add-product="product_option"]');
+		const allConditionTypes = document.querySelectorAll('[storage-contacts="contact_option"]');
 		allConditionTypes.forEach(type => {
 			if ($(type).hasClass("select2-hidden-accessible")) {
 				return;
@@ -97,6 +96,29 @@ var KTModalEditStorage = function () {
 						// Serialize form data
 						const formData = new FormData(form);
 		
+						const contactOptionsContainer = document.getElementById('contact_options');
+						const contactOptionItems = contactOptionsContainer.querySelectorAll('[data-repeater-item]');
+						
+						const contactOptions = [];
+						
+						contactOptionItems.forEach(item => {
+							const optionTypeElement = item.querySelector('[name^="contact_options["][name$="[type]"]');
+							const optionValueElement = item.querySelector('[name^="contact_options["][name$="[value]"]');
+							const optionDescriptionElement = item.querySelector('[name^="contact_options["][name$="[description]"]');
+						
+							const optionType = optionTypeElement ? optionTypeElement.value : '';
+							const optionValue = optionValueElement ? optionValueElement.value : '';
+							const optionDescription = optionDescriptionElement ? optionDescriptionElement.value : '';
+						
+							contactOptions.push({
+								'type': optionType,
+								'value': optionValue,
+								'description': optionDescription
+							});
+						});
+						
+						formData.delete('contact_options'); // Remove the previous contact_options data
+						formData.append('contact_options', JSON.stringify(contactOptions));
 						// Perform POST request to the server
 						fetch(window.location.href, {
 							method: 'POST',

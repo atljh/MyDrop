@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from dashboards.models import Vendor, Dropshipper
 from django.contrib.auth import get_user_model
+from django.shortcuts import redirect
 
 import json
 """
@@ -17,6 +18,12 @@ Refer to urls.py file for more pages.
 
 class AuthRegisterVendorView(TemplateView):
     template_name = 'pages/auth/registration.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('/vendor/main/')
+        return super().dispatch(request, *args, **kwargs)
+
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
