@@ -222,6 +222,7 @@
                         <!--end::Title-->
                         <!--begin::Controls-->
                         <div class="d-flex flex-wrap my-1">
+                            
                             <!--begin::Tab nav-->
                             <ul class="nav nav-pills me-6 mb-2 mb-sm-0">
                                 <li class="nav-item m-0">
@@ -258,6 +259,7 @@
                         </div>
                     </div>
                     <div class="tab-content">
+                        
                         <div class="modal fade" tabindex="1" id="add_type">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -424,6 +426,7 @@
                             <!--begin:Form-->
                             <form id="kt_modal_new_storage_form" class="form" action="#" data-kt-redirect="/vendor/storage/">
                                 {% csrf_token %}
+                                
                                 <!--begin::Heading-->
                                 <div class="mb-13 text-center">
                                     <!--begin::Title-->
@@ -440,14 +443,17 @@
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span>Адрес</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Введите адрес склада" name="address" />
+                                    <div id="pac-container">
+                                        <input id="pac-input" type="text" class="form-control form-control-solid" placeholder="Введите адрес склада" name="address" />
+                                    </div>
                                 </div>
                                 <div class="d-flex flex-column mb-8 fv-row">
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span>График работы</span>
                                     </label>
-                                    <input type="text" class="form-control form-control-solid" placeholder="Введите график работы склада" name="schedule" />
+                                    <textarea class="form-control form-control-solid" placeholder="Введите график работы склада" name="schedule"></textarea>
                                 </div>
+                                
                                 <div class="" storage-contacts="auto-options">
                                     <!--begin::Label-->
                                     <label class="form-label">Контакты</label>

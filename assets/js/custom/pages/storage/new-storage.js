@@ -45,6 +45,10 @@ var KTModalNewStorage = function () {
 			}
 		});
 	}
+	// _______________________
+
+
+// _______________
 	// Handle form validation and submittion
 	var handleForm = function() {
 		// Stepper custom navigation

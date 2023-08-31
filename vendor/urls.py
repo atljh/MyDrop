@@ -6,13 +6,16 @@ app_name = 'vendor'
 
 urlpatterns = [
     path('', VendorView.as_view(template_name = 'pages/dashboards/vendor.html'), name='vendor'),
+    
+    path('test/', VendorView.as_view(template_name = 'pages/vendor/test.html'), name='vendor-test'),
+
     path('main/', VendorView.as_view(template_name = 'pages/vendor/main.html'), name='vendor-main'),
     path('profile/', ProfileView.as_view(template_name = 'pages/dashboards/profile.html'), name='vendor-profile'),
     path('settings/', VendorView.as_view(template_name = 'pages/dashboards/settings.html'), name='settings'),
 
     path('orders/', OrdersView.as_view(template_name = 'pages/catalog/orders.html'), name='vendor-orders'),
     path('orders/<id>', OrdersView.as_view(template_name = 'pages/catalog/orders.html'), name='vendor-orders'),
-    path('add_order/', AddOrderView.as_view(), name='vendor-add-orders'),
+    path('add_order/', AddOrderView.as_view(template_name = 'pages/catalog/add-order.html'), name='vendor-add-orders'),
 
     path('categories/', CategoryView.as_view(template_name = 'pages/catalog/categories.html'), name='vendor-categories'),
     path('categories/new', AddCategory.as_view(template_name = 'pages/catalog/categories-new.html'), name='vendor-categories-new'),

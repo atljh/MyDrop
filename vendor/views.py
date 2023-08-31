@@ -14,13 +14,8 @@ import json
 from dashboards.models import Category, Product, Order, Dropshipper, OrderProduct, SubCategory, Storage, Sector, Shelf, Employee, ContactType
 from .forms import OrderForm, OrderProductForm, CategoryForm, SubCategoryForm, ProductForm, EmployeeForm, StorageForm, SectorForm, ShelfForm, ContactTypeForm
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics
 
 from django.core.paginator import Paginator
 from django.shortcuts import render
@@ -155,7 +150,6 @@ class AddCategory(LoginRequiredMixin, TemplateView):
         context.update({
             'layout': KTTheme.setLayout('default.html', context),
         })
-
         return context
 
 
@@ -542,11 +536,6 @@ class StorageDetailView(LoginRequiredMixin, TemplateView):
 class SectorDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/dashboards/profile.html'
     login_url = '/vendor/login/'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/vendor/login/')
-        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

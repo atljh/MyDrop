@@ -239,7 +239,7 @@ class Storage(models.Model):
     user = models.ForeignKey(Vendor, verbose_name="Поставщик", on_delete=models.CASCADE, related_name='storages')
     name = models.CharField(verbose_name='Название', max_length=100)
     address = models.CharField('Адрес', max_length=200, blank=True)
-    schedule = models.CharField('График работы', max_length=200, blank=True)
+    schedule = models.TextField('График работы', blank=True)
 
     def __str__(self):
         return self.name

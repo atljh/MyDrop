@@ -6,6 +6,8 @@ html
 .idea
 .vscode
 vendor/__pycache__/
+dropshipper/__pycache__/
+dashboards/migrations/__pycache__/
 _keenthemes/__pycache__/*
 _keenthemes/__pycache__
 _keenthemes/__pycache__/
