@@ -444,7 +444,7 @@ KT_THEME_VENDORS = {
             "js/custom/pages/storage/new-sector.js",
             "js/custom/pages/storage/new-shelf.js",
             "js/custom/pages/storage/table.js",
-
+            "https://maps.googleapis.com/maps/api/js?key=AIzaSyByLEUfxcFcAsUSy9Y747j6dp08IkmvXd8&libraries=places"
             # "https://polyfill.io/v3/polyfill.min.js?features=default",
             # "https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=places&v=weekly"
         ]

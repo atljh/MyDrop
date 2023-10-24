@@ -352,8 +352,19 @@ var KTModalNewStorage = function () {
 			initFormRepeater();
 			initConditionsSelect2();
 			handleForm();
+
+			const card = document.getElementById("pac-card");
+			const input = document.getElementById("pac-input");
+			var autocomplete = new google.maps.places.Autocomplete(input, {
+				types: ['address'],
+				componentRestrictions: { country: 'ukr' } 
+			});
+			
+			google.maps.event.addListener(autocomplete, 'place_changed', function () {
+				var place = autocomplete.getPlace();
+			});
 		}
-	};
+	};я
 }();
 
 

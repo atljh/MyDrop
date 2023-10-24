@@ -49985,7 +49985,7 @@ body,
   width: 20px;
   height: 20px;
   /* Add a custom border */
-  border: 2px solid #4CAF50; /* Green color */
+  border: 2px solid #CCCCCC; /* Green color */
   /* Add some padding to the checkbox for better visual */
   padding: 2px;
   /* Adjust the position to align with the content */
@@ -50009,4 +50009,44 @@ body,
 
 .table-container {
   border-bottom: 2px solid #ccc;
+}
+
+.day-container {
+  display: flex;
+  align-items: center;
+}
+
+.day-of-week {
+  margin-right: 10px; /* Отступ между названием дня недели и выбором времени */
+}
+
+.time-selection {
+  flex-grow: 1; /* Расширяет выбор времени, чтобы он занимал всю доступную ширину */
+}
+
+.pac-container { 
+  z-index: 10000 !important;
+  display: block !important;
+}
+
+.pac-container:empty{
+  display: none !important;
+}
+
+.pac-icon {
+  background-image: url('./assets/locationMark.svg') !important;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 14px 18px;
+}
+
+.pac-logo {
+  padding: 10px 0;
+  &::after {
+    display: none;
+  }
+}
+
+.pac-item-query {
+  font-size: 16px
 }

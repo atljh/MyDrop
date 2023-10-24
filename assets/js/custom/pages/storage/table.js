@@ -11,7 +11,7 @@ var KTProjectUsers = function () {
             return;
         }
         
-        const tableRows = table.querySelectorAll('tbody tr');
+        const tableRows = table.querySelectorAll('tbody tr'); 
         
         // tableRows.forEach(row => {
             // const dateRow = row.querySelectorAll('td');
